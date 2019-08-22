@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/1577351xyh/vue-/issues"
   },
-  "homepage": "https://github.com/1577351xyh/vue-#readme"
+  "homepage": "https://github.com/1577351xyh/vue-#readme",
+  "dependencies": {
+    "vue": "^2.6.10"
+  }
 }
