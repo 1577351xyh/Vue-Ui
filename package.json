@@ -4,7 +4,9 @@
   "description": "这是一个ui框架",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "parcel build ./node_modules/.bin/parcel",
+    "dev": "parcel ./node_modules/.bin/parcel"
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,17 @@
   },
   "homepage": "https://github.com/1577351xyh/vue-#readme",
   "dependencies": {
-    "vue": "^2.6.10"
+    "git-open": "^2.1.0",
+    "vue": "^2.6.10",
+    "vue-hot-reload-api": "^2.3.3"
+  },
+  "devDependencies": {
+    "@vue/component-compiler-utils": "^3.0.0",
+    "parcel-bundler": "^1.12.3",
+    "sass": "^1.22.10",
+    "vue-template-compiler": "^2.6.10"
+  },
+  "alias": {
+    "vue": "./node_modules/vue/dist/vue.common.js"
   }
 }
