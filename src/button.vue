@@ -1,7 +1,7 @@
 <template>
 
     <button class="x-button" :class="{[`icon-${iconPosition}`]:true}">
-        <x-icon v-if="icon" :name="icon"></x-icon>
+        <x-icon v-if="icon" class="icon" :name="icon"></x-icon>
         <div class="content">
             <slot></slot>
         </div>
