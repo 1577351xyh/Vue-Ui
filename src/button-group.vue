@@ -25,7 +25,9 @@ export default {
 .g-button-group > .x-button{
     border-radius: 0px;
 }
-
+.g-button-group > .x-button:not(first-child){
+    margin-left: -1px;
+}
 .g-button-group :first-child{
     border-top-left-radius: var(--border-radiuse);
     border-bottom-left-radius: var(--border-radiuse);
