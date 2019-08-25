@@ -1,22 +1,26 @@
 <template>
-
-    <button class="x-button" :class="{[`icon-${iconPosition}`]:true}">
-        <x-icon v-if="icon" class="icon" :name="icon"></x-icon>
+    <button class="x-button" :class="{[`icon-${iconPosition}`]:true}"
+    @click="$emit('click')">
+        <x-icon v-if="icon && !loading" class="icon" :name="icon"></x-icon>
+        <x-icon class="icon loading" v-if="loading" name="loading"></x-icon>
         <div class="content">
             <slot></slot>
         </div>
     </button>
-
-
 </template>
 
 <script>
     export default {
         props:{
             icon:{},
+            loading:{
+                type:Boolean,
+                default: false
+            },
             iconPosition:{
                 type:String,
                 default:'left',
+                //参数验证
                 validator(value){
                     return !(value !== 'left' && value !== 'right');
                 }
@@ -26,6 +30,18 @@
 </script>
 
 <style scoped lang="scss">
+    /*loading动画*/
+    @keyframes spin {
+        0%{
+            transform: rotate(0deg);
+        }
+        100%{
+            transform: rotate(360deg);
+        }
+    }
+    .loading{
+        animation: spin 2s infinite linear;
+    }
     .x-button{
         font-size: var(--font-size);
         height: var(--button-height);
