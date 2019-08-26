@@ -10,7 +10,11 @@
 </template>
 
 <script>
+    import Icon from './icon'
     export default {
+        components:{
+            'x-icon':Icon
+        },
         props:{
             icon:{},
             loading:{
@@ -52,6 +56,7 @@
         display:inline-flex;
         justify-content: center;
         align-items: center;
+        vertical-align: middle;
     }
     .x-button:hover{
         border-color: var(--bor-color-hover);

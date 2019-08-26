@@ -6,7 +6,6 @@
   "scripts": {
     "test": "parcel build test/* --no-cache --no-minify && karma start --single-run",
     "build": "parcel build ./node_modules/.bin/parcel",
-    "dev": "parcel ./node_modules/.bin/parcel",
     "dev-test": "parcel watch test/* --no-cache & karma start"
   },
   "repository": {
