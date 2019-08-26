@@ -31,6 +31,8 @@ const expect = chai.expect;
     let href = uesElement.getAttribute('xlink:href');
     // 断言是#icon-set
     expect(href).to.eq('#icon-set')
+    button.$el.remove();
+    button.$destroy();
 }
 
 {
