@@ -27,7 +27,9 @@ ie8以上浏览器都支持此样式
             --bor-color-hover: #666;
         }
 ```
+
 2.安装ui
+
 ```
 npm i --save test-2019-8-26
 ```
