@@ -21,13 +21,12 @@ ie8以上浏览器都支持此样式
             --font-size: 14px;
             --button-bg: white;
             --button-active-bg: #eee;
-            --border-radiuse: 4px;
+            --border-radiuse: 4px;                  
             --color: #333;
             --border-color: #999;
             --bor-color-hover: #666;
         }
 ```
-
 2.安装ui
 ```
 npm i --save test-2019-8-26
