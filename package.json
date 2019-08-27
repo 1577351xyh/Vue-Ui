@@ -1,8 +1,8 @@
 {
-  "name": "gulu",
-  "version": "0.0.1",
+  "name": "test-2019-8-26",
+  "version": "0.0.3",
   "description": "这是一个ui框架",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "parcel build test/* --no-cache --no-minify && karma start --single-run",
     "build": "parcel build ./node_modules/.bin/parcel",
