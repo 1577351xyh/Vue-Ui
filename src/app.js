@@ -30,7 +30,7 @@ const expect = chai.expect;
     let uesElement = button.$el.querySelector('use');
     let href = uesElement.getAttribute('xlink:href');
     // 断言是#icon-set
-    expect(href).to.eq('#icon-settings')
+    expect(href).to.eq('#i-settings')
     button.$el.remove();
     button.$destroy();
 }
@@ -41,7 +41,7 @@ const expect = chai.expect;
     //实例化对象
     const button = new Constructor({
         propsData:{
-            icon:'set',
+            icon:'settings',
             loading:true
         }
     });
@@ -50,7 +50,7 @@ const expect = chai.expect;
     let uesElement = button.$el.querySelector('use');
     let href = uesElement.getAttribute('xlink:href');
     // 断言是#icon-loading
-    expect(href).to.eq('#icon-loading')
+    expect(href).to.eq('#i-loading')
 }
 
 {
