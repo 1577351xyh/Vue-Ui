@@ -1,11 +1,19 @@
 <template>
-    <div class="wrapper">
+    <div class="wrapper" :class="{error}">
         <input type="text" :value="value" :disabled="disabled" :readonly="readonly">
     </div>
+    <template v-if="error">
+        <icon name="error" :class="icon-error"></icon>
+        <span class="errorMessage">{{error}}</span>
+    </template>
 </template>
 
 <script>
+    import Icon from './icon'
 export default {
+        component:{
+            Icon
+        },
     props:{
         value:{
             type:String
@@ -17,6 +25,9 @@ export default {
         readonly:{
             type:Boolean,
             default:false
+        },
+        error:{
+            type:String
         }
     }
 }
@@ -30,8 +41,11 @@ export default {
     $border-radius:4px;
     $font-size:12px;
     $box-shadow-color:rgba(0,0,0,0.5);
-
+    $red:#F1353D;
     .wrapper{
+        display: inline-flex;
+        align-items: center;
+        >*{margin-right: .5em}
         font-size: $font-size;
         >input{
             height: 32px;
@@ -51,6 +65,14 @@ export default {
                 color: #bbb;
                 cursor: not-allowed;
              }
+        }
+        &.error{
+            >input{
+                border-color: $red;
+            }
+         }
+        .errorMessage{
+            color: $red;
         }
     }
 </style>
