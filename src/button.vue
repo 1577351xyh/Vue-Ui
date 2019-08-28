@@ -46,6 +46,7 @@
     .loading{
         animation: spin 2s infinite linear;
     }
+
     .x-button{
         font-size: var(--font-size);
         height: var(--button-height);
@@ -74,7 +75,6 @@
         order: 1;
         margin-right:.3em;
     }
-
     .icon-right .content{
         order: 1;
     }

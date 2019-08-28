@@ -53,35 +53,48 @@
         }
     </style>
     <style>
-
+        .box{
+            margin: 20px;
+        }
     </style>
 </head>
 <body>
 <div id="app">
-    <x-button icon="settings" :loading="loading1" @click="loading1 = !loading1">
-        按钮
-    </x-button>
-    <x-button icon="settings" icon-position="left">
-        按钮
-    </x-button>
-    <x-button icon="settings" icon-position="right">
-        按钮
-    </x-button>
-    <x-button-group>
-        <x-button icon="left" icon-position="left">
-            上一頁
+    <div class="box">
+        <x-input value="张三"></x-input>
+    </div>
+    <div class="box">
+        <x-input value="张三" disabled></x-input>
+    </div>
+    <div class="box">
+        <x-input value="李四" readonly></x-input>
+    </div>
+    <div>
+        <x-button icon="settings" :loading="loading1" @click="loading1 = !loading1">
+            按钮
         </x-button>
-        <x-button>
-            更多</x-button>
-        <x-button icon="right" icon-position="right">
-            下一頁
+        <x-button icon="settings" icon-position="left">
+            按钮
         </x-button>
-    </x-button-group>
-    <div id="text"></div>
+        <x-button icon="settings" icon-position="right">
+            按钮
+        </x-button>
+        <x-button-group>
+            <x-button icon="left" icon-position="left">
+                上一頁
+            </x-button>
+            <x-button>
+                更多</x-button>
+            <x-button icon="right" icon-position="right">
+                下一頁
+            </x-button>
+        </x-button-group>
+        <div id="text"></div>
+    </div>
+
 </div>
 
 <script type="text/javascript" src="./src/app.js"></script>
-<!--<script src="//at.alicdn.com/t/font_1367849_fte671cgn95.js"></script>-->
 
 </body>
 </html>

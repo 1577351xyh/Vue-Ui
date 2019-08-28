@@ -77,3 +77,25 @@
   z-index: 1;
 }
 
+.wrapper[data-v-aa9a4d] {
+  font-size: 12px;
+}
+.wrapper > input[data-v-aa9a4d] {
+  height: 32px;
+  border: 1px solid #999;
+  border-radius: 4px;
+  padding: 0 8px;
+  font-size: inherit;
+}
+.wrapper > input[data-v-aa9a4d]:hover {
+  border-color: #666;
+}
+.wrapper > input[data-v-aa9a4d]:focus {
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+  outline: none;
+}
+.wrapper > input[disabled][data-v-aa9a4d], .wrapper > input[readonly][data-v-aa9a4d] {
+  border-color: #bbb;
+  color: #bbb;
+  cursor: not-allowed;
+}
