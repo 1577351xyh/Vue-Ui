@@ -46,10 +46,7 @@ export default {
     .wrapper{
         display: inline-flex;
         align-items: center;
-        >*{margin-right: .5em}
-        &:last-child{
-         margin-right:0;
-         }
+        > :not(:last-child) {margin-right: .5em}
         font-size: $font-size;
         >input{
             height: 32px;
