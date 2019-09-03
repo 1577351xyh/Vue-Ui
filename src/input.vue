@@ -1,8 +1,8 @@
 <template>
     <div class="wrapper" :class="{error}">
-        <input type="text" :value="value" :disabled="disabled" :readonly="readonly">
+        <input type="text" :value="value" :disabled="disabled" :readonly="readonly" @change="$emit('change',$event)">
         <template v-if="error">
-            <icon name="error" class="icon-error"></icon>
+            <icon name="error" class="iconvc-error"></icon>
             <span class="errorMessage">{{error}}</span>
         </template>
     </div>
@@ -35,7 +35,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
     $height:32px;
     $border-color:#999;
     $border-color-hover:#666;
