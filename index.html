@@ -62,7 +62,7 @@
 <body>
 <div id="app">
     <div class="box">
-        <x-input value="张三"></x-input>
+        <x-input value="张三" @change="changes"></x-input>
     </div>
     <div class="box">
         <x-input value="张三" disabled></x-input>
@@ -91,20 +91,21 @@
     <div class="box">
         <x-button-group>
             <x-button icon="left" icon-position="left">
-                上一頁
+                上一页
             </x-button>
             <x-button>
                 更多</x-button>
             <x-button icon="right" icon-position="right">
-                下一頁
+                下一页
             </x-button>
         </x-button-group>
     </div>
     <div class="box">
         <div id="text"></div>
     </div>
-
 </div>
+
+
 
 <script type="text/javascript" src="./src/app.js"></script>
 

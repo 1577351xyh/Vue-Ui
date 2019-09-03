@@ -78,7 +78,12 @@
 }
 
 .wrapper[data-v-aa9a4d] {
+  display: inline-flex;
+  align-items: center;
   font-size: 12px;
+}
+.wrapper[data-v-aa9a4d] > :not(:last-child) {
+  margin-right: 0.5em;
 }
 .wrapper > input[data-v-aa9a4d] {
   height: 32px;
@@ -98,4 +103,13 @@
   border-color: #bbb;
   color: #bbb;
   cursor: not-allowed;
+}
+.wrapper.error > input[data-v-aa9a4d] {
+  border-color: #F1353D;
+}
+.wrapper .errorMessage[data-v-aa9a4d] {
+  color: #F1353D;
+}
+.wrapper .icon-error[data-v-aa9a4d] {
+  color: #F1353D;
 }

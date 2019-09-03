@@ -10,6 +10,7 @@ describe('Input', () => {
     it('存在.', () => {
         expect(Input).to.exist
     })
+    describe('props',()=>{
     it('可以接收value', () => {
         const Constructor = Vue.extend(Input)
         const vm = new Constructor({
@@ -55,5 +56,6 @@ describe('Input', () => {
         const errorMessage = vm.$el.querySelector('.errorMessage')
         expect(errorMessage.innerText).to.equal('你错了')
         vm.$destroy()
+    })
     })
 })
