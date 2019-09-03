@@ -32,4 +32,28 @@ describe('Input', () => {
         expect(inputElement.disabled).to.equal(true)
         vm.$destroy()
     })
+    it('可以接收readonly', () => {
+        const Constructor = Vue.extend(Input)
+        const vm = new Constructor({
+            propsData: {
+                readonly: true
+            }
+        }).$mount()
+        const inputElement = vm.$el.querySelector('input')
+        expect(inputElement.readOnly).to.equal(true)
+        vm.$destroy()
+    })
+    it('可以接收error', () => {
+        const Constructor = Vue.extend(Input)
+        const vm = new Constructor({
+            propsData: {
+                error: '你错了'
+            }
+        }).$mount()
+        const useElement = vm.$el.querySelector('use')
+        expect(useElement.getAttribute('xlink:href')).to.equal('#i-error')
+        const errorMessage = vm.$el.querySelector('.errorMessage')
+        expect(errorMessage.innerText).to.equal('你错了')
+        vm.$destroy()
+    })
 })
