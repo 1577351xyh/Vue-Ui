@@ -62,52 +62,62 @@
 <body>
 <div id="app">
 <div style="border:1px solid #ccc">
-   <x-row>
-       <x-col>1</x-col>
-       <x-col>2</x-col>
+   <x-row gutter="20">
+       <x-col :phone="{span:16}"
+              :ipad="{span:10}"
+              :pc="{span:8}"
+              :narrow-pc="{span:6}"
+              :wide-pc="{span:1}"
+       >1</x-col>
+       <x-col :phone="{span:8}"
+              :ipad="{span:14}"
+              :pc="{span:16}"
+              :narrow-pc="{span:18}"
+              :wide-pc="{span:23}"
+       >2</x-col>
    </x-row>
-    <x-row>
-        <x-col span="12">
-            <x-row align="left">
-                <x-col>1</x-col>
-                <x-col>1</x-col>
-                <x-col>1</x-col>
-                <x-col>1</x-col>
-                <x-col>1</x-col>
-            </x-row>
-        </x-col>
-        <x-col span="12">2</x-col>
-    </x-row>
-    <x-row>
-        <x-col>1</x-col>
-        <x-col>2</x-col>
-        <x-col>2</x-col>
-        <x-col offset="2">2</x-col>
-    </x-row>
-    <x-row>
-        <x-col span="2">1</x-col>
-        <x-col span="20" offset="2">2</x-col>
-    </x-row>
-    <x-row>
-        <x-col span="4">1</x-col>
-        <x-col span="20">2</x-col>
-    </x-row>
-    <x-row>
-        <x-col span="6">1</x-col>
-        <x-col span="18">2</x-col>
-    </x-row>
+<!--    <x-row>-->
+<!--        <x-col span="12">-->
+<!--            <x-row align="left">-->
+<!--                <x-col>1</x-col>-->
+<!--                <x-col>1</x-col>-->
+<!--                <x-col>1</x-col>-->
+<!--                <x-col>1</x-col>-->
+<!--                <x-col>1</x-col>-->
+<!--            </x-row>-->
+<!--        </x-col>-->
+<!--        <x-col span="12">2</x-col>-->
+<!--    </x-row>-->
+<!--    <x-row>-->
+<!--        <x-col>1</x-col>-->
+<!--        <x-col>2</x-col>-->
+<!--        <x-col>2</x-col>-->
+<!--        <x-col offset="2">2</x-col>-->
+<!--    </x-row>-->
+<!--    <x-row>-->
+<!--        <x-col span="2">1</x-col>-->
+<!--        <x-col span="20" offset="2">2</x-col>-->
+<!--    </x-row>-->
+<!--    <x-row>-->
+<!--        <x-col span="4">1</x-col>-->
+<!--        <x-col span="20">2</x-col>-->
+<!--    </x-row>-->
+<!--    <x-row>-->
+<!--        <x-col span="6">1</x-col>-->
+<!--        <x-col span="18">2</x-col>-->
+<!--    </x-row>-->
 
-    <x-row gutter="20">
-        <x-col>1</x-col>
-        <x-col>2</x-col>
-        <x-col>2</x-col>
-    </x-row>
-    <x-row gutter="20">
-        <x-col>1</x-col>
-        <x-col>2</x-col>
-        <x-col>2</x-col>
-        <x-col>2</x-col>
-    </x-row>
+<!--    <x-row gutter="20">-->
+<!--        <x-col>1</x-col>-->
+<!--        <x-col>2</x-col>-->
+<!--        <x-col>2</x-col>-->
+<!--    </x-row>-->
+<!--    <x-row gutter="20">-->
+<!--        <x-col>1</x-col>-->
+<!--        <x-col>2</x-col>-->
+<!--        <x-col>2</x-col>-->
+<!--        <x-col>2</x-col>-->
+<!--    </x-row>-->
 
 </div>
 
