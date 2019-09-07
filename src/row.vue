@@ -1,5 +1,7 @@
 <template>
-$END$
+<div class="row">
+    <slot></slot>
+</div>
 </template>
 
 <script>
@@ -8,6 +10,8 @@ name: ""
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+.row{
+    display: flex;
+}
 </style>

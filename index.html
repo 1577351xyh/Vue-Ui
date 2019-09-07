@@ -58,9 +58,49 @@
             display: inline-flex;
         }
     </style>
+    <style>
+
+        .col[data-span="2"]{
+            width: 8.333333%;
+        }
+        .col[data-span="22"]{
+            width: 91.666667%;
+        }
+    </style>
 </head>
 <body>
 <div id="app">
+
+   <x-row>
+       <x-col>1</x-col>
+       <x-col>2</x-col>
+   </x-row>
+    <x-row>
+        <x-col>1</x-col>
+        <x-col>2</x-col>
+        <x-col>2</x-col>
+    </x-row>
+    <x-row>
+        <x-col>1</x-col>
+        <x-col>2</x-col>
+        <x-col>2</x-col>
+        <x-col>2</x-col>
+    </x-row>
+    <x-row>
+        <x-col span="2">1</x-col>
+        <x-col span="22">2</x-col>
+    </x-row>
+    <x-row>
+        <x-col span="4">1</x-col>
+        <x-col span="20">2</x-col>
+    </x-row>
+    <x-row>
+        <x-col span="6">1</x-col>
+        <x-col span="18">2</x-col>
+    </x-row>
+
+
+
     <div class="box">
         <x-input value="张三" @change="changes"></x-input>
     </div>
