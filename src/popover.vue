@@ -30,15 +30,23 @@ export default {
             positionContent() {
                 document.body.appendChild(this.$refs.contentWrapper);
                 let {width, height, top, left} = this.$refs.triggerWrapper.getBoundingClientRect();
+                let {height:height2} = this.$refs.contentWrapper.getBoundingClientRect();
+                // let wrapper={
+                //     top:{top:top + window.scrollY, left:left+window.scrollX},
+                //     bottom:{top:top + height + window.scrollY, left:left + window.scrollX},
+                //     left:{top:op + window.scrollY + (height2-height)/2, left:left + window.scrollX},
+                //     right:{top:top + window.scrollY + (height2-height)/2, left:left + window.scrollX + width},
+                // }
+                // this.$refs.contentWrapper.style.top = wrapper[this.position].top+'px';
+                // this.$refs.contentWrapper.style.left = wrapper[this.position].left+'px'
                 if(this.position==='top'){
-                    this.$refs.contentWrapper.style.left = left + window.scrollX + 'px';
-                    this.$refs.contentWrapper.style.top = top + window.scrollY + 'px';
+                    this.$refs.contentWrapper.style.left = left+window.scrollX + 'px';
+                    this.$refs.contentWrapper.style.top = top + window.scrollY+'px'
                 }else if(this.position==='bottom'){
                     this.$refs.contentWrapper.style.left = left + window.scrollX + 'px';
                     this.$refs.contentWrapper.style.top = top + height + window.scrollY + 'px';
                 }else if(this.position==='left'){
                     this.$refs.contentWrapper.style.left = left + window.scrollX + 'px';
-                    let {height:height2} = this.$refs.contentWrapper.getBoundingClientRect();
                     this.$refs.contentWrapper.style.top = top + window.scrollY + (height2-height)/2+'px';
                 }else if(this.position==='right'){
                     this.$refs.contentWrapper.style.left = left + window.scrollX + width + 'px';
