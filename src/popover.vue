@@ -1,5 +1,5 @@
 <template>
-    <div class="popover" @click.stop="clickShow" ref="popover">
+    <div class="popover" ref="popover">
         <div ref="contentWrapper" v-show="visible" class="content-wrapper" :class="{[`position-${position}`]:true}">
             <slot name="content"></slot>
         </div>
@@ -20,25 +20,56 @@ export default {
                 return ['top', 'bottom', 'left', 'right'].indexOf(value) >= 0
             }
         },
+        trigger:{
+            type:String,
+            default: 'click',
+            validator(value){
+                return ['click','hover'].indexOf(value)>=0
+            }
+        }
+    },
+    destroyed(){
+        if(this.trigger==='click'){
+            this.$refs.popover.removeEventListener('click',this.clickShow);
+        }else {
+            this.$refs.popover.removeEventListener('mouseenter',this.onOpen);
+            this.$refs.popover.removeEventListener('mouseleave',this.close);
+        }
+    },
+    mounted(){
+        if(this.trigger==='click'){
+            this.$refs.popover.addEventListener('click',this.clickShow);
+        }else {
+            this.$refs.popover.addEventListener('mouseenter',this.onOpen);
+            this.$refs.popover.addEventListener('mouseleave',this.close);
+        }
     },
     data() {
         return {
             visible: false
         }
     },
+    computed:{
+        openEvent(){
+            if(this.trigger==='click'){
+                return 'click'
+            }else {
+                return 'mouseenter'
+            }
+        },
+        closeEvent(){
+            if(this.trigger==='click'){
+                return 'click'
+            }else {
+                return 'mouseleave'
+            }
+        },
+    },
     methods: {
             positionContent() {
                 document.body.appendChild(this.$refs.contentWrapper);
                 let {width, height, top, left} = this.$refs.triggerWrapper.getBoundingClientRect();
                 let {height:height2} = this.$refs.contentWrapper.getBoundingClientRect();
-                // let wrapper={
-                //     top:{top:top + window.scrollY, left:left+window.scrollX},
-                //     bottom:{top:top + height + window.scrollY, left:left + window.scrollX},
-                //     left:{top:op + window.scrollY + (height2-height)/2, left:left + window.scrollX},
-                //     right:{top:top + window.scrollY + (height2-height)/2, left:left + window.scrollX + width},
-                // }
-                // this.$refs.contentWrapper.style.top = wrapper[this.position].top+'px';
-                // this.$refs.contentWrapper.style.left = wrapper[this.position].left+'px'
                 if(this.position==='top'){
                     this.$refs.contentWrapper.style.left = left+window.scrollX + 'px';
                     this.$refs.contentWrapper.style.top = top + window.scrollY+'px'
@@ -50,17 +81,18 @@ export default {
                     this.$refs.contentWrapper.style.top = top + window.scrollY + (height2-height)/2+'px';
                 }else if(this.position==='right'){
                     this.$refs.contentWrapper.style.left = left + window.scrollX + width + 'px';
-                    let {height:height2} = this.$refs.contentWrapper.getBoundingClientRect();
                     this.$refs.contentWrapper.style.top = top + window.scrollY + (height2-height)/2+'px';
                 }
             },
             document(e) {
                 //如果点击中包含e.target
-                if (this.$refs.contentWrapper.contains(e.target) || this.$refs.popover === e.target) {
+                console.log('document')
+                if (this.$refs.popover && (this.$refs.popover.contains(e.target) || this.$refs.popover === e.target)) {
                     return;
-                } else {
-                    this.close()
+                }else if(this.$refs.contentWrapper && this.$refs.contentWrapper===e.target || this.$refs.contentWrapper.contains(e.target)){
+                    return;
                 }
+                this.close()
             },
             onOpen() {
                 this.visible = true;
@@ -70,6 +102,7 @@ export default {
                 });
             },
             close() {
+                console.log('close')
                 this.visible = false;
                 document.removeEventListener('click', this.document)
             },
