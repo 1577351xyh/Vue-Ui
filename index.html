@@ -48,128 +48,68 @@
             --bor-color-hover: #666;
         }
 
-        body {
-            margin: 30px;
-        }
     </style>
     <style>
-        .box{
-            margin: 20px;
-            display: inline-flex;
-        }
+
     </style>
 </head>
 <body>
-<div id="app">
-<div style="border:1px solid #ccc">
-   <x-row gutter="20">
-       <x-col :phone="{span:16}"
-              :ipad="{span:10}"
-              :pc="{span:8}"
-              :narrow-pc="{span:6}"
-              :wide-pc="{span:1}"
-       >1</x-col>
-       <x-col :phone="{span:8}"
-              :ipad="{span:14}"
-              :pc="{span:16}"
-              :narrow-pc="{span:18}"
-              :wide-pc="{span:23}"
-       >2</x-col>
-   </x-row>
-<!--    <x-row>-->
-<!--        <x-col span="12">-->
-<!--            <x-row align="left">-->
-<!--                <x-col>1</x-col>-->
-<!--                <x-col>1</x-col>-->
-<!--                <x-col>1</x-col>-->
-<!--                <x-col>1</x-col>-->
-<!--                <x-col>1</x-col>-->
-<!--            </x-row>-->
-<!--        </x-col>-->
-<!--        <x-col span="12">2</x-col>-->
-<!--    </x-row>-->
-<!--    <x-row>-->
-<!--        <x-col>1</x-col>-->
-<!--        <x-col>2</x-col>-->
-<!--        <x-col>2</x-col>-->
-<!--        <x-col offset="2">2</x-col>-->
-<!--    </x-row>-->
-<!--    <x-row>-->
-<!--        <x-col span="2">1</x-col>-->
-<!--        <x-col span="20" offset="2">2</x-col>-->
-<!--    </x-row>-->
-<!--    <x-row>-->
-<!--        <x-col span="4">1</x-col>-->
-<!--        <x-col span="20">2</x-col>-->
-<!--    </x-row>-->
-<!--    <x-row>-->
-<!--        <x-col span="6">1</x-col>-->
-<!--        <x-col span="18">2</x-col>-->
-<!--    </x-row>-->
+<div id="app" style="padding: 200px;display: inline-block">
+  <div>
+      <x-popover>
+          <template slot="content">
+              <div>我是内容</div>
+          </template>
+          <x-button>点我</x-button>
+      </x-popover>
+      <x-popover position="bottom">
+          <template slot="content">
+              <div>我是内容</div>
+          </template>
+          <x-button>点我</x-button>
+      </x-popover>
 
-<!--    <x-row gutter="20">-->
-<!--        <x-col>1</x-col>-->
-<!--        <x-col>2</x-col>-->
-<!--        <x-col>2</x-col>-->
-<!--    </x-row>-->
-<!--    <x-row gutter="20">-->
-<!--        <x-col>1</x-col>-->
-<!--        <x-col>2</x-col>-->
-<!--        <x-col>2</x-col>-->
-<!--        <x-col>2</x-col>-->
-<!--    </x-row>-->
+      <x-popover position="left">
+          <template slot="content">
+              <div>我是内容</div>
+          </template>
+          <x-button>点我</x-button>
+      </x-popover>
+      <x-popover position="right">
+          <template slot="content">
+              <div>我是内容</div>
+          </template>
+          <x-button>点我</x-button>
+      </x-popover>
+  </div>
+
+  <x-tabs selected="sports">
+      <g-tabs-head>
+          <g-tabs-item name="woman">
+              美女
+          </g-tabs-item>
+          <g-tabs-item name="sports">
+              体育
+          </g-tabs-item>
+          <g-tabs-item name="finance">
+              财经
+          </g-tabs-item>
+      </g-tabs-head>
+      <g-tabs-body>
+          <g-tabs-pane name="woman">
+              美女资讯
+          </g-tabs-pane>
+          <g-tabs-pane name="sports">
+              体育资讯
+          </g-tabs-pane>
+          <g-tabs-pane name="finance">
+              财经资讯
+          </g-tabs-pane>
+      </g-tabs-body>
+  </x-tabs>
 
 </div>
-
-
-    <div class="box">
-        <x-input value="张三" @change="changes"></x-input>
-    </div>
-    <div class="box">
-        <x-input value="张三" disabled></x-input>
-    </div>
-    <div class="box">
-        <x-input value="李四" readonly></x-input>
-    </div>
-    <div class="box">
-        <x-input value="李四" error="姓名不能少于3个字"></x-input>
-    </div>
-    <div class="box">
-        <x-button icon="settings" :loading="loading1" @click="loading1 = !loading1">
-            按钮
-        </x-button>
-    </div>
-    <div class="box">
-        <x-button icon="settings" icon-position="left">
-            按钮
-        </x-button>
-    </div>
-    <div class="box">
-        <x-button icon="settings" icon-position="right">
-            按钮
-        </x-button>
-    </div>
-    <div class="box">
-        <x-button-group>
-            <x-button icon="left" icon-position="left">
-                上一页
-            </x-button>
-            <x-button>
-                更多</x-button>
-            <x-button icon="right" icon-position="right">
-                下一页
-            </x-button>
-        </x-button-group>
-    </div>
-    <div class="box">
-        <div id="text"></div>
-    </div>
-</div>
-
-
-
 <script type="text/javascript" src="./src/app.js"></script>
-
 </body>
 </html>
 
