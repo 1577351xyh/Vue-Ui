@@ -13,7 +13,7 @@
     export default {
         data() {
             return {
-                open:false
+                open:false,
             }
         },
         props: {
@@ -24,31 +24,28 @@
             name:{
                 type:String,
                 required: true
-            }
+            },
         },
         inject:['eventBus'],
         mounted(){
-                this.eventBus.$on('update:selected',(name)=>{
-                    if(name!==this.name){
-                        this.close();
-                    }else {
-                        this.show()
-                    }
+            this.eventBus && this.eventBus.$on('update:selected',(names)=>{
+                console.log(names);
+                if(names.indexOf(this.name) >= 0){
+                    this.open=true;
+                }else {
+                    this.open=false;
+                }
                 })
         },
         methods:{
-            close(){
-                this.open=false;
-            },
-            show(){
-                this.open=true;
-            },
             change(){
-                if(this.open){
-                    this.open=false
-                }else {
-                    this.eventBus.$emit('update:selected',this.name)
-                }
+               if(this.open){
+                   console.log(1)
+                   this.eventBus.$emit('update:removeSelected',this.name);
+               }else {
+                   console.log(2)
+                   this.eventBus.$emit('update:addSelected',this.name);
+               }
             }
         }
     }

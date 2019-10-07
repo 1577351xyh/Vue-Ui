@@ -15,8 +15,7 @@ export default {
             default:false
         },
         selected:{
-            type:String,
-            required:true
+            type:Array,
         }
     },
     data(){
@@ -30,15 +29,28 @@ export default {
             }
     },
     mounted(){
-        this.eventBus.$emit('update:selected',this.selected)
-        this.eventBus.$on('update:selected',(name)=>{
-            //在selected被触发的时候通知外部,并且把name传过去
-            this.$emit('update:selected',name)
+        this.eventBus.$emit('update:selected',this.selected);
+        this.eventBus.$on('update:addSelected',(name)=>{
+            //深拷贝selected
+            let selectedCopy = JSON.parse(JSON.stringify(this.selected));
+            if(this.single){
+                selectedCopy = [name];
+            }else {
+                selectedCopy.push(name)
+            }
+            this.eventBus.$emit('update:selected',selectedCopy);
+            this.$emit('update:selected',selectedCopy)
         });
-        this.$children.forEach((vm)=>{
-            console.log(this.single)
-            vm.single=this.single;
-        })
+
+        this.eventBus.$on('update:removeSelected',(name)=>{
+            //深拷贝selected
+            let selectedCopy = JSON.parse(JSON.stringify(this.selected));
+            let index = selectedCopy.indexOf(name);
+            selectedCopy.splice(index,1);
+            console.log(selectedCopy)
+            this.eventBus.$emit('update:selected',selectedCopy);
+            this.$emit('update:selected',selectedCopy)
+        });
     }
 }
 </script>
