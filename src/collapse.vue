@@ -13,6 +13,10 @@ export default {
         single:{
             type:Boolean,
             default:false
+        },
+        selected:{
+            type:String,
+            required:true
         }
     },
     data(){
@@ -21,11 +25,20 @@ export default {
         }
     },
     provide(){
-
             return{
                 eventBus: this.eventBus
             }
-
+    },
+    mounted(){
+        this.eventBus.$emit('update:selected',this.selected)
+        this.eventBus.$on('update:selected',(name)=>{
+            //在selected被触发的时候通知外部,并且把name传过去
+            this.$emit('update:selected',name)
+        });
+        this.$children.forEach((vm)=>{
+            console.log(this.single)
+            vm.single=this.single;
+        })
     }
 }
 </script>
