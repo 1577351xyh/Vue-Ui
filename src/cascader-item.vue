@@ -1,30 +1,56 @@
 <template>
     <div class="source-item">
       <div class="left">
-          <div class="label" v-for="item in items" @click="leftSelected = item">
+          <div class="label" v-for="item in items" @click="onClickLabel(item)">
               {{item.name}}
               <icon name="right" class="icon" v-if="item.children"></icon>
           </div>
       </div>
         <div class="right" v-if="rightItems">
-            <cascader-item :items="rightItems"></cascader-item>
+            <cascader-item :level="level+1"
+                           :items="rightItems"
+                           :selected="selected" @update:selected="onUpdateSelected"
+            ></cascader-item>
         </div>
+
     </div>
 </template>
 
 <script>
+
     import  icon from './icon'
 export default {
     name: "cascaderItem",
     props:{
         items:{
             type:Array
+        },
+        selected:{
+            type:Array,
+            default:()=>{
+                return []
+            }
+        },
+        level:{
+            type:Number,
+            default:0
         }
     },
-    data(){
-        return{
-            //左边被选中的状态
-            leftSelected:null
+    methods:{
+        onClickLabel(item){
+            //vue不能直接对数组进行动态赋值,不能修改props中的数据
+            //深拷贝
+            let copy = JSON.parse(JSON.stringify(this.selected));
+            //把当前选中的值拷贝一份通知外面
+            copy[this.level] = item;
+            //把数组后面的都删除
+            copy.splice(this.level+1);
+            this.$emit('update:selected',copy)
+
+        },
+        //level3更新
+        onUpdateSelected(newSelected){
+            this.$emit('update:selected',newSelected)
         }
     },
     components:{
@@ -32,8 +58,10 @@ export default {
     },
     computed:{
         rightItems(){
-            if(this.leftSelected&& this.leftSelected.children){
-                return this.leftSelected.children
+            let currentSelected = this.selected[this.level];
+            console.log(currentSelected)
+            if(currentSelected && currentSelected.children){
+                return currentSelected.children
             }else {
                 return null;
             }
@@ -62,6 +90,7 @@ export default {
             align-items: center;
             justify-content: space-between;
             font-size: 14px;
+            padding: 5px;
         }
         .icon{
             transform: scale(.7);
