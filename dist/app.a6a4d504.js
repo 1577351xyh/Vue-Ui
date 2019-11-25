@@ -12451,7 +12451,6 @@ var _default = {
       this.$children.forEach(function (vm) {
         vm.selected = selected;
       });
-      console.log(this.$children);
     },
     //默认获取的selected
     getSelected: function getSelected() {
@@ -12467,8 +12466,15 @@ var _default = {
       }); // 当前的index值
 
       var index = names.indexOf(this.getSelected());
-      setTimeout(function () {
+      console.log(index);
+      setInterval(function () {
+        if (index === names.length) {
+          index = 0;
+        }
+
         _this.$emit('update:selected', names[index + 1]);
+
+        index++;
       }, 2000);
     }
   }

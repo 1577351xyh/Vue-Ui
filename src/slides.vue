@@ -37,7 +37,6 @@ export default {
             this.$children.forEach((vm)=>{
                 vm.selected = selected;
             });
-            console.log(this.$children)
         },
         //默认获取的selected
         getSelected(){
@@ -49,8 +48,13 @@ export default {
             let names = this.$children.map(vm=>vm.name);
             // 当前的index值
             let index = names.indexOf(this.getSelected());
-            setTimeout(()=>{
+            console.log((index))
+            setInterval(()=>{
+                if(index === names.length){
+                    index=0;
+                }
                 this.$emit('update:selected',names[index+1])
+                index++;
             },2000)
         }
     }
