@@ -12411,6 +12411,8 @@ exports.reload = tryWrap(function (id, options) {
         record.Ctor.extendOptions = options
       }
       var newCtor = record.Ctor.super.extend(options)
+      // prevent record.options._Ctor from being overwritten accidentally
+      newCtor.options._Ctor = record.options._Ctor
       record.Ctor.options = newCtor.options
       record.Ctor.cid = newCtor.cid
       record.Ctor.prototype = newCtor.prototype
@@ -12475,14 +12477,14 @@ var _default = {
   props: ['name']
 };
 exports.default = _default;
-        var $255ef7 = exports.default || module.exports;
+        var $506409 = exports.default || module.exports;
       
-      if (typeof $255ef7 === 'function') {
-        $255ef7 = $255ef7.options;
+      if (typeof $506409 === 'function') {
+        $506409 = $506409.options;
       }
     
         /* template */
-        Object.assign($255ef7, (function () {
+        Object.assign($506409, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -12498,7 +12500,7 @@ render._withStripped = true
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: "data-v-255ef7",
+            _scopeId: "data-v-506409",
             functional: undefined
           };
         })());
@@ -12511,9 +12513,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$255ef7', $255ef7);
+            api.createRecord('$506409', $506409);
           } else {
-            api.reload('$255ef7', $255ef7);
+            api.reload('$506409', $506409);
           }
         }
 
@@ -12524,7 +12526,7 @@ render._withStripped = true
       
       }
     })();
-},{"./svg":"src/svg.js","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/button.vue":[function(require,module,exports) {
+},{"./svg":"src/svg.js","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/cascader-item.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -12547,67 +12549,120 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 var _default = {
-  components: {
-    'x-icon': _icon.default
-  },
+  name: "cascaderItem",
   props: {
-    icon: {},
-    loading: {
-      type: Boolean,
-      default: false
+    items: {
+      type: Array
     },
-    iconPosition: {
-      type: String,
-      default: 'left',
-      //参数验证
-      validator: function validator(value) {
-        return !(value !== 'left' && value !== 'right');
+    selected: {
+      type: Array,
+      default: function _default() {
+        return [];
+      }
+    },
+    level: {
+      type: Number,
+      default: 0
+    }
+  },
+  methods: {
+    onClickLabel: function onClickLabel(item) {
+      //vue不能直接对数组进行动态赋值,不能修改props中的数据
+      //深拷贝
+      var copy = JSON.parse(JSON.stringify(this.selected)); //把当前选中的值拷贝一份通知外面
+
+      copy[this.level] = item; //把数组后面的都删除
+
+      copy.splice(this.level + 1);
+      this.$emit('update:selected', copy);
+    },
+    //level3更新
+    onUpdateSelected: function onUpdateSelected(newSelected) {
+      this.$emit('update:selected', newSelected);
+    }
+  },
+  components: {
+    icon: _icon.default
+  },
+  computed: {
+    rightItems: function rightItems() {
+      var currentSelected = this.selected[this.level];
+      console.log(currentSelected);
+
+      if (currentSelected && currentSelected.children) {
+        return currentSelected.children;
+      } else {
+        return null;
       }
     }
   }
 };
 exports.default = _default;
-        var $4a2768 = exports.default || module.exports;
+        var $d485df = exports.default || module.exports;
       
-      if (typeof $4a2768 === 'function') {
-        $4a2768 = $4a2768.options;
+      if (typeof $d485df === 'function') {
+        $d485df = $d485df.options;
       }
     
         /* template */
-        Object.assign($4a2768, (function () {
+        Object.assign($d485df, (function () {
           var render = function() {
-  var _obj
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "button",
-    {
-      staticClass: "x-button",
-      class: ((_obj = {}), (_obj["icon-" + _vm.iconPosition] = true), _obj),
-      on: {
-        click: function($event) {
-          return _vm.$emit("click")
-        }
-      }
-    },
-    [
-      _vm.icon && !_vm.loading
-        ? _c("x-icon", { staticClass: "icon", attrs: { name: _vm.icon } })
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.loading
-        ? _c("x-icon", {
-            staticClass: "icon loading",
-            attrs: { name: "loading" }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      _c("div", { staticClass: "content" }, [_vm._t("default")], 2)
-    ],
-    1
-  )
+  return _c("div", { staticClass: "source-item" }, [
+    _c(
+      "div",
+      { staticClass: "left" },
+      _vm._l(_vm.items, function(item) {
+        return _c(
+          "div",
+          {
+            staticClass: "label",
+            on: {
+              click: function($event) {
+                return _vm.onClickLabel(item)
+              }
+            }
+          },
+          [
+            _vm._v("\n          " + _vm._s(item.name) + "\n          "),
+            item.children
+              ? _c("icon", { staticClass: "icon", attrs: { name: "right" } })
+              : _vm._e()
+          ],
+          1
+        )
+      }),
+      0
+    ),
+    _vm._v(" "),
+    _vm.rightItems
+      ? _c(
+          "div",
+          { staticClass: "right" },
+          [
+            _c("cascader-item", {
+              attrs: {
+                level: _vm.level + 1,
+                items: _vm.rightItems,
+                selected: _vm.selected
+              },
+              on: { "update:selected": _vm.onUpdateSelected }
+            })
+          ],
+          1
+        )
+      : _vm._e()
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -12616,7 +12671,7 @@ render._withStripped = true
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: "data-v-4a2768",
+            _scopeId: "data-v-d485df",
             functional: undefined
           };
         })());
@@ -12629,9 +12684,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$4a2768', $4a2768);
+            api.createRecord('$d485df', $d485df);
           } else {
-            api.reload('$4a2768', $4a2768);
+            api.reload('$d485df', $d485df);
           }
         }
 
@@ -12642,99 +12697,7 @@ render._withStripped = true
       
       }
     })();
-},{"./icon":"src/icon.vue","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/button-group.vue":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-//
-//
-//
-//
-//
-//
-var _default = {
-  mounted: function mounted() {
-    var _iteratorNormalCompletion = true;
-    var _didIteratorError = false;
-    var _iteratorError = undefined;
-
-    try {
-      for (var _iterator = this.$el.children[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-        var node = _step.value;
-        var name = node.nodeName.toLowerCase();
-
-        if (name !== 'button') {
-          console.warn('x-button-group 的子元素应该全是x-button,但是你写了div');
-        }
-      }
-    } catch (err) {
-      _didIteratorError = true;
-      _iteratorError = err;
-    } finally {
-      try {
-        if (!_iteratorNormalCompletion && _iterator.return != null) {
-          _iterator.return();
-        }
-      } finally {
-        if (_didIteratorError) {
-          throw _iteratorError;
-        }
-      }
-    }
-  }
-};
-exports.default = _default;
-        var $cf3ec0 = exports.default || module.exports;
-      
-      if (typeof $cf3ec0 === 'function') {
-        $cf3ec0 = $cf3ec0.options;
-      }
-    
-        /* template */
-        Object.assign($cf3ec0, (function () {
-          var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "g-button-group" }, [_vm._t("default")], 2)
-}
-var staticRenderFns = []
-render._withStripped = true
-
-          return {
-            render: render,
-            staticRenderFns: staticRenderFns,
-            _compiled: true,
-            _scopeId: "data-v-cf3ec0",
-            functional: undefined
-          };
-        })());
-      
-    /* hot reload */
-    (function () {
-      if (module.hot) {
-        var api = require('vue-hot-reload-api');
-        api.install(require('vue'));
-        if (api.compatible) {
-          module.hot.accept();
-          if (!module.hot.data) {
-            api.createRecord('$cf3ec0', $cf3ec0);
-          } else {
-            api.reload('$cf3ec0', $cf3ec0);
-          }
-        }
-
-        
-        var reloadCSS = require('_css_loader');
-        module.hot.dispose(reloadCSS);
-        module.hot.accept(reloadCSS);
-      
-      }
-    })();
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/input.vue":[function(require,module,exports) {
+},{"./icon":"src/icon.vue","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/cascader.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -12742,7 +12705,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _icon = _interopRequireDefault(require("./icon"));
+var _cascaderItem = _interopRequireDefault(require("./cascader-item"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12757,66 +12720,207 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
 var _default = {
+  name: "",
   components: {
-    Icon: _icon.default
+    cascaderItem: _cascaderItem.default
+  },
+  data: function data() {
+    return {
+      popoverVisible: false
+    };
   },
   props: {
-    value: {
+    source: {
+      type: Array
+    },
+    itemheight: {
       type: String
     },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    readonly: {
-      type: Boolean,
-      default: false
-    },
-    error: {
-      type: String
+    selected: {
+      type: Array,
+      default: function _default() {
+        return [];
+      }
+    }
+  },
+  methods: {
+    onUpdateSelected: function onUpdateSelected(newSelected) {
+      this.$emit('update:selected', newSelected);
+    }
+  },
+  computed: {
+    //把当前被选中的item.name做字符串拼接返回一个字符在串
+    result: function result() {
+      return this.selected.map(function (item) {
+        return item.name;
+      }).join('/');
     }
   }
 };
 exports.default = _default;
-        var $aa9a4d = exports.default || module.exports;
+        var $324203 = exports.default || module.exports;
       
-      if (typeof $aa9a4d === 'function') {
-        $aa9a4d = $aa9a4d.options;
+      if (typeof $324203 === 'function') {
+        $324203 = $324203.options;
       }
     
         /* template */
-        Object.assign($aa9a4d, (function () {
+        Object.assign($324203, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "cascader" }, [
+    _c(
+      "div",
+      {
+        staticClass: "trigger",
+        on: {
+          click: function($event) {
+            _vm.popoverVisible = true
+          }
+        }
+      },
+      [_vm._v("\n        " + _vm._s(_vm.result || "请选择省市") + "\n    ")]
+    ),
+    _vm._v(" "),
+    _vm.popoverVisible
+      ? _c(
+          "div",
+          { staticClass: "popover", style: { height: _vm.itemheight } },
+          [
+            _c("cascader-item", {
+              attrs: { selected: _vm.selected, items: _vm.source },
+              on: { "update:selected": _vm.onUpdateSelected }
+            })
+          ],
+          1
+        )
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: "data-v-324203",
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$324203', $324203);
+          } else {
+            api.reload('$324203', $324203);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"./cascader-item":"src/cascader-item.vue","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/demo.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _cascader = _interopRequireDefault(require("./cascader"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: "",
+  data: function data() {
+    return {
+      selected: [],
+      cascader: [{
+        name: '汉洲',
+        children: [{
+          name: '上城'
+        }, {
+          name: '上城2'
+        }, {
+          name: '上城3'
+        }]
+      }, {
+        name: '嘉兴',
+        children: [{
+          name: '南湖'
+        }, {
+          name: '南湖1'
+        }, {
+          name: '南湖2'
+        }]
+      }, {
+        name: '福建',
+        children: [{
+          name: '福州',
+          children: [{
+            name: '台江'
+          }, {
+            name: '仓山'
+          }]
+        }]
+      }]
+    };
+  },
+  components: {
+    cascader: _cascader.default
+  }
+};
+exports.default = _default;
+        var $439c2f = exports.default || module.exports;
+      
+      if (typeof $439c2f === 'function') {
+        $439c2f = $439c2f.options;
+      }
+    
+        /* template */
+        Object.assign($439c2f, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "wrapper", class: { error: _vm.error } },
     [
-      _c("input", {
-        attrs: { type: "text", disabled: _vm.disabled, readonly: _vm.readonly },
-        domProps: { value: _vm.value },
+      _c("cascader", {
+        attrs: {
+          selected: _vm.selected,
+          source: _vm.cascader,
+          itemheight: "200px"
+        },
         on: {
-          change: function($event) {
-            return _vm.$emit("change", $event)
-          },
-          input: function($event) {
-            return _vm.$emit("change", $event)
-          },
-          focus: function($event) {
-            return _vm.$emit("change", $event)
-          },
-          blur: function($event) {
-            return _vm.$emit("change", $event)
+          "update:selected": function($event) {
+            _vm.selected = $event
           }
         }
-      }),
-      _vm._v(" "),
-      _c("icon", { staticClass: "iconvc-error", attrs: { name: "error" } }),
-      _vm._v(" "),
-      _c("span", { staticClass: "errorMessage" }, [_vm._v(_vm._s(_vm.error))])
+      })
     ],
     1
   )
@@ -12828,7 +12932,7 @@ render._withStripped = true
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: "data-v-aa9a4d",
+            _scopeId: "data-v-439c2f",
             functional: undefined
           };
         })());
@@ -12841,9 +12945,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$aa9a4d', $aa9a4d);
+            api.createRecord('$439c2f', $439c2f);
           } else {
-            api.reload('$aa9a4d', $aa9a4d);
+            api.reload('$439c2f', $439c2f);
           }
         }
 
@@ -12854,41 +12958,21 @@ render._withStripped = true
       
       }
     })();
-},{"./icon":"src/icon.vue","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/app.js":[function(require,module,exports) {
+},{"./cascader":"src/cascader.vue","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/app.js":[function(require,module,exports) {
 "use strict";
 
 var _vue = _interopRequireDefault(require("vue"));
 
-var _button = _interopRequireDefault(require("./button"));
-
-var _icon = _interopRequireDefault(require("./icon"));
-
-var _buttonGroup = _interopRequireDefault(require("./button-group"));
-
-var _input = _interopRequireDefault(require("./input"));
+var _demo = _interopRequireDefault(require("./demo"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_vue.default.component('x-button', _button.default);
-
-_vue.default.component('x-icon', _icon.default);
-
-_vue.default.component('x-button-group', _buttonGroup.default);
-
-_vue.default.component('x-input', _input.default);
-
 new _vue.default({
-  el: "#app",
-  data: {
-    loading1: false
-  },
-  methods: {
-    changes: function changes(e) {
-      console.log(e);
-    }
+  render: function render(h) {
+    return h(_demo.default);
   }
-});
-},{"vue":"node_modules/vue/dist/vue.common.js","./button":"src/button.vue","./icon":"src/icon.vue","./button-group":"src/button-group.vue","./input":"src/input.vue"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+}).$mount('#app');
+},{"vue":"node_modules/vue/dist/vue.common.js","./demo":"src/demo.vue"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -12916,7 +13000,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61638" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57354" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -12947,8 +13031,9 @@ if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
         assetsToAccept.forEach(function (v) {
           hmrAcceptRun(v[0], v[1]);
         });
-      } else {
-        window.location.reload();
+      } else if (location.reload) {
+        // `location` global exists in a web worker context but lacks `.reload()` function.
+        location.reload();
       }
     }
 
