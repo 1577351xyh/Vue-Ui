@@ -16,16 +16,43 @@ export default {
     props:{
         selected:{
             type:String
+        },
+        autoplay:{
+            type:Boolean,
+            default:true
         }
     },
     updated(){
-
+        this.updateChildern();
     },
     mounted(){
-
+        this.updateChildern();
+        this.playAutopaly()
     },
     methods:{
       //默认选中的是第一个selected
+        updateChildern(){
+            let selected = this.getSelected();
+            //遍历所有的子元素,通知他们当前的selecte
+            this.$children.forEach((vm)=>{
+                vm.selected = selected;
+            });
+            console.log(this.$children)
+        },
+        //默认获取的selected
+        getSelected(){
+            let frist = this.$children[0];
+            return this.selected || frist.name;
+        },
+        playAutopaly(){
+            //map返回一个新的数组
+            let names = this.$children.map(vm=>vm.name);
+            // 当前的index值
+            let index = names.indexOf(this.getSelected());
+            setTimeout(()=>{
+                this.$emit('update:selected',names[index+1])
+            },2000)
+        }
     }
 
 }

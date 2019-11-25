@@ -12064,58 +12064,7 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./vue.common.dev.js');
 }
-},{"./vue.common.dev.js":"node_modules/vue/dist/vue.common.dev.js"}],"src/svg.js":[function(require,module,exports) {
-!function (a) {
-  var t,
-      e = '<svg><symbol id="i-info" viewBox="0 0 1024 1024"><path d="M512 85.333333c-235.733333 0-426.666667 190.933333-426.666667 426.666667s190.933333 426.666667 426.666667 426.666667 426.666667-190.933333 426.666667-426.666667-190.933333-426.666667-426.666667-426.666667zM554.666667 725.333333l-85.333333 0 0-256 85.333333 0 0 256zM554.666667 384l-85.333333 0 0-85.333333 85.333333 0 0 85.333333z"  ></path></symbol><symbol id="i-error" viewBox="0 0 1024 1024"><path d="M553.984 553.984l0-256-84.010667 0 0 256 84.010667 0zM553.984 726.016l0-86.016-84.010667 0 0 86.016 84.010667 0zM512 86.016q176 0 301.013333 125.013333t125.013333 301.013333-125.013333 301.013333-301.013333 125.013333-301.013333-125.013333-125.013333-301.013333 125.013333-301.013333 301.013333-125.013333z"  ></path></symbol><symbol id="i-left" viewBox="0 0 1024 1024"><path d="M671.807 927.804l-415.632-415.804 415.632-415.803 63.445 63.616-352.017 352.209 352.017 352.102z"  ></path></symbol><symbol id="i-settings" viewBox="0 0 1024 1024"><path d="M825.6 647.2l-6.4 12.8 8 12 78.4 116 3.2-31.2-139.2 135.2 29.6-3.2-127.2-76-10.4-6.4-11.2 4.8c-8 3.2-16 6.4-24.8 9.6l-13.6 4.8-3.2 13.6-28 131.2 24-19.2H408l24 18.4-34.4-137.6-3.2-12-12-4.8c-7.2-3.2-14.4-5.6-21.6-9.6l-12-5.6-11.2 7.2-120 76.8 30.4 3.2-139.2-136 4 30.4 77.6-124 7.2-11.2-5.6-12c-4-8-7.2-16.8-9.6-24.8l-4.8-12.8-13.6-2.4-134.4-28 19.2 24v-192l-18.4 24 141.6-33.6 12-3.2 4.8-12c3.2-8 7.2-16.8 11.2-24.8l6.4-12.8-8-12-73.6-110.4-3.2 31.2 138.4-136.8-30.4 4L352 186.4l10.4 6.4 11.2-4.8c6.4-2.4 13.6-5.6 20-8l12.8-4 3.2-12.8 32.8-132.8-24 18.4H616l-24-19.2 28.8 136 2.4 12.8 12.8 4.8c10.4 4 20 8 29.6 12.8l12 5.6 11.2-7.2 113.6-71.2-28.8-3.2 140 134.4-4-30.4-76 120-7.2 11.2 5.6 12c3.2 8 7.2 16.8 9.6 24.8l4 12.8 12.8 3.2 134.4 32-18.4-24v192l19.2-24-141.6 28.8-12.8 2.4-4.8 12c-2.4 6.4-5.6 13.6-8.8 20z m32-11.2l4.8 24 141.6-28.8 19.2-4V396l-18.4-4.8-134.4-32-5.6 24 23.2-8c-3.2-9.6-7.2-19.2-11.2-28.8l-22.4 9.6 20.8 12.8 76-120 10.4-16.8-14.4-13.6-140-134.4L793.6 72l-16 10.4L664 153.6l12.8 20.8L688 152c-11.2-5.6-22.4-10.4-34.4-14.4L644.8 160l24-4.8-28.8-136-4-19.2H400.8l-4.8 18.4-32.8 132.8 24 5.6-8-23.2c-8 2.4-15.2 5.6-23.2 8.8l9.6 22.4 12.8-20.8-123.2-73.6-16-9.6-13.6 13.6-138.4 136.8-14.4 14.4 11.2 16.8L157.6 352l20-13.6-21.6-10.4c-4.8 9.6-8.8 18.4-12.8 28l22.4 9.6-5.6-24-141.6 33.6-18.4 4v231.2l19.2 4 135.2 27.2 4.8-24-23.2 8c3.2 9.6 7.2 19.2 11.2 28.8l22.4-9.6-20.8-12.8-77.6 124-10.4 16.8 14.4 13.6 139.2 135.2 13.6 13.6 16-10.4 120-76.8-12.8-20.8-10.4 22.4c8 4 16.8 7.2 24.8 10.4l8.8-22.4-24 5.6 34.4 137.6 4.8 18.4H624.8l4-19.2 28-131.2-24-4.8 8 23.2c9.6-3.2 18.4-6.4 28-10.4l-9.6-22.4-12.8 20.8 127.2 76 16 9.6 13.6-12.8 139.2-136 14.4-14.4-11.2-16.8-78.4-116-20 13.6 21.6 11.2c4-8 8-16 11.2-24l-22.4-9.6z" fill="" ></path><path d="M512 681.6c-100 0-181.6-81.6-181.6-181.6S412 318.4 512 318.4 693.6 400 693.6 500 612 681.6 512 681.6z m0-315.2c-73.6 0-133.6 60-133.6 133.6S438.4 633.6 512 633.6s133.6-60 133.6-133.6S585.6 366.4 512 366.4z" fill="" ></path></symbol><symbol id="i-right" viewBox="0 0 1024 1024"><path d="M346.52382345477406 104.43830532674417c-12.257495055447652-12.257495055447652-30.6437359627898-12.257495055447652-42.90123101823747 0s-12.257495055447652 30.6437359627898 0 42.90123101823747L668.2830560915551 512 303.6225924365366 876.6604636550185c-12.257495055447652 12.257495055447652-12.257495055447652 30.6437359627898 0 42.90123101823747 6.128747527723826 6.128747527723826 15.3218679813949 9.193120453671073 21.450615509118734 9.193120453671073s15.3218679813949-3.064372925947246 21.450615509118734-9.193120453671073l386.1110791641372-386.1110791641372c12.257495055447652-12.257495055447652 12.257495055447652-30.6437359627898 0-42.90123101823747L346.52382345477406 104.43830532674417z" fill="" ></path></symbol><symbol id="i-loading" viewBox="0 0 1024 1024"><path d="M931.55533333 455.111V512H704.00033333v-56.889h227.555z m-625.778 0V512H78.22333333v-56.889h227.555z m170.667 227.556H533.33333333v227.555h-56.889V682.667z m0-625.778H533.33333333v227.555h-56.889V56.89z m341.333 699.733l-39.822 39.822-159.289-159.288 39.823-39.823 159.288 159.29zM391.11133333 329.956l-39.822 39.822-159.29-159.29 39.823-39.821 159.289 159.289z m-39.822 267.377l39.822 39.823-159.29 159.288-39.821-39.822 159.289-159.289z m426.666-426.666l39.822 39.822-159.288 159.289-39.823-39.822 159.29-159.29z" fill="#73777A" ></path></symbol><symbol id="i-shangchuan" viewBox="0 0 1024 1024"><path d="M543.7 157v534c0 16.6-13.4 30-30 30s-30-13.4-30-30V157c0-16.6 13.4-30 30-30 16.5 0 30 13.4 30 30z" fill="" ></path><path d="M323.1 331c11.8 11.8 30.7 11.8 42.5 0l119.9-119.9c15.6-15.6 40.9-15.6 56.6 0L662 331c11.7 11.7 30.7 11.7 42.4 0s11.7-30.7 0-42.4L541.7 126.1c-15.6-15.6-41-15.6-56.6 0L323 288.6c-11.6 11.8-11.6 30.7 0.1 42.4zM853.7 913h-680c-33.1 0-60-26.9-60-60V583.7c0-16.4 12.8-30.2 29.2-30.7 16.9-0.4 30.8 13.2 30.8 30v240c0 16.6 13.4 30 30 30h620c16.6 0 30-13.4 30-30V583.7c0-16.4 12.8-30.2 29.2-30.7 16.9-0.4 30.8 13.2 30.8 30v270c0 33.1-26.9 60-60 60z" fill="" ></path></symbol><symbol id="i-download-fill" viewBox="0 0 1024 1024"><path d="M220.672 859.136c-63.488 0-99.84-36.352-99.84-99.84V584.704c0-10.752 8.704-19.456 19.456-19.456 29.184 0 58.88-4.096 58.88 23.552v165.888c0 13.824 11.264 24.576 24.576 24.576h576.512c13.824 0 25.088-11.264 25.088-25.088V584.192c0-10.752 8.704-19.456 19.456-19.456 29.184 0 58.88-4.096 58.88 23.552v175.104c0 63.488-31.232 94.72-94.72 94.72l-588.288 1.024z" fill="#2C2C2C" ></path><path d="M512 647.68c-21.504 0-38.912-17.408-38.912-38.912V170.496c0-21.504 17.408-23.552 38.912-23.552 21.504 0 38.912 2.048 38.912 23.552v438.272c0 21.504-17.408 38.912-38.912 38.912z" fill="#2C2C2C" ></path><path d="M509.952 662.016c-10.24 0-20.48-4.096-27.648-11.264l-179.2-179.2c-18.944-18.944-17.92-37.376 0-55.296s37.376-17.92 55.296 0l151.552 151.552 160.256-160.256c13.312-13.312 32.768-9.728 48.128 5.632s22.016 34.816 7.168 49.664L537.6 650.24c-7.168 7.168-17.408 11.264-27.648 11.264v0.512z" fill="#2C2C2C" ></path></symbol></svg>',
-      l = (t = document.getElementsByTagName("script"))[t.length - 1].getAttribute("data-injectcss");
-
-  if (l && !a.__iconfont__svg__cssinject__) {
-    a.__iconfont__svg__cssinject__ = !0;
-
-    try {
-      document.write("<style>.svgfont {display: inline-block;width: 1em;height: 1em;fill: currentColor;vertical-align: -0.1em;font-size:16px;}</style>");
-    } catch (t) {
-      console && console.log(t);
-    }
-  }
-
-  !function (t) {
-    if (document.addEventListener) {
-      if (~["complete", "loaded", "interactive"].indexOf(document.readyState)) setTimeout(t, 0);else {
-        var l = function l() {
-          document.removeEventListener("DOMContentLoaded", l, !1), t();
-        };
-
-        document.addEventListener("DOMContentLoaded", l, !1);
-      }
-    } else document.attachEvent && (c = t, i = a.document, o = !1, (_n = function n() {
-      try {
-        i.documentElement.doScroll("left");
-      } catch (t) {
-        return void setTimeout(_n, 50);
-      }
-
-      e();
-    })(), i.onreadystatechange = function () {
-      "complete" == i.readyState && (i.onreadystatechange = null, e());
-    });
-
-    function e() {
-      o || (o = !0, c());
-    }
-
-    var c, i, o, _n;
-  }(function () {
-    var t, l;
-    (t = document.createElement("div")).innerHTML = e, e = null, (l = t.getElementsByTagName("svg")[0]) && (l.setAttribute("aria-hidden", "true"), l.style.position = "absolute", l.style.width = 0, l.style.height = 0, l.style.overflow = "hidden", function (t, l) {
-      l.firstChild ? function (t, l) {
-        l.parentNode.insertBefore(t, l);
-      }(t, l.firstChild) : l.appendChild(t);
-    }(l, document.body));
-  });
-}(window);
-},{}],"node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"./vue.common.dev.js":"node_modules/vue/dist/vue.common.dev.js"}],"node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -12457,258 +12406,13 @@ function patchScopedSlots (instance) {
   }
 }
 
-},{}],"src/icon.vue":[function(require,module,exports) {
+},{}],"src/slides.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-
-require("./svg");
-
-//
-//
-//
-//
-//
-//
-var _default = {
-  props: ['name']
-};
-exports.default = _default;
-        var $506409 = exports.default || module.exports;
-      
-      if (typeof $506409 === 'function') {
-        $506409 = $506409.options;
-      }
-    
-        /* template */
-        Object.assign($506409, (function () {
-          var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("svg", { staticClass: "x-icon" }, [
-    _c("use", { attrs: { "xlink:href": "#i-" + _vm.name } })
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-
-          return {
-            render: render,
-            staticRenderFns: staticRenderFns,
-            _compiled: true,
-            _scopeId: "data-v-506409",
-            functional: undefined
-          };
-        })());
-      
-    /* hot reload */
-    (function () {
-      if (module.hot) {
-        var api = require('vue-hot-reload-api');
-        api.install(require('vue'));
-        if (api.compatible) {
-          module.hot.accept();
-          if (!module.hot.data) {
-            api.createRecord('$506409', $506409);
-          } else {
-            api.reload('$506409', $506409);
-          }
-        }
-
-        
-        var reloadCSS = require('_css_loader');
-        module.hot.dispose(reloadCSS);
-        module.hot.accept(reloadCSS);
-      
-      }
-    })();
-},{"./svg":"src/svg.js","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/cascader-item.vue":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _icon = _interopRequireDefault(require("./icon"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default = {
-  name: "cascaderItem",
-  props: {
-    items: {
-      type: Array
-    },
-    selected: {
-      type: Array,
-      default: function _default() {
-        return [];
-      }
-    },
-    level: {
-      type: Number,
-      default: 0
-    }
-  },
-  methods: {
-    onClickLabel: function onClickLabel(item) {
-      //vue不能直接对数组进行动态赋值,不能修改props中的数据
-      //深拷贝
-      var copy = JSON.parse(JSON.stringify(this.selected)); //把当前选中的值拷贝一份通知外面
-
-      copy[this.level] = item; //把数组后面的都删除
-
-      copy.splice(this.level + 1);
-      this.$emit('update:selected', copy);
-    },
-    //level3更新
-    onUpdateSelected: function onUpdateSelected(newSelected) {
-      this.$emit('update:selected', newSelected);
-    }
-  },
-  components: {
-    icon: _icon.default
-  },
-  computed: {
-    rightItems: function rightItems() {
-      var currentSelected = this.selected[this.level];
-      console.log(currentSelected);
-
-      if (currentSelected && currentSelected.children) {
-        return currentSelected.children;
-      } else {
-        return null;
-      }
-    }
-  }
-};
-exports.default = _default;
-        var $d485df = exports.default || module.exports;
-      
-      if (typeof $d485df === 'function') {
-        $d485df = $d485df.options;
-      }
-    
-        /* template */
-        Object.assign($d485df, (function () {
-          var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "source-item" }, [
-    _c(
-      "div",
-      { staticClass: "left" },
-      _vm._l(_vm.items, function(item) {
-        return _c(
-          "div",
-          {
-            staticClass: "label",
-            on: {
-              click: function($event) {
-                return _vm.onClickLabel(item)
-              }
-            }
-          },
-          [
-            _vm._v("\n          " + _vm._s(item.name) + "\n          "),
-            item.children
-              ? _c("icon", { staticClass: "icon", attrs: { name: "right" } })
-              : _vm._e()
-          ],
-          1
-        )
-      }),
-      0
-    ),
-    _vm._v(" "),
-    _vm.rightItems
-      ? _c(
-          "div",
-          { staticClass: "right" },
-          [
-            _c("cascader-item", {
-              attrs: {
-                level: _vm.level + 1,
-                items: _vm.rightItems,
-                selected: _vm.selected
-              },
-              on: { "update:selected": _vm.onUpdateSelected }
-            })
-          ],
-          1
-        )
-      : _vm._e()
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-
-          return {
-            render: render,
-            staticRenderFns: staticRenderFns,
-            _compiled: true,
-            _scopeId: "data-v-d485df",
-            functional: undefined
-          };
-        })());
-      
-    /* hot reload */
-    (function () {
-      if (module.hot) {
-        var api = require('vue-hot-reload-api');
-        api.install(require('vue'));
-        if (api.compatible) {
-          module.hot.accept();
-          if (!module.hot.data) {
-            api.createRecord('$d485df', $d485df);
-          } else {
-            api.reload('$d485df', $d485df);
-          }
-        }
-
-        
-        var reloadCSS = require('_css_loader');
-        module.hot.dispose(reloadCSS);
-        module.hot.accept(reloadCSS);
-      
-      }
-    })();
-},{"./icon":"src/icon.vue","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/cascader.vue":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _cascaderItem = _interopRequireDefault(require("./cascader-item"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 //
 //
 //
@@ -12723,82 +12427,74 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 var _default = {
   name: "",
-  components: {
-    cascaderItem: _cascaderItem.default
-  },
-  data: function data() {
-    return {
-      popoverVisible: false
-    };
-  },
   props: {
-    source: {
-      type: Array
-    },
-    itemheight: {
+    selected: {
       type: String
     },
-    selected: {
-      type: Array,
-      default: function _default() {
-        return [];
-      }
+    autoplay: {
+      type: Boolean,
+      default: true
     }
+  },
+  updated: function updated() {
+    this.updateChildern();
+  },
+  mounted: function mounted() {
+    this.updateChildern();
+    this.playAutopaly();
   },
   methods: {
-    onUpdateSelected: function onUpdateSelected(newSelected) {
-      this.$emit('update:selected', newSelected);
-    }
-  },
-  computed: {
-    //把当前被选中的item.name做字符串拼接返回一个字符在串
-    result: function result() {
-      return this.selected.map(function (item) {
-        return item.name;
-      }).join('/');
+    //默认选中的是第一个selected
+    updateChildern: function updateChildern() {
+      var selected = this.getSelected(); //遍历所有的子元素,通知他们当前的selecte
+
+      this.$children.forEach(function (vm) {
+        vm.selected = selected;
+      });
+      console.log(this.$children);
+    },
+    //默认获取的selected
+    getSelected: function getSelected() {
+      var frist = this.$children[0];
+      return this.selected || frist.name;
+    },
+    playAutopaly: function playAutopaly() {
+      var _this = this;
+
+      //map返回一个新的数组
+      var names = this.$children.map(function (vm) {
+        return vm.name;
+      }); // 当前的index值
+
+      var index = names.indexOf(this.getSelected());
+      setTimeout(function () {
+        _this.$emit('update:selected', names[index + 1]);
+      }, 2000);
     }
   }
 };
 exports.default = _default;
-        var $324203 = exports.default || module.exports;
+        var $90a0a2 = exports.default || module.exports;
       
-      if (typeof $324203 === 'function') {
-        $324203 = $324203.options;
+      if (typeof $90a0a2 === 'function') {
+        $90a0a2 = $90a0a2.options;
       }
     
         /* template */
-        Object.assign($324203, (function () {
+        Object.assign($90a0a2, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "cascader" }, [
-    _c(
-      "div",
-      {
-        staticClass: "trigger",
-        on: {
-          click: function($event) {
-            _vm.popoverVisible = true
-          }
-        }
-      },
-      [_vm._v("\n        " + _vm._s(_vm.result || "请选择省市") + "\n    ")]
-    ),
-    _vm._v(" "),
-    _vm.popoverVisible
-      ? _c(
-          "div",
-          { staticClass: "popover", style: { height: _vm.itemheight } },
-          [
-            _c("cascader-item", {
-              attrs: { selected: _vm.selected, items: _vm.source },
-              on: { "update:selected": _vm.onUpdateSelected }
-            })
-          ],
-          1
-        )
-      : _vm._e()
+  return _c("div", { staticClass: "x-slide" }, [
+    _c("div", { staticClass: "x-slide-window" }, [
+      _c(
+        "div",
+        { ref: "window", staticClass: "x-slide-warpper" },
+        [_vm._t("default")],
+        2
+      )
+    ])
   ])
 }
 var staticRenderFns = []
@@ -12808,7 +12504,7 @@ render._withStripped = true
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: "data-v-324203",
+            _scopeId: "data-v-90a0a2",
             functional: undefined
           };
         })());
@@ -12821,9 +12517,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$324203', $324203);
+            api.createRecord('$90a0a2', $90a0a2);
           } else {
-            api.reload('$324203', $324203);
+            api.reload('$90a0a2', $90a0a2);
           }
         }
 
@@ -12834,7 +12530,96 @@ render._withStripped = true
       
       }
     })();
-},{"./cascader-item":"src/cascader-item.vue","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/demo.vue":[function(require,module,exports) {
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/slides-item.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: "",
+  //接收外部传来的name,通过name来判断当前选中的item的selected
+  props: {
+    name: {
+      type: String,
+      required: true
+    }
+  },
+  data: function data() {
+    return {
+      selected: undefined
+    };
+  },
+  computed: {
+    visible: function visible() {
+      return this.selected === this.name;
+    }
+  }
+};
+exports.default = _default;
+        var $286e53 = exports.default || module.exports;
+      
+      if (typeof $286e53 === 'function') {
+        $286e53 = $286e53.options;
+      }
+    
+        /* template */
+        Object.assign($286e53, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("transition", { attrs: { name: "slide" } }, [
+    _vm.visible
+      ? _c("div", { staticClass: "x-slide-item" }, [_vm._t("default")], 2)
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: "data-v-286e53",
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$286e53', $286e53);
+          } else {
+            api.reload('$286e53', $286e53);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/demo.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -12842,10 +12627,21 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _cascader = _interopRequireDefault(require("./cascader"));
+var _slides = _interopRequireDefault(require("./slides"));
+
+var _slidesItem = _interopRequireDefault(require("./slides-item"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -12857,40 +12653,12 @@ var _default = {
   name: "",
   data: function data() {
     return {
-      selected: [],
-      cascader: [{
-        name: '汉洲',
-        children: [{
-          name: '上城'
-        }, {
-          name: '上城2'
-        }, {
-          name: '上城3'
-        }]
-      }, {
-        name: '嘉兴',
-        children: [{
-          name: '南湖'
-        }, {
-          name: '南湖1'
-        }, {
-          name: '南湖2'
-        }]
-      }, {
-        name: '福建',
-        children: [{
-          name: '福州',
-          children: [{
-            name: '台江'
-          }, {
-            name: '仓山'
-          }]
-        }]
-      }]
+      selected: undefined
     };
   },
   components: {
-    cascader: _cascader.default
+    slidesItem: _slidesItem.default,
+    slides: _slides.default
   }
 };
 exports.default = _default;
@@ -12909,18 +12677,31 @@ exports.default = _default;
   return _c(
     "div",
     [
-      _c("cascader", {
-        attrs: {
-          selected: _vm.selected,
-          source: _vm.cascader,
-          itemheight: "200px"
-        },
-        on: {
-          "update:selected": function($event) {
-            _vm.selected = $event
+      _c(
+        "slides",
+        {
+          attrs: { selected: _vm.selected, width: "200px", height: "300px" },
+          on: {
+            "update:selected": function($event) {
+              _vm.selected = $event
+            }
           }
-        }
-      })
+        },
+        [
+          _c("slides-item", { attrs: { name: "1" } }, [
+            _c("div", { staticClass: "box" }, [_vm._v("1")])
+          ]),
+          _vm._v(" "),
+          _c("slides-item", { attrs: { name: "2" } }, [
+            _c("div", { staticClass: "box" }, [_vm._v("2")])
+          ]),
+          _vm._v(" "),
+          _c("slides-item", { attrs: { name: "3" } }, [
+            _c("div", { staticClass: "box" }, [_vm._v("3")])
+          ])
+        ],
+        1
+      )
     ],
     1
   )
@@ -12958,7 +12739,7 @@ render._withStripped = true
       
       }
     })();
-},{"./cascader":"src/cascader.vue","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/app.js":[function(require,module,exports) {
+},{"./slides":"src/slides.vue","./slides-item":"src/slides-item.vue","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/app.js":[function(require,module,exports) {
 "use strict";
 
 var _vue = _interopRequireDefault(require("vue"));
@@ -13000,7 +12781,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57354" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49871" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
