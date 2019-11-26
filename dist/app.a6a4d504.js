@@ -12425,6 +12425,9 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
 var _default = {
   name: "",
   props: {
@@ -12436,11 +12439,17 @@ var _default = {
       default: true
     }
   },
+  data: function data() {
+    return {
+      arrLength: 0
+    };
+  },
   updated: function updated() {
     this.updateChildern();
   },
   mounted: function mounted() {
     this.updateChildern();
+    this.arrLength = this.$children.length;
     this.playAutopaly();
   },
   methods: {
@@ -12449,7 +12458,6 @@ var _default = {
       var _this = this;
 
       var selected = this.getSelected(); //遍历所有的子元素,通知他们当前的selecte
-      // let arr =[];
 
       this.$children.forEach(function (vm) {
         vm.selected = selected; //得到一个新数组,这个数组中有vm的每项name值
@@ -12460,11 +12468,8 @@ var _default = {
 
 
         var newIndexs = names.indexOf(selected);
-        console.log(newIndexs);
         var oldIndexs = names.indexOf(vm.names);
-        console.log(oldIndexs);
         vm.reverse = newIndexs < oldIndexs ? false : true;
-        console.log(vm.reverse);
       });
     },
     //默认获取的selected
@@ -12472,14 +12477,17 @@ var _default = {
       var frist = this.$children[0];
       return this.selected || frist.name;
     },
-    playAutopaly: function playAutopaly() {
-      var _this2 = this;
-
+    selectedClick: function selectedClick(index) {
       //map返回一个新的数组(带name值的)
       var names = this.$children.map(function (vm) {
         return vm.name;
-      }); // 当前的index值
+      });
+      this.$emit('update:selected', names[index]);
+    },
+    playAutopaly: function playAutopaly() {
+      var _this2 = this;
 
+      // 当前的index值
       var index = names.indexOf(this.getSelected()); // settimeou模仿interval
 
       var run = function run() {
@@ -12492,20 +12500,21 @@ var _default = {
 
         if (newIndex === names.length) {
           newIndex = 0;
-        }
+        } // this.$emit('update:selected',names[newIndex]);
 
-        _this2.$emit('update:selected', names[newIndex]);
+
+        _this2.selectedClick(newIndex);
 
         setTimeout(run, 2000);
-      };
-
-      setTimeout(run, 2000); // setInterval(()=>{
+      }; // setTimeout(run,2000)
+      // setInterval(()=>{
       //     if(index === names.length){
       //         index=0;
       //     }
       //     this.$emit('update:selected',names[index+1])
       //     index++;
       // },2000)
+
     }
   }
 };
@@ -12522,16 +12531,35 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "x-slide" }, [
-    _c("div", { staticClass: "x-slide-window" }, [
-      _c(
-        "div",
-        { ref: "window", staticClass: "x-slide-warpper" },
-        [_vm._t("default")],
-        2
-      )
-    ])
-  ])
+  return _c(
+    "div",
+    { staticClass: "x-slide" },
+    [
+      _c("div", { staticClass: "x-slide-window" }, [
+        _c(
+          "div",
+          { ref: "window", staticClass: "x-slide-warpper" },
+          [_vm._t("default")],
+          2
+        )
+      ]),
+      _vm._v(" "),
+      _vm._l(_vm.arrLength, function(n) {
+        return _c(
+          "span",
+          {
+            on: {
+              click: function($event) {
+                return _vm.selectedClick(n - 1)
+              }
+            }
+          },
+          [_vm._v("\n        " + _vm._s(n - 1) + "\n    ")]
+        )
+      })
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

@@ -1,7 +1,8 @@
 .x-slide[data-v-90a0a2] {
   display: inline-block;
 }
-.x-slide-window[data-v-90a0a2], .x-slide-warpper[data-v-90a0a2] {
+.x-slide .x-slide-window[data-v-90a0a2], .x-slide .x-slide-warpper[data-v-90a0a2] {
+  position: relative;
   overflow: hidden;
 }
 .slide-leave-active[data-v-286e53] {
