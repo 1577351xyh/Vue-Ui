@@ -12446,10 +12446,25 @@ var _default = {
   methods: {
     //默认选中的是第一个selected
     updateChildern: function updateChildern() {
+      var _this = this;
+
       var selected = this.getSelected(); //遍历所有的子元素,通知他们当前的selecte
+      // let arr =[];
 
       this.$children.forEach(function (vm) {
-        vm.selected = selected;
+        vm.selected = selected; //得到一个新数组,这个数组中有vm的每项name值
+
+        var names = _this.$children.map(function (vm) {
+          return vm.name;
+        }); //通知子元素,告诉他们当前的index和下一个index
+
+
+        var newIndexs = names.indexOf(selected);
+        console.log(newIndexs);
+        var oldIndexs = names.indexOf(vm.names);
+        console.log(oldIndexs);
+        vm.reverse = newIndexs < oldIndexs ? false : true;
+        console.log(vm.reverse);
       });
     },
     //默认获取的selected
@@ -12458,24 +12473,39 @@ var _default = {
       return this.selected || frist.name;
     },
     playAutopaly: function playAutopaly() {
-      var _this = this;
+      var _this2 = this;
 
-      //map返回一个新的数组
+      //map返回一个新的数组(带name值的)
       var names = this.$children.map(function (vm) {
         return vm.name;
       }); // 当前的index值
 
-      var index = names.indexOf(this.getSelected());
-      console.log(index);
-      setInterval(function () {
-        if (index === names.length) {
-          index = 0;
+      var index = names.indexOf(this.getSelected()); // settimeou模仿interval
+
+      var run = function run() {
+        var newIndex = index - 1; // 反向
+
+        if (newIndex === -1) {
+          newIndex = names.length - 1;
+        } // 正向
+
+
+        if (newIndex === names.length) {
+          newIndex = 0;
         }
 
-        _this.$emit('update:selected', names[index + 1]);
+        _this2.$emit('update:selected', names[newIndex]);
 
-        index++;
-      }, 2000);
+        setTimeout(run, 2000);
+      };
+
+      setTimeout(run, 2000); // setInterval(()=>{
+      //     if(index === names.length){
+      //         index=0;
+      //     }
+      //     this.$emit('update:selected',names[index+1])
+      //     index++;
+      // },2000)
     }
   }
 };
@@ -12564,7 +12594,8 @@ var _default = {
   },
   data: function data() {
     return {
-      selected: undefined
+      selected: undefined,
+      reverse: false
     };
   },
   computed: {
@@ -12588,7 +12619,12 @@ exports.default = _default;
   var _c = _vm._self._c || _h
   return _c("transition", { attrs: { name: "slide" } }, [
     _vm.visible
-      ? _c("div", { staticClass: "x-slide-item" }, [_vm._t("default")], 2)
+      ? _c(
+          "div",
+          { staticClass: "x-slide-item", class: { reverse: _vm.reverse } },
+          [_vm._t("default")],
+          2
+        )
       : _vm._e()
   ])
 }
@@ -12659,7 +12695,7 @@ var _default = {
   name: "",
   data: function data() {
     return {
-      selected: undefined
+      selected: '3'
     };
   },
   components: {
@@ -12787,7 +12823,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49871" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50019" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

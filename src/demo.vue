@@ -21,7 +21,7 @@ export default {
     name: "",
     data(){
         return{
-            selected:undefined
+            selected:'3'
         }
     },
     components:{
@@ -35,5 +35,7 @@ export default {
 .box{
     background-color: pink;
     border: 1px solid #ddd;
+    height: 200px;
+    width: 200px;
 }
 </style>
