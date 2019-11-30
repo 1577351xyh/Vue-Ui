@@ -12428,6 +12428,9 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
 var _default = {
   name: "",
   props: {
@@ -12479,12 +12482,14 @@ var _default = {
         // reverse是反向动画
         var reverse = _this.selectedIndex > _this.lastSelected ? false : true;
 
-        if (_this.lastSelected === _this.$children.length - 1 && _this.selectedIndex === 0) {
-          reverse = false;
-        }
+        if (_this.timeId) {
+          if (_this.lastSelected === _this.$children.length - 1 && _this.selectedIndex === 0) {
+            reverse = false;
+          }
 
-        if (_this.lastSelected === 0 && _this.lastSelected === _this.$children.length - 1) {
-          reverse = true;
+          if (_this.lastSelected === 0 && _this.lastSelected === _this.$children.length - 1) {
+            reverse = true;
+          }
         }
 
         vm.reverse = reverse;
@@ -12528,7 +12533,7 @@ var _default = {
         var newIndex = index + 1;
 
         if (newIndex === -1) {
-          newIndex = _this2.names.length + 1;
+          newIndex = _this2.names.length - 1;
         }
 
         if (newIndex === _this2.names.length) {
@@ -12575,21 +12580,27 @@ exports.default = _default;
         )
       ]),
       _vm._v(" "),
-      _vm._l(_vm.arrLength, function(n) {
-        return _c(
-          "span",
-          {
-            on: {
-              click: function($event) {
-                return _vm.selectedClick(n - 1)
+      _c(
+        "div",
+        { staticClass: "slide-dots" },
+        _vm._l(_vm.arrLength, function(n) {
+          return _c(
+            "span",
+            {
+              staticClass: "slide-icon",
+              class: { active: _vm.selectedIndex === n - 1 },
+              on: {
+                click: function($event) {
+                  return _vm.selectedClick(n - 1)
+                }
               }
-            }
-          },
-          [_vm._v("\n        " + _vm._s(n - 1) + "\n    ")]
-        )
-      })
-    ],
-    2
+            },
+            [_vm._v("\n        " + _vm._s(n - 1) + "\n    ")]
+          )
+        }),
+        0
+      )
+    ]
   )
 }
 var staticRenderFns = []
@@ -12754,7 +12765,7 @@ var _default = {
   name: "",
   data: function data() {
     return {
-      selected: 'c'
+      selected: 'a'
     };
   },
   components: {
@@ -12781,7 +12792,7 @@ exports.default = _default;
       _c(
         "slides",
         {
-          attrs: { selected: _vm.selected, width: "200px", height: "300px" },
+          attrs: { selected: _vm.selected, width: "600px", height: "300px" },
           on: {
             "update:selected": function($event) {
               _vm.selected = $event

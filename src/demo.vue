@@ -1,6 +1,6 @@
 <template>
     <div>
-        <slides :selected.sync="selected" width="200px" height="300px">
+        <slides :selected.sync="selected" width="600px" height="300px">
             <slides-item name="a">
                 <div class="box">1</div>
             </slides-item>
@@ -21,7 +21,7 @@ export default {
     name: "",
     data(){
         return{
-            selected:'c'
+            selected:'a'
         }
     },
     components:{

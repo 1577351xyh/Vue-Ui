@@ -6,9 +6,12 @@
             <slot></slot>
         </div>
     </div>
-    <span v-for="n in arrLength" @click="selectedClick(n-1)">
+    <div class="slide-dots">
+        <span v-for="n in arrLength" @click="selectedClick(n-1)"  class="slide-icon" :class="{'active':selectedIndex === n-1}">
         {{n-1}}
     </span>
+    </div>
+
 </div>
 
 </template>
@@ -60,11 +63,13 @@ export default {
                 //当前点击的是不是大于上一次点击的,如果是,就是正向
                 // reverse是反向动画
                 let reverse = this.selectedIndex  > this.lastSelected ? false : true;
-                if(this.lastSelected === this.$children.length-1 && this.selectedIndex === 0 ){
-                    reverse = false;
-                }
-                if(this.lastSelected === 0 && this.lastSelected ===this.$children.length-1){
-                    reverse = true;
+                if(this.timeId){
+                    if(this.lastSelected === this.$children.length-1 && this.selectedIndex === 0 ){
+                        reverse = false;
+                    }
+                    if(this.lastSelected === 0 && this.lastSelected ===this.$children.length-1){
+                        reverse = true;
+                    }
                 }
                 vm.reverse = reverse;
                 this.$nextTick(()=>{
@@ -99,7 +104,7 @@ export default {
                 let index = this.names.indexOf(this.getSelected());
                 let newIndex = index+1;
 
-                if(newIndex === -1){newIndex = this.names.length+1}
+                if(newIndex === -1){newIndex = this.names.length - 1}
 
                 if(newIndex === this.names.length){newIndex=0}
                 // this.$emit('update:selected',names[newIndex]);
@@ -120,6 +125,29 @@ export default {
 .x-slide-window,.x-slide-warpper{
     position: relative;
     overflow: hidden;
+}
+.slide-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+}
+.slide-icon{
+    width: 20px;
+    height: 20px;
+    background-color: #ddd;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    margin:0 4px;
+    cursor: pointer;
+}
+.active{
+    background-color: #000;
+    color: #ffffff;
+    cursor: default;
 }
 }
 
