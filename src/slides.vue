@@ -61,8 +61,8 @@ export default {
                 //当前点击的是不是大于上一次点击的,如果是,就是正向
                 // reverse是反向动画
                 vm.reverse = this.selectedIndex  > this.lastSelected ? false : true;
-
                 this.$nextTick(()=>{
+                    //只要改了selecte就会做反向动画,做动画之前要确保,reverse已经生效在dom上了
                     vm.selected = selected;
                 })
             });
