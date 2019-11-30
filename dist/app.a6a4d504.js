@@ -12441,18 +12441,26 @@ var _default = {
   },
   data: function data() {
     return {
-      arrLength: 0
+      arrLength: 0,
+      lastSelected: undefined
     };
   },
   updated: function updated() {
     this.updateChildern();
+    console.log('上次被选中' + this.lastSelected);
+    console.log('这次被选中' + this.selectedIndex);
   },
   mounted: function mounted() {
     this.updateChildern();
     this.arrLength = this.$children.length;
-    this.playAutopaly();
+    this.playAutopaly(); //上次被选中的值,记录下来
+
+    this.lastSelected = this.selectedIndex;
   },
   computed: {
+    selectedIndex: function selectedIndex() {
+      return this.names.indexOf(this.selected) || 0;
+    },
     names: function names() {
       return this.$children.map(function (vm) {
         return vm.name;
@@ -12467,13 +12475,14 @@ var _default = {
       var selected = this.getSelected(); //遍历所有的子元素,通知他们当前的selecte
 
       this.$children.forEach(function (vm) {
-        vm.selected = selected; //通知子元素,告诉他们当前的index和下一个index
+        //通知子元素,告诉他们当前的index和下一个index
+        //当前点击的是不是大于上一次点击的,如果是,就是正向
+        // reverse是反向动画
+        vm.reverse = _this.selectedIndex > _this.lastSelected ? false : true;
 
-        var newIndexs = _this.names.indexOf(selected);
-
-        var oldIndexs = _this.names.indexOf(vm.names);
-
-        vm.reverse = newIndexs < oldIndexs ? false : true;
+        _this.$nextTick(function () {
+          vm.selected = selected;
+        });
       });
     },
     //默认获取的selected
@@ -12483,6 +12492,8 @@ var _default = {
     },
     selectedClick: function selectedClick(index) {
       //map返回一个新的数组(带name值的)
+      //上次选中的值,selectedindex变化之前把值给记下来,每次点击selectedindex都会被计算属性计算一次
+      this.lastSelected = this.selectedIndex;
       this.$emit('update:selected', this.names[index]);
     },
     playAutopaly: function playAutopaly() {
@@ -12724,7 +12735,7 @@ var _default = {
   name: "",
   data: function data() {
     return {
-      selected: '3'
+      selected: 'c'
     };
   },
   components: {
@@ -12759,15 +12770,15 @@ exports.default = _default;
           }
         },
         [
-          _c("slides-item", { attrs: { name: "1" } }, [
+          _c("slides-item", { attrs: { name: "a" } }, [
             _c("div", { staticClass: "box" }, [_vm._v("1")])
           ]),
           _vm._v(" "),
-          _c("slides-item", { attrs: { name: "2" } }, [
+          _c("slides-item", { attrs: { name: "b" } }, [
             _c("div", { staticClass: "box" }, [_vm._v("2")])
           ]),
           _vm._v(" "),
-          _c("slides-item", { attrs: { name: "3" } }, [
+          _c("slides-item", { attrs: { name: "c" } }, [
             _c("div", { staticClass: "box" }, [_vm._v("3")])
           ])
         ],
@@ -12852,7 +12863,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50019" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55393" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
