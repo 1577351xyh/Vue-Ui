@@ -12442,13 +12442,12 @@ var _default = {
   data: function data() {
     return {
       arrLength: 0,
-      lastSelected: undefined
+      lastSelected: undefined,
+      timeId: null
     };
   },
   updated: function updated() {
     this.updateChildern();
-    console.log('上次被选中' + this.lastSelected);
-    console.log('这次被选中' + this.selectedIndex);
   },
   mounted: function mounted() {
     this.updateChildern();
@@ -12497,37 +12496,43 @@ var _default = {
       this.lastSelected = this.selectedIndex;
       this.$emit('update:selected', this.names[index]);
     },
+    noPlay: function noPlay() {
+      window.clearTimeout(this.timeId);
+      this.timeId = null;
+    },
+    plays: function plays() {
+      this.playAutopaly();
+    },
     playAutopaly: function playAutopaly() {
       var _this2 = this;
 
-      // 当前的index值
-      var index = this.names.indexOf(this.getSelected()); // settimeou模仿interval
+      // settimeou模仿interval
+      if (this.timeId) {
+        return;
+      }
 
       var run = function run() {
-        var newIndex = index - 1; // 反向
+        // 当前的index值
+        var index = _this2.names.indexOf(_this2.getSelected());
+
+        var newIndex = index + 1;
 
         if (newIndex === -1) {
-          newIndex = _this2.names.length - 1;
-        } // 正向
-
+          newIndex = _this2.names.length + 1;
+        }
 
         if (newIndex === _this2.names.length) {
           newIndex = 0;
         } // this.$emit('update:selected',names[newIndex]);
+        //告诉外界选中的newIndex
 
 
         _this2.selectedClick(newIndex);
 
-        setTimeout(run, 2000);
-      }; // setTimeout(run,2000)
-      // setInterval(()=>{
-      //     if(index === names.length){
-      //         index=0;
-      //     }
-      //     this.$emit('update:selected',names[index+1])
-      //     index++;
-      // },2000)
+        _this2.timeId = setTimeout(run, 2000);
+      };
 
+      this.timeId = setTimeout(run, 2000);
     }
   }
 };
@@ -12546,7 +12551,10 @@ exports.default = _default;
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "x-slide" },
+    {
+      staticClass: "x-slide",
+      on: { mouseenter: _vm.noPlay, mouseleave: _vm.plays }
+    },
     [
       _c("div", { staticClass: "x-slide-window" }, [
         _c(

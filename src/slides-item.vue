@@ -49,13 +49,15 @@
         transform: translateX(100%);
     }
     .slide-leave-to{
-        transform: translateX(-100%);
+        transform: translateX(-100%) scale(.8);
+        opacity: 0;
     }
 
     .slide-enter.reverse{
         transform: translateX(-100%);
     }
     .slide-leave-to.reverse{
-        transform: translateX(100%);
+        transform: translateX(100%) scale(.8);
+        opacity: 0;
     }
 </style>

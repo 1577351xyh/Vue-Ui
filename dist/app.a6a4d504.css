@@ -17,17 +17,23 @@
   transform: translateX(100%);
 }
 .slide-leave-to[data-v-286e53] {
-  transform: translateX(-100%);
+  transform: translateX(-100%) scale(0.8);
+  opacity: 0;
 }
 .slide-enter.reverse[data-v-286e53] {
   transform: translateX(-100%);
 }
 .slide-leave-to.reverse[data-v-286e53] {
-  transform: translateX(100%);
+  transform: translateX(100%) scale(0.8);
+  opacity: 0;
 }
 .box[data-v-439c2f] {
-  background-color: pink;
-  border: 1px solid #ddd;
+  background-color: #dddddd;
   height: 200px;
-  width: 200px;
+  width: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  color: #ffffff;
 }

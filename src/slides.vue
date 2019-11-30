@@ -1,6 +1,6 @@
 <template>
 
-<div class="x-slide">
+<div class="x-slide" @mouseenter="noPlay" @mouseleave="plays">
     <div class="x-slide-window">
         <div class="x-slide-warpper" ref="window">
             <slot></slot>
@@ -29,12 +29,11 @@ export default {
         return{
             arrLength:0,
             lastSelected:undefined,
+            timeId:null,
         }
     },
     updated(){
         this.updateChildern();
-        console.log('上次被选中'+this.lastSelected)
-        console.log('这次被选中'+this.selectedIndex)
     },
     mounted(){
         this.updateChildern();
@@ -78,28 +77,30 @@ export default {
             this.lastSelected = this.selectedIndex;
             this.$emit('update:selected',this.names[index]);
         },
+        noPlay(){
+          window.clearTimeout(this.timeId);
+          this.timeId = null;
+        },
+        plays(){
+            this.playAutopaly();
+        },
         playAutopaly(){
-            // 当前的index值
-            let index = this.names.indexOf(this.getSelected());
             // settimeou模仿interval
+            if(this.timeId){return}
             let run = ()=>{
-                let newIndex = index-1;
-                // 反向
-                if(newIndex === -1){newIndex = this.names.length-1}
-                // 正向
+                // 当前的index值
+                let index = this.names.indexOf(this.getSelected());
+                let newIndex = index+1;
+
+                if(newIndex === -1){newIndex = this.names.length+1}
+
                 if(newIndex === this.names.length){newIndex=0}
                 // this.$emit('update:selected',names[newIndex]);
-                this.selectedClick(newIndex)
-                setTimeout(run,2000)
+                //告诉外界选中的newIndex
+                this.selectedClick(newIndex);
+                this.timeId = setTimeout(run,2000);
             };
-            // setTimeout(run,2000)
-            // setInterval(()=>{
-            //     if(index === names.length){
-            //         index=0;
-            //     }
-            //     this.$emit('update:selected',names[index+1])
-            //     index++;
-            // },2000)
+            this.timeId = setTimeout(run,2000);
         }
     }
 
