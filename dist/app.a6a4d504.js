@@ -12477,7 +12477,17 @@ var _default = {
         //通知子元素,告诉他们当前的index和下一个index
         //当前点击的是不是大于上一次点击的,如果是,就是正向
         // reverse是反向动画
-        vm.reverse = _this.selectedIndex > _this.lastSelected ? false : true;
+        var reverse = _this.selectedIndex > _this.lastSelected ? false : true;
+
+        if (_this.lastSelected === _this.$children.length - 1 && _this.selectedIndex === 0) {
+          reverse = false;
+        }
+
+        if (_this.lastSelected === 0 && _this.lastSelected === _this.$children.length - 1) {
+          reverse = true;
+        }
+
+        vm.reverse = reverse;
 
         _this.$nextTick(function () {
           //只要改了selecte就会做反向动画,做动画之前要确保,reverse已经生效在dom上了
