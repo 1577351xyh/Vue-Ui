@@ -1,5 +1,6 @@
 <template>
 <div class="x-nav">
+    {{namePath}}
     <slot></slot>
 </div>
 </template>
@@ -11,7 +12,8 @@ name: "",
     provide(){
         return{
           root:this,
-          items:[]
+          items:[],
+
         }
     },
     props:{
@@ -21,6 +23,11 @@ name: "",
         selected:{
             type:Array,
             default:()=>[]
+        }
+    },
+    data(){
+        return{
+             namePath:[],
         }
     },
     methods:{

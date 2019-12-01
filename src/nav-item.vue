@@ -24,8 +24,17 @@ export default {
     },
     methods:{
         onClick(){
+
+            this.root.namePath=[];
+            // for (let i=0;i<this.$parent.$children.length;i++) {
+            //     let vm = this.$parent.$children;
+            //     if(vm[i].$options.name === 'sub-nav') {
+            //         vm[i].open = false;
+            //     }
+            // }
+            this.$parent.x && this.$parent.x();
             this.$emit('add:selected',this.name);
-        }
+        },
     }
 }
 </script>
@@ -49,6 +58,7 @@ export default {
         font-size: 12px;
         color:#999999;
         &.selected{
+             background-color: #cccccc;
          color:#666666;
             &::after{
                 display: none;

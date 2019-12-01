@@ -1,5 +1,5 @@
 <template>
-<div class="x-sub-nav">
+<div class="x-sub-nav" :class="{active}" v-click-outside="close">
     <span @click="onClick">
         <slot name="title"></slot>
     </span>
@@ -10,22 +10,57 @@
 </template>
 
 <script>
+    import ClickOutside from './click-outside'
 export default {
-name: "",
-    data(){
-        return{
-            open:false
+    directives:{ClickOutside},
+    name: "sub-nav",
+    inject:['root'],
+    props:{
+        name:{
+            type:String,
+            required:true
         }
     },
+    data(){
+        return{
+            open:false,
+        }
+    },
+    computed:{
+      active(){
+          return this.root.namePath.indexOf(this.name)>- 1 ? true : false;
+      }
+    },
     methods:{
+        close(){
+              this.open = false;
+        },
         onClick(){
             this.open=!this.open;
-        }
+        },
+        x(){
+            this.root.namePath.unshift(this.name);
+            if(this.$parent.x){
+                this.$parent.x();
+            }
+        },
     }
 }
 </script>
 
 <style scoped lang="scss">
+    .active{
+    &::after{
+         content: '';
+         position: absolute;
+         top: 100%;
+         width: 100%;
+         height: 2px;
+         background-color: #4a90e2;
+         left: 0;
+         bottom: 0px;
+     }
+    }
     .x-sub-nav{
         position: relative;
     span{

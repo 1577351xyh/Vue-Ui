@@ -12419,6 +12419,7 @@ exports.default = void 0;
 //
 //
 //
+//
 var _default = {
   name: "",
   //依赖注入
@@ -12438,6 +12439,11 @@ var _default = {
         return [];
       }
     }
+  },
+  data: function data() {
+    return {
+      namePath: []
+    };
   },
   methods: {
     updateChildern: function updateChildern() {
@@ -12506,7 +12512,12 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "x-nav" }, [_vm._t("default")], 2)
+  return _c(
+    "div",
+    { staticClass: "x-nav" },
+    [_vm._v("\n    " + _vm._s(_vm.namePath) + "\n    "), _vm._t("default")],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -12573,6 +12584,14 @@ var _default = {
   },
   methods: {
     onClick: function onClick() {
+      this.root.namePath = []; // for (let i=0;i<this.$parent.$children.length;i++) {
+      //     let vm = this.$parent.$children;
+      //     if(vm[i].$options.name === 'sub-nav') {
+      //         vm[i].open = false;
+      //     }
+      // }
+
+      this.$parent.x && this.$parent.x();
       this.$emit('add:selected', this.name);
     }
   }
@@ -12634,13 +12653,118 @@ render._withStripped = true
       
       }
     })();
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/sub-nav.vue":[function(require,module,exports) {
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/click-outside.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+var _vue = _interopRequireDefault(require("vue"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var on = function () {
+  if (!_vue.default.prototype.$isServer && document.addEventListener) {
+    return function (element, event, handler) {
+      if (element && event && handler) {
+        element.addEventListener(event, handler, false);
+      }
+    };
+  } else {
+    return function (element, event, handler) {
+      if (element && event && handler) {
+        element.attachEvent('on' + event, handler);
+      }
+    };
+  }
+}();
+
+var nodeList = [];
+var ctx = '@@clickoutsideContext';
+var startClick;
+var seed = 0;
+!_vue.default.prototype.$isServer && on(document, 'mousedown', function (e) {
+  return startClick = e;
+});
+!_vue.default.prototype.$isServer && on(document, 'mouseup', function (e) {
+  nodeList.forEach(function (node) {
+    return node[ctx].documentHandler(e, startClick);
+  });
+});
+
+function createDocumentHandler(el, binding, vnode) {
+  return function () {
+    var mouseup = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var mousedown = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    console.log(vnode.context.popperElm);
+
+    if (!vnode || !vnode.context || !mouseup.target || !mousedown.target || el.contains(mouseup.target) || el.contains(mousedown.target) || el === mouseup.target || vnode.context.popperElm && (vnode.context.popperElm.contains(mouseup.target) || vnode.context.popperElm.contains(mousedown.target))) {
+      return;
+    }
+
+    console.log(binding.expression);
+
+    if (binding.expression && el[ctx].methodName && vnode.context[el[ctx].methodName]) {
+      vnode.context[el[ctx].methodName]();
+    } else {
+      el[ctx].bindingFn && el[ctx].bindingFn();
+    }
+  };
+}
+/**
+ * v-clickoutside
+ * @desc 点击元素外面才会触发的事件
+ * @example
+ * ```vue
+ * <div v-element-clickoutside="handleClose">
+ * ```
+ */
+
+
+var _default = {
+  bind: function bind(el, binding, vnode) {
+    nodeList.push(el);
+    var id = seed++;
+    el[ctx] = {
+      id: id,
+      documentHandler: createDocumentHandler(el, binding, vnode),
+      methodName: binding.expression,
+      bindingFn: binding.value
+    };
+  },
+  update: function update(el, binding, vnode) {
+    el[ctx].documentHandler = createDocumentHandler(el, binding, vnode);
+    el[ctx].methodName = binding.expression;
+    el[ctx].bindingFn = binding.value;
+  },
+  unbind: function unbind(el) {
+    var len = nodeList.length;
+
+    for (var i = 0; i < len; i++) {
+      if (nodeList[i][ctx].id === el[ctx].id) {
+        nodeList.splice(i, 1);
+        break;
+      }
+    }
+
+    delete el[ctx];
+  }
+};
+exports.default = _default;
+},{"vue":"node_modules/vue/dist/vue.common.js"}],"src/sub-nav.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _clickOutside = _interopRequireDefault(require("./click-outside"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 //
 //
 //
@@ -12653,15 +12777,40 @@ exports.default = void 0;
 //
 //
 var _default = {
-  name: "",
+  directives: {
+    ClickOutside: _clickOutside.default
+  },
+  name: "sub-nav",
+  inject: ['root'],
+  props: {
+    name: {
+      type: String,
+      required: true
+    }
+  },
   data: function data() {
     return {
       open: false
     };
   },
+  computed: {
+    active: function active() {
+      return this.root.namePath.indexOf(this.name) > -1 ? true : false;
+    }
+  },
   methods: {
+    close: function close() {
+      this.open = false;
+    },
     onClick: function onClick() {
       this.open = !this.open;
+    },
+    x: function x() {
+      this.root.namePath.unshift(this.name);
+
+      if (this.$parent.x) {
+        this.$parent.x();
+      }
     }
   }
 };
@@ -12678,26 +12827,41 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "x-sub-nav" }, [
-    _c("span", { on: { click: _vm.onClick } }, [_vm._t("title")], 2),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.open,
-            expression: "open"
-          }
-        ],
-        staticClass: "x-sub-popover"
-      },
-      [_vm._t("default")],
-      2
-    )
-  ])
+  return _c(
+    "div",
+    {
+      directives: [
+        {
+          name: "click-outside",
+          rawName: "v-click-outside",
+          value: _vm.close,
+          expression: "close"
+        }
+      ],
+      staticClass: "x-sub-nav",
+      class: { active: _vm.active }
+    },
+    [
+      _c("span", { on: { click: _vm.onClick } }, [_vm._t("title")], 2),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.open,
+              expression: "open"
+            }
+          ],
+          staticClass: "x-sub-popover"
+        },
+        [_vm._t("default")],
+        2
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -12732,7 +12896,7 @@ render._withStripped = true
       
       }
     })();
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/demo.vue":[function(require,module,exports) {
+},{"./click-outside":"src/click-outside.js","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/demo.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -12813,6 +12977,7 @@ exports.default = _default;
           _vm._v(" "),
           _c(
             "x-sub-nav",
+            { attrs: { name: "xxx" } },
             [
               _c("template", { slot: "title" }, [_vm._v("关于")]),
               _vm._v(" "),
@@ -12826,18 +12991,19 @@ exports.default = _default;
               _vm._v(" "),
               _c(
                 "x-sub-nav",
+                { attrs: { name: "ccc" } },
                 [
                   _c("template", { slot: "title" }, [_vm._v("关于3")]),
                   _vm._v(" "),
-                  _c("x-nav-item", { attrs: { name: "about1" } }, [
+                  _c("x-nav-item", { attrs: { name: "about3" } }, [
                     _vm._v("关于3.1")
                   ]),
                   _vm._v(" "),
-                  _c("x-nav-item", { attrs: { name: "about2" } }, [
+                  _c("x-nav-item", { attrs: { name: "about4" } }, [
                     _vm._v("关于3.2")
                   ]),
                   _vm._v(" "),
-                  _c("x-nav-item", { attrs: { name: "about3" } }, [
+                  _c("x-nav-item", { attrs: { name: "about5" } }, [
                     _vm._v("关于3.3")
                   ])
                 ],
