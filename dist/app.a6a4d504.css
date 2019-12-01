@@ -8,6 +8,20 @@
 .selected[data-v-c7e3d7] {
   background-color: red;
 }
+.x-sub-nav[data-v-c0df42] {
+  position: relative;
+}
+.x-sub-nav span[data-v-c0df42] {
+  padding: 5px;
+  display: block;
+}
+.x-sub-nav .x-sub-popover[data-v-c0df42] {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  border: 1px solid #dddddd;
+  white-space: nowrap;
+}
 .box[data-v-439c2f] {
   background-color: #dddddd;
   height: 100%;

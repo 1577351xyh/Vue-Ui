@@ -12421,6 +12421,13 @@ exports.default = void 0;
 //
 var _default = {
   name: "",
+  //依赖注入
+  provide: function provide() {
+    return {
+      root: this,
+      items: []
+    };
+  },
   props: {
     multiple: {
       type: Boolean
@@ -12465,6 +12472,9 @@ var _default = {
           }
         });
       });
+    },
+    addItem: function addItem(vm) {
+      this.items.push(vm);
     }
   },
   updated: function updated() {
@@ -12546,11 +12556,15 @@ exports.default = void 0;
 //
 var _default = {
   name: "x-nav-item",
+  inject: ['root'],
   props: {
     name: {
       type: String,
       required: true
     }
+  },
+  created: function created() {
+    this.root.addItem(this);
   },
   data: function data() {
     return {
@@ -12633,8 +12647,23 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
 var _default = {
-  name: ""
+  name: "",
+  data: function data() {
+    return {
+      open: false
+    };
+  },
+  methods: {
+    onClick: function onClick() {
+      this.open = !this.open;
+    }
+  }
 };
 exports.default = _default;
         var $c0df42 = exports.default || module.exports;
@@ -12649,7 +12678,26 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._t("default")], 2)
+  return _c("div", { staticClass: "x-sub-nav" }, [
+    _c("span", { on: { click: _vm.onClick } }, [_vm._t("title")], 2),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.open,
+            expression: "open"
+          }
+        ],
+        staticClass: "x-sub-popover"
+      },
+      [_vm._t("default")],
+      2
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -12710,6 +12758,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   name: "",
   data: function data() {
@@ -12752,7 +12811,41 @@ exports.default = _default;
         [
           _c("x-nav-item", { attrs: { name: "home" } }, [_vm._v("首页")]),
           _vm._v(" "),
-          _c("x-nav-item", { attrs: { name: "about" } }, [_vm._v("关于")]),
+          _c(
+            "x-sub-nav",
+            [
+              _c("template", { slot: "title" }, [_vm._v("关于")]),
+              _vm._v(" "),
+              _c("x-nav-item", { attrs: { name: "about1" } }, [
+                _vm._v("关于1")
+              ]),
+              _vm._v(" "),
+              _c("x-nav-item", { attrs: { name: "about2" } }, [
+                _vm._v("关于2")
+              ]),
+              _vm._v(" "),
+              _c(
+                "x-sub-nav",
+                [
+                  _c("template", { slot: "title" }, [_vm._v("关于3")]),
+                  _vm._v(" "),
+                  _c("x-nav-item", { attrs: { name: "about1" } }, [
+                    _vm._v("关于3.1")
+                  ]),
+                  _vm._v(" "),
+                  _c("x-nav-item", { attrs: { name: "about2" } }, [
+                    _vm._v("关于3.2")
+                  ]),
+                  _vm._v(" "),
+                  _c("x-nav-item", { attrs: { name: "about3" } }, [
+                    _vm._v("关于3.3")
+                  ])
+                ],
+                2
+              )
+            ],
+            2
+          ),
           _vm._v(" "),
           _c("x-nav-item", { attrs: { name: "hire" } }, [_vm._v("招聘")])
         ],

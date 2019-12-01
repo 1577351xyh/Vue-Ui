@@ -7,11 +7,15 @@
 <script>
 export default {
     name: "x-nav-item",
+    inject:['root'],
     props:{
       name:{
           type:String,
           required:true
       }
+    },
+    created(){
+      this.root.addItem(this)
     },
     data(){
         return{

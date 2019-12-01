@@ -38,7 +38,7 @@
     <inspection_tool class="HtmlUnknownTag" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>
-          <list size="15">
+          <list size="16">
             <item index="0" class="java.lang.String" itemvalue="nobr" />
             <item index="1" class="java.lang.String" itemvalue="noembed" />
             <item index="2" class="java.lang.String" itemvalue="comment" />
@@ -54,6 +54,7 @@
             <item index="12" class="java.lang.String" itemvalue="slides" />
             <item index="13" class="java.lang.String" itemvalue="x-nav" />
             <item index="14" class="java.lang.String" itemvalue="x-nav-item" />
+            <item index="15" class="java.lang.String" itemvalue="x-sub-nav" />
           </list>
         </value>
       </option>

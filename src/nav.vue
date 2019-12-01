@@ -7,6 +7,13 @@
 <script>
 export default {
 name: "",
+    //依赖注入
+    provide(){
+        return{
+          root:this,
+          items:[]
+        }
+    },
     props:{
         multiple:{
             type:Boolean
@@ -47,12 +54,16 @@ name: "",
 
                 })
             })
+        },
+        addItem(vm){
+            this.items.push(vm)
         }
     },
     updated(){
         this.updateChildern();
     },
     mounted(){
+
         this.updateChildern();
         //监听子组件点击事件
         this.listenToChildern();
