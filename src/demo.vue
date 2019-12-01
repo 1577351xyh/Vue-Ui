@@ -1,33 +1,30 @@
 <template>
     <div>
-        <slides :selected.sync="selected" style="width: 600px;height: 300px" :autoplay="false">
-            <slides-item name="a">
-                <div class="box">1</div>
-            </slides-item>
-            <slides-item name="b">
-                <div class="box">2</div>
-            </slides-item>
-            <slides-item name="c">
-                <div class="box">3</div>
-            </slides-item>
-        </slides>
+        <x-nav>
+            <x-nav-item>首页</x-nav-item>
+            <x-nav-item>关于</x-nav-item>
+            <x-nav-item>招聘</x-nav-item>
+        </x-nav>
     </div>
 </template>
 
 <script>
-import slides from './slides'
-import slidesItem from './slides-item'
+import XNav from './nav'
+import XNavItem from './nav-item'
+import XSubNav from './sub-nav'
+
+
 export default {
     name: "",
     data(){
         return{
-            selected:'a'
 
         }
     },
     components:{
-        slidesItem,
-        slides,
+        XNav,
+        XNavItem,
+        XSubNav
     }
 }
 </script>
