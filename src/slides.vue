@@ -118,7 +118,9 @@ export default {
           this.timeId = null;
         },
         plays(){
-            this.playAutopaly();
+            if(this.autoplay){
+                this.playAutopaly();
+            }
         },
         playAutopaly(){
             // settimeou模仿interval
@@ -145,6 +147,7 @@ export default {
 .x-slide-window,.x-slide-warpper{
     position: relative;
     overflow: hidden;
+    height: 100%;
 }
 .slide-dots {
     display: flex;

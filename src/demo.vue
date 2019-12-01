@@ -1,6 +1,6 @@
 <template>
     <div>
-        <slides :selected.sync="selected" width="600px" height="300px" autoplay>
+        <slides :selected.sync="selected" style="width: 600px;height: 300px" :autoplay="false">
             <slides-item name="a">
                 <div class="box">1</div>
             </slides-item>
@@ -22,6 +22,7 @@ export default {
     data(){
         return{
             selected:'a'
+
         }
     },
     components:{
@@ -34,8 +35,7 @@ export default {
 <style scoped lang="scss">
 .box{
     background-color: #dddddd;
-    height: 200px;
-    width: 600px;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;

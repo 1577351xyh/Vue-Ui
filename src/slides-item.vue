@@ -36,11 +36,14 @@
 
 <style scoped lang="scss">
     .x-slide-item{
-
+        width:100%;
+        height: 100%;
     }
     .slide-leave-active{
         position: absolute;
         left: 0; top: 0;
+        width: 100%;
+        height: 100%;
     }
     .slide-enter-active,.slide-leave-active{
         transition: all .5s;

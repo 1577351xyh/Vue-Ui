@@ -12673,7 +12673,9 @@ var _default = {
       this.timeId = null;
     },
     plays: function plays() {
-      this.playAutopaly();
+      if (this.autoplay) {
+        this.playAutopaly();
+      }
     },
     playAutopaly: function playAutopaly() {
       var _this2 = this;
@@ -12956,12 +12958,8 @@ exports.default = _default;
       _c(
         "slides",
         {
-          attrs: {
-            selected: _vm.selected,
-            width: "600px",
-            height: "300px",
-            autoplay: ""
-          },
+          staticStyle: { width: "600px", height: "300px" },
+          attrs: { selected: _vm.selected, autoplay: false },
           on: {
             "update:selected": function($event) {
               _vm.selected = $event
