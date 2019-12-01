@@ -1,6 +1,6 @@
 <template>
     <div>
-        <slides :selected.sync="selected" width="600px" height="300px">
+        <slides :selected.sync="selected" width="600px" height="300px" autoplay>
             <slides-item name="a">
                 <div class="box">1</div>
             </slides-item>

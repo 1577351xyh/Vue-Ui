@@ -11,7 +11,7 @@
 <script>
 
     export default {
-        name: "",
+        name: "slides",
         //接收外部传来的name,通过name来判断当前选中的item的selected
         props:{
             name:{
@@ -43,7 +43,7 @@
         left: 0; top: 0;
     }
     .slide-enter-active,.slide-leave-active{
-        transition: all 1s;
+        transition: all .5s;
     }
     .slide-enter{
         transform: translateX(100%);
