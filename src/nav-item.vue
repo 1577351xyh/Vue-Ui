@@ -32,9 +32,27 @@ export default {
 
 <style scoped lang="scss">
 .x-nav-item{
-    padding: 5px;
+    padding: 10px;
+    position: relative;
 }
-    .selected{
-        background-color: red;
+    .selected::after{
+        content: '';
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        height: 2px;
+        background-color: #4a90e2;
+        left: 0;
+        bottom: 0px;
+    }
+    .x-sub-nav .x-nav-item{
+        font-size: 12px;
+        color:#999999;
+        &.selected{
+         color:#666666;
+            &::after{
+                display: none;
+             }
+         }
     }
 </style>

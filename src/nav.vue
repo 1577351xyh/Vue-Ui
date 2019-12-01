@@ -81,6 +81,6 @@ name: "",
 <style scoped lang="scss">
 .x-nav{
     display: flex;
-    border: 1px solid #cccc;
+    border-bottom: 1px solid #dddddd;
 }
 </style>

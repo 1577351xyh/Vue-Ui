@@ -29,16 +29,29 @@ name: "",
     .x-sub-nav{
         position: relative;
     span{
-        padding:5px;
+        padding:10px;
         display: block;
     }
         .x-sub-popover{
             position: absolute;
             top: 100%;
+            background-color:#fff;
             left: 0;
+            margin-top: 4px;
+            border-radius: 4px;
+            box-shadow: 0 0 3px #dddddd;
             border: 1px solid #dddddd;
             white-space: nowrap;
+            font-size: 12px;
+            color:#999999;
+            min-width: 8em;
         }
     }
+    .x-sub-nav .x-sub-nav .x-sub-popover{
+        top: 0;
+        left: 100%;
+        margin-left: 8px;
+    }
+
 
 </style>
