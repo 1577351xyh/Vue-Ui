@@ -27,6 +27,13 @@
 .x-sub-nav .x-nav-item.selected[data-v-c7e3d7]::after {
   display: none;
 }
+.x-icon[data-v-506409] {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}
 .active[data-v-c0df42]::after {
   content: "";
   position: absolute;
@@ -37,12 +44,17 @@
   left: 0;
   bottom: 0px;
 }
+.active .x-sub-nav[data-v-c0df42]::after {
+  display: none;
+}
 .x-sub-nav[data-v-c0df42] {
   position: relative;
 }
-.x-sub-nav span[data-v-c0df42] {
+.x-sub-nav .laber[data-v-c0df42] {
   padding: 10px;
-  display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .x-sub-nav .x-sub-popover[data-v-c0df42] {
   position: absolute;
@@ -62,6 +74,16 @@
   top: 0;
   left: 100%;
   margin-left: 8px;
+}
+.x-sub-nav .x-icon-warper[data-v-c0df42] {
+  display: none;
+}
+.x-sub-popover .x-icon-warper[data-v-c0df42] {
+  display: inline-flex;
+  transition: all 0.5s;
+}
+.open[data-v-c0df42] {
+  transform: rotate(180deg);
 }
 .box[data-v-439c2f] {
   background-color: #dddddd;

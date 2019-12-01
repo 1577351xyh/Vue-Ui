@@ -1,7 +1,10 @@
 <template>
 <div class="x-sub-nav" :class="{active}" v-click-outside="close">
-    <span @click="onClick">
+    <span @click="onClick" class="laber">
         <slot name="title"></slot>
+        <span class="x-icon-warper" :class="{open}">
+            <x-icon name="right"></x-icon>
+        </span>
     </span>
     <div class="x-sub-popover" v-show="open">
         <slot></slot>
@@ -11,6 +14,7 @@
 
 <script>
     import ClickOutside from './click-outside'
+    import XIcon from './icon'
 export default {
     directives:{ClickOutside},
     name: "sub-nav",
@@ -25,6 +29,9 @@ export default {
         return{
             open:false,
         }
+    },
+    components:{
+        XIcon
     },
     computed:{
       active(){
@@ -50,7 +57,7 @@ export default {
 
 <style scoped lang="scss">
     .active{
-    &::after{
+        &::after{
          content: '';
          position: absolute;
          top: 100%;
@@ -60,12 +67,19 @@ export default {
          left: 0;
          bottom: 0px;
      }
+         .x-sub-nav{
+            &::after{
+                display: none;
+            }
+         }
     }
     .x-sub-nav{
         position: relative;
-    span{
+    .laber{
         padding:10px;
-        display: block;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
         .x-sub-popover{
             position: absolute;
@@ -88,5 +102,14 @@ export default {
         margin-left: 8px;
     }
 
-
+    .x-sub-nav .x-icon-warper{
+        display: none;
+    }
+    .x-sub-popover .x-icon-warper{
+        display: inline-flex;
+        transition: all .5s;
+    }
+    .open{
+        transform: rotate(180deg);
+    }
 </style>
