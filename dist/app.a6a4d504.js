@@ -12420,7 +12420,68 @@ exports.default = void 0;
 //
 //
 var _default = {
-  name: ""
+  name: "",
+  props: {
+    multiple: {
+      type: Boolean
+    },
+    selected: {
+      type: Array,
+      default: function _default() {
+        return [];
+      }
+    }
+  },
+  methods: {
+    updateChildern: function updateChildern() {
+      var _this = this;
+
+      this.items.forEach(function (vm) {
+        if (_this.selected.indexOf(vm.name) > -1) {
+          vm.selected = true;
+        } else {
+          vm.selected = false;
+        }
+      });
+    },
+    listenToChildern: function listenToChildern() {
+      var _this2 = this;
+
+      this.items.forEach(function (vm) {
+        //子组件会把当前的name传过来
+        vm.$on('add:selected', function (name) {
+          if (_this2.multiple) {
+            //如果没有
+            if (_this2.selected.indexOf(name) < 0) {
+              //往外触发事件
+              //深拷贝,不能改props
+              var copy = JSON.parse(JSON.stringify(_this2.selected));
+              copy.push(name);
+
+              _this2.$emit('update:selected', copy);
+            }
+          } else {
+            _this2.$emit('update:selected', [name]);
+          }
+        });
+      });
+    }
+  },
+  updated: function updated() {
+    this.updateChildern();
+  },
+  mounted: function mounted() {
+    this.updateChildern(); //监听子组件点击事件
+
+    this.listenToChildern();
+  },
+  computed: {
+    items: function items() {
+      return this.$children.filter(function (vm) {
+        return vm.$options.name === 'x-nav-item';
+      });
+    }
+  }
 };
 exports.default = _default;
         var $57abb4 = exports.default || module.exports;
@@ -12435,7 +12496,7 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._t("default")], 2)
+  return _c("div", { staticClass: "x-nav" }, [_vm._t("default")], 2)
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -12484,7 +12545,23 @@ exports.default = void 0;
 //
 //
 var _default = {
-  name: ""
+  name: "x-nav-item",
+  props: {
+    name: {
+      type: String,
+      required: true
+    }
+  },
+  data: function data() {
+    return {
+      selected: false
+    };
+  },
+  methods: {
+    onClick: function onClick() {
+      this.$emit('add:selected', this.name);
+    }
+  }
 };
 exports.default = _default;
         var $c7e3d7 = exports.default || module.exports;
@@ -12499,7 +12576,16 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._t("default")], 2)
+  return _c(
+    "div",
+    {
+      staticClass: "x-nav-item",
+      class: { selected: _vm.selected },
+      on: { click: _vm.onClick }
+    },
+    [_vm._t("default")],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -12627,7 +12713,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var _default = {
   name: "",
   data: function data() {
-    return {};
+    return {
+      selected: ['home']
+    };
   },
   components: {
     XNav: _nav.default,
@@ -12653,12 +12741,20 @@ exports.default = _default;
     [
       _c(
         "x-nav",
+        {
+          attrs: { selected: _vm.selected },
+          on: {
+            "update:selected": function($event) {
+              _vm.selected = $event
+            }
+          }
+        },
         [
-          _c("x-nav-item", [_vm._v("首页")]),
+          _c("x-nav-item", { attrs: { name: "home" } }, [_vm._v("首页")]),
           _vm._v(" "),
-          _c("x-nav-item", [_vm._v("关于")]),
+          _c("x-nav-item", { attrs: { name: "about" } }, [_vm._v("关于")]),
           _vm._v(" "),
-          _c("x-nav-item", [_vm._v("招聘")])
+          _c("x-nav-item", { attrs: { name: "hire" } }, [_vm._v("招聘")])
         ],
         1
       )

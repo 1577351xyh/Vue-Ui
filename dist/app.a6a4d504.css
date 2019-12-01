@@ -1,3 +1,13 @@
+.x-nav[data-v-57abb4] {
+  display: flex;
+  border: 1px solid #cccc;
+}
+.x-nav-item[data-v-c7e3d7] {
+  padding: 5px;
+}
+.selected[data-v-c7e3d7] {
+  background-color: red;
+}
 .box[data-v-439c2f] {
   background-color: #dddddd;
   height: 100%;

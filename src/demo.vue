@@ -1,9 +1,9 @@
 <template>
     <div>
-        <x-nav>
-            <x-nav-item>首页</x-nav-item>
-            <x-nav-item>关于</x-nav-item>
-            <x-nav-item>招聘</x-nav-item>
+        <x-nav :selected.sync="selected">
+            <x-nav-item name="home">首页</x-nav-item>
+            <x-nav-item name="about">关于</x-nav-item>
+            <x-nav-item name="hire">招聘</x-nav-item>
         </x-nav>
     </div>
 </template>
@@ -18,7 +18,7 @@ export default {
     name: "",
     data(){
         return{
-
+            selected:['home']
         }
     },
     components:{
