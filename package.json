@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/1577351xyh/vue-#readme",
   "dependencies": {
+    "async-validator": "^3.2.2",
     "git-open": "^2.1.0",
     "vue": "^2.6.10",
     "vue-hot-reload-api": "^2.3.3"
