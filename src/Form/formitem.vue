@@ -33,8 +33,9 @@ export default {
         validate(){
             // element ui校验包
             // npm i async-validator -S
-            const value = this.form.model[this.prop]
-            const rules = this.form.rules[this.prop]
+            const value = this.form.model[this.prop];
+            const rules = this.form.rules[this.prop];
+            // console.log(value)
             // npm i async-validator -S
             const desc = {[this.prop]: rules};
             const schema = new Schema(desc);

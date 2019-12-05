@@ -12442,7 +12442,8 @@ var _default = {
         return item.prop;
       }).map(function (item) {
         return item.validate();
-      }); // 所有任务都通过才算校验通过
+      }); // console.log(this.$children.filter(item => item.prop).map(item=>item.validate()));
+      // 所有任务都通过才算校验通过
 
       Promise.all(tasks).then(function () {
         return cb(true);
@@ -14107,7 +14108,8 @@ var _default = {
       // element ui校验包
       // npm i async-validator -S
       var value = this.form.model[this.prop];
-      var rules = this.form.rules[this.prop]; // npm i async-validator -S
+      var rules = this.form.rules[this.prop]; // console.log(value)
+      // npm i async-validator -S
 
       var desc = _defineProperty({}, this.prop, rules);
 
