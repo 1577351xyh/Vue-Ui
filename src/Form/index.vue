@@ -1,36 +1,37 @@
 <template>
-    <div>
-        <k-form :model="model" :rules="rules" ref="loginForm">
-            <k-form-item label="用户名" prop="username">
-                <k-input v-model="model.username" autocomplete="off" placeholder="输入用户名"></k-input>
-            </k-form-item>
-            <k-form-item label="确认密码" prop="password">
-                <k-input type="password" v-model="model.password" autocomplete="off"></k-input>
-            </k-form-item>
-            <k-form-item>
-                <button @click="submitForm('loginForm')">提交</button>
-            </k-form-item>
-        </k-form>
-        {{model}}
-    </div>
+  <div>
+    <k-form :model="model" :rules="rules" ref="loginForm">
+      <k-form-item label="用户名" prop="username">
+        <k-input v-model="model.username" autocomplete="off" placeholder="输入用户名"></k-input>
+      </k-form-item>
+      <k-form-item label="确认密码" prop="password">
+        <k-input type="password" v-model="model.password" autocomplete="off" placeholder="输入密码"></k-input>
+      </k-form-item>
+      <k-form-item>
+        <x-buttom @click="submitForm('loginForm')">提交</button>
+      </k-form-item>
+    </k-form>
+    <!-- {{model}} -->
+  </div>
 </template>
 
 <script>
     import KForm from "./form";
     import KFormItem from "./formitem";
     import KInput from "./inputs";
-
+    import XButtom from "../botton/button"
     // import Notice from "@/components/notice/KNotice";
 
     export default {
         components: {
             KForm,
             KFormItem,
-            KInput
+            KInput,
+            XButtom
         },
         data() {
             return {
-                model: { username: "1111", password: "" },
+                model: { username: "", password: "" },
                 rules: {
                     username: [{ required: true, message: "请输入用户名" }],
                     password: [{ required: true, message: "请输入密码" }]

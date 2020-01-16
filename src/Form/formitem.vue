@@ -2,7 +2,7 @@
 <div>
     <p v-if="label">{{label}}</p>
     <slot></slot>
-    <p v-if="errorMessage">{{errorMessage}}</p>
+    <p class="errorText" v-if="errorMessage">{{errorMessage}}</p>
 </div>
 </template>
 
@@ -52,6 +52,9 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+.errorText{
+    font-size: 12px;
+    color: red;
+}
 </style>
