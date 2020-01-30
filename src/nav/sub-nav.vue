@@ -14,7 +14,7 @@
 
 <script>
     import ClickOutside from './click-outside'
-    import XIcon from './icon'
+    import XIcon from '../icon/icon'
 export default {
     directives:{ClickOutside},
     name: "sub-nav",

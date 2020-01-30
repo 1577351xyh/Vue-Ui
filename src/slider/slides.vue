@@ -22,7 +22,7 @@
 </template>
 
 <script>
-    import XIcon from './icon'
+    import XIcon from '../icon/icon'
 export default {
     name: "",
     components:{
