@@ -1,22 +1,22 @@
 <template>
-    <svg class="x-icon">
-        <use :xlink:href=`#i-${name}`></use>
-    </svg>
+  <svg class="x-icon">
+    <use :xlink:href="`#i-${name}`"></use>
+  </svg>
 </template>
 
 <script>
-import '../svg'
+import './svg'
 export default {
-    props:['name']
+  props: ['name']
 }
 </script>
 
 <style scoped>
 .x-icon {
-    width: 1em;
-    height: 1em;
-    vertical-align: -0.15em;
-    fill: currentColor;
-    overflow: hidden;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
 }
 </style>

@@ -1,5 +1,9 @@
 <template>
-  <button class="x-button" :class="{[`icon-${iconPosition}`]:true}" @click="$emit('click')">
+  <button
+    class="x-button"
+    :class="{ [`icon-${iconPosition}`]: true }"
+    @click="$emit('click')"
+  >
     <x-icon v-if="icon && !loading" class="icon" :name="icon"></x-icon>
     <x-icon class="icon loading" v-if="loading" name="loading"></x-icon>
     <div class="content">
@@ -9,32 +13,10 @@
 </template>
 
 <script>
-<<<<<<< HEAD
-    import Icon from '../icon/icon'
-    export default {
-        components:{
-            'x-icon':Icon
-        },
-        props:{
-            icon:{},
-            loading:{
-                type:Boolean,
-                default: false
-            },
-            iconPosition:{
-                type:String,
-                default:'left',
-                //参数验证
-                validator(value){
-                    return !(value !== 'left' && value !== 'right');
-                }
-            }
-        }
-=======
-import Icon from "../icon/icon";
+import Icon from '../icon/icon'
 export default {
   components: {
-    "x-icon": Icon
+    'x-icon': Icon
   },
   props: {
     icon: {},
@@ -44,18 +26,17 @@ export default {
     },
     iconPosition: {
       type: String,
-      default: "left",
+      default: 'left',
       //参数验证
       validator(value) {
-        return !(value !== "left" && value !== "right");
+        return !(value !== 'left' && value !== 'right')
       }
->>>>>>> 07ccc8b0d7b9be4438c66c0d0db199e8e90f5d6a
     }
   }
-};
+}
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 /*loading动画*/
 @keyframes spin {
   0% {
@@ -70,22 +51,22 @@ export default {
 }
 
 .x-button {
-  font-size: var(--font-size);
-  height: var(--button-height);
+  font-size: 14px;
+  height: 32px;
   padding: 0 1em;
-  border-radius: var(--border-radiuse);
-  border: 1px solid var(--border-color);
-  background: var(--button-bg);
+  border-radius: 4px;
+  border: 1px solid #bbb;
+  background: #ffffff;
   display: inline-flex;
   justify-content: center;
   align-items: center;
   vertical-align: middle;
 }
 .x-button:hover {
-  border-color: var(--bor-color-hover);
+  border-color: #666;
 }
 .x-button:active {
-  background-color: var(--button-active-bg);
+  background-color: #999;
 }
 .x-button:focus {
   outline: none;

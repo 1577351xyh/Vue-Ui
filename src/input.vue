@@ -1,81 +1,90 @@
 <template>
-    <div class="wrapper" :class="{error}">
-        <input type="text" :value="value" :disabled="disabled" :readonly="readonly" @change="$emit('change',$event.target.value)"
-          @input="$emit('input',$event.target.value)"
-          @focus="$emit('focus',$event.target.value)"
-          @blur="$emit('blur',$event.target.value)">
-        <icon name="error" class="iconvc-error"></icon>
-        <span class="errorMessage">{{error}}</span>
-    </div>
+  <div class="wrapper" :class="{ error }">
+    <input
+      type="text"
+      :value="value"
+      :disabled="disabled"
+      :readonly="readonly"
+      @change="$emit('change', $event.target.value)"
+      @input="$emit('input', $event.target.value)"
+      @focus="$emit('focus', $event.target.value)"
+      @blur="$emit('blur', $event.target.value)"
+    />
+    <!-- <icon name="error" class="iconvc-error"></icon> -->
+    <span class="errorMessage">{{ error }}</span>
+  </div>
 </template>
 
 <script>
-import Icon from './icon'
+import Icon from './icon/icon'
 export default {
-        components:{
-            Icon
-        },
-    props:{
-        value:{
-            type:String
-        },
-        disabled:{
-            type:Boolean,
-            default:false
-        },
-        readonly:{
-            type:Boolean,
-            default:false
-        },
-        error:{
-            type:String
-        }
+  components: {
+    Icon
+  },
+  props: {
+    value: {
+      type: String
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    readonly: {
+      type: Boolean,
+      default: false
+    },
+    error: {
+      type: String
     }
+  }
 }
 </script>
 
-<style scoped lang="scss">
-    $height:32px;
-    $border-color:#999;
-    $border-color-hover:#666;
-    $border-radius:4px;
-    $font-size:12px;
-    $box-shadow-color:rgba(0,0,0,0.5);
-    $red:#F1353D;
-    .wrapper{
-        display: inline-flex;
-        align-items: center;
-        > :not(:last-child) {margin-right: .5em}
-        font-size: $font-size;
-        >input{
-            height: 32px;
-            border: 1px solid $border-color;
-            border-radius: 4px;
-            padding: 0 8px;
-            font-size: inherit;
-            &:hover {
-                border-color: $border-color-hover;
-             }
-            &:focus {
-                box-shadow: inset 0 1px 3px $box-shadow-color;
-                outline: none;
-             }
-            &[disabled],&[readonly]{
-                border-color: #bbb;
-                color: #bbb;
-                cursor: not-allowed;
-             }
-        }
-        &.error{
-            >input{
-                border-color: $red;
-            }
-         }
-        .errorMessage{
-            color: $red;
-        }
-        .icon-error{
-            color: $red;
-        }
+<style scoped lang="less">
+// $height:32px;
+// $border-color:#999;
+// $border-color-hover:#666;
+// $border-radius:4px;
+// $font-size:12px;
+// $box-shadow-color:rgba(0,0,0,0.5);
+// $red:#F1353D;
+.wrapper {
+  display: inline-flex;
+  align-items: center;
+  > :not(:last-child) {
+    margin-right: 0.5em;
+  }
+  font-size: 12px;
+  > input {
+    height: 32px;
+    border: 1px solid #999999;
+    border-radius: 4px;
+    padding: 0 8px;
+    font-size: inherit;
+    &:hover {
+      border-color: #666666;
     }
+    &:focus {
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+      outline: none;
+    }
+    &[disabled],
+    &[readonly] {
+      border-color: #bbb;
+      color: #bbb;
+      cursor: not-allowed;
+    }
+  }
+  &.error {
+    > input {
+      border-color: #f1353d;
+    }
+  }
+  .errorMessage {
+    color: #f1353d;
+  }
+  .icon-error {
+    color: #f1353d;
+  }
+}
 </style>

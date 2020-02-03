@@ -31,9 +31,9 @@
                 eventBus:this.eventBus
             }
         },
-        created(){
-            console.log(this.eventBus);
-        },
+        // created(){
+        //     console.log(this.eventBus);
+        // },
         mounted() {
             //打印子元素
             this.$children.forEach((vm)=>{

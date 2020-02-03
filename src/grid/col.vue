@@ -2,7 +2,7 @@
     <div class="col"
          :class="colClass"
          :style="colStyle">
-        <div style="border: 1px solid red;height: 50px">
+        <div style="height: 50px">
             <slot></slot>
         </div>
     </div>
