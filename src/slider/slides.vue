@@ -1,11 +1,14 @@
 <template>
 
 <div class="x-slide" @mouseenter="noPlay" @mouseleave="plays">
+
+
     <div class="x-slide-window">
         <div class="x-slide-warpper" ref="window">
             <slot></slot>
         </div>
     </div>
+
 
     <div class="slide-dots">
         <span @click="prev">
@@ -17,12 +20,12 @@
         </span>
     </div>
 
-</div>
 
+</div>
 </template>
 
 <script>
-    import XIcon from '../icon/icon'
+    import XIcon from '.././icon/icon'
 export default {
     name: "",
     components:{

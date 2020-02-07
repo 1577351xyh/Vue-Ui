@@ -28,8 +28,10 @@ module.exports = {
           '/components/grid',
           '/components/layout',
           '/components/toast',
-          // '/components/popover',
-          // '/components/slides',
+          '/components/popover',
+          '/components/slides',
+          '/components/collapse',
+
         ]
       },
 

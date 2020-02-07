@@ -122,8 +122,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-    $border-color:#333;
-    $border-radius:4px;
 
 .popover{
     display: inline-block;
@@ -136,10 +134,11 @@ export default {
     transform: translateY(-100%);
     margin-top: -10px;
     padding: .5em 1em;
-    border-radius: $border-radius;
-    border:1px solid $border-color;
+    border-radius: 4px;
+    border:1px solid #333;
     max-width:20em;
     word-break:break-all;
+    background-color: #ffffff;
 }
     .position-top{
         transform: translateY(-100%);

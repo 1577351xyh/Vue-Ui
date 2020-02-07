@@ -45,7 +45,6 @@ export default {
     }
   },
   mounted() {
-    // console.log(this.position)
     if (this.autoClose) {
       setTimeout(() => {
         this.close()
