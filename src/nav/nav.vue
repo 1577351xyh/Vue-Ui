@@ -48,9 +48,7 @@ name: "",
                         if(this.selected.indexOf(name)<0){
                             //往外触发事件
                             //深拷贝,不能改props
-
                             let copy = JSON.parse(JSON.stringify(this.selected));
-
                             copy.push(name);
                             this.$emit('update:selected',copy)
                         }
@@ -69,7 +67,6 @@ name: "",
         this.updateChildern();
     },
     mounted(){
-
         this.updateChildern();
         //监听子组件点击事件
         this.listenToChildern();

@@ -1,5 +1,5 @@
 ---
-title: collapse 展开
+title: collapse 下拉菜单
 ---
 
 # 展开

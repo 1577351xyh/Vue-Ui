@@ -18,7 +18,7 @@
 
 <script>
 
-    import  icon from '../icon/icon'
+    import  icon from '.././icon/icon'
 export default {
     name: "cascaderItem",
     props:{

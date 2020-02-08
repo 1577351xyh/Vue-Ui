@@ -33,6 +33,7 @@ export default {
             //     }
             // }
             this.$parent.x && this.$parent.x();
+            console.log(this.name)
             this.$emit('add:selected',this.name);
         },
     }
