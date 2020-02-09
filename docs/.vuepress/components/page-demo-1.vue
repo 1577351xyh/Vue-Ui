@@ -4,7 +4,7 @@
     <p>
       <strong>预览</strong>
     </p>
-    <g-page :totalPage="20" :currentPage="4" hideIfOnePage></g-page>
+    <g-page :totalPage="20" :currentPage="2" hideIfOnePage></g-page>
     <p>
       <strong>代码</strong>
     </p>

@@ -1,11 +1,28 @@
 <template>
   <div class="x-page">
-    <span v-for="i in pages" class="x-page-item">{{ i }}</span>
+    <span class="pager-nav"> <x-icon name="left"></x-icon></span>
+
+    <template v-for="page in pages">
+      <template v-if="page === currentPage">
+        <span class="x-page-item current">{{ page }}</span>
+      </template>
+
+      <template v-else-if="page === '...'">
+        <span>...</span>
+      </template>
+
+      <template v-else>
+        <span class="x-page-item other">{{ page }}</span>
+      </template>
+    </template>
+    <span class="pager-nav"><x-icon name="right"></x-icon></span>
   </div>
 </template>
 <script>
+import XIcon from '../icon/icon'
 export default {
   name: 'pager',
+
   props: {
     //总页
     totalPage: {
@@ -23,16 +40,9 @@ export default {
       default: true
     }
   },
-  data() {
-    return {
-      pages: []
-    }
-  },
-  created() {
-    this.init()
-  },
-  methods: {
-    init() {
+  components: { XIcon },
+  computed: {
+    pages() {
       let arr = [
         1,
         this.totalPage,
@@ -44,20 +54,23 @@ export default {
       ]
       //去重,排序
       arr = this.unique(arr)
-      //push ...
-      //reduce Api
-      arr = arr.reduce((prev, currrt, index, arrar) => {
-        prev.push(currrt)
-        if (
-          arrar[index + 1] !== undefined &&
-          arrar[index + 1] - arrar[index] > 1
-        ) {
-          prev.push('...')
-        }
-        return prev
-      }, [])
-      this.pages = arr
-    },
+        //过滤
+        .filter(n => n >= 1 && n <= this.totalPage)
+        //reduce Api push ...
+        .reduce((prev, currrt, index, arrar) => {
+          prev.push(currrt)
+          if (
+            arrar[index + 1] !== undefined &&
+            arrar[index + 1] - arrar[index] > 1
+          ) {
+            prev.push('...')
+          }
+          return prev
+        }, [])
+      return arr
+    }
+  },
+  methods: {
     unique(arr) {
       //去重,但是兼容性不是很好
       // return [...new Set(arr)]
@@ -84,6 +97,15 @@ export default {
     &:hover {
       border: 1px solid #666666;
     }
+  }
+  .current {
+    border: 1px solid blue;
+    color: blue;
+  }
+  .pager-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 </style>
