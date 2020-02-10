@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- <Form-sample></Form-sample> -->
-    <g-table border :columns="columns" :dataSource="dataSource"></g-table>
+    <g-table @chekeboxChange="changes" border :columns="columns" :dataSource="dataSource"></g-table>
   </div>
 </template>
 
@@ -27,6 +27,11 @@ export default {
   },
   components: {
     GTable
+  },
+  methods:{
+    changes(obj){
+      console.log(obj)
+    }
   }
 }
 </script>

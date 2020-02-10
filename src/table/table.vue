@@ -3,15 +3,22 @@
     <table class="gulu-table" :class="{ compact, border }">
       <thead>
         <tr>
-          <th><input type="checkbox" /></th>
+          <th>
+            <input @change="chekeboxChangeAll($event)" type="checkbox" />
+          </th>
           <th v-for="item in columns">
             {{ item.text }}
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in dataSource">
-          <th><input type="checkbox" /></th>
+        <tr v-for="(item, index) in dataSource">
+          <th>
+            <input
+              @change="chekeboxChange(item, index, $event)"
+              type="checkbox"
+            />
+          </th>
           <template v-for="column in columns">
             <th>{{ item[column.field] }}</th>
           </template>
@@ -29,7 +36,10 @@ export default {
     //数据源
     dataSource: {
       type: Array,
-      required: true
+      required: true,
+      validator(arr){
+       return !(arr.filter(item=>item.id===undefined).length>0)
+      }
     },
     //表头数据
     columns: {
@@ -45,6 +55,16 @@ export default {
     border: {
       type: Boolean,
       default: false
+    }
+  },
+  methods: {
+    chekeboxChange(item, index, e) {
+      //e.target.checked 当前checkbox选中的状态
+      this.$emit('chekeboxChange', { item, index, selected: e.target.checked })
+    },
+    //全选
+    chekeboxChangeAll(e){
+
     }
   }
 }

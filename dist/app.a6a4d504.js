@@ -12456,6 +12456,13 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   data: function data() {
     return {};
@@ -12464,7 +12471,12 @@ var _default = {
     //数据源
     dataSource: {
       type: Array,
-      required: true
+      required: true,
+      validator: function validator(arr) {
+        return !(arr.filter(function (item) {
+          return item.id === undefined;
+        }).length > 0);
+      }
     },
     //表头数据
     columns: {
@@ -12481,6 +12493,18 @@ var _default = {
       type: Boolean,
       default: false
     }
+  },
+  methods: {
+    chekeboxChange: function chekeboxChange(item, index, e) {
+      //e.target.checked 当前checkbox选中的状态
+      this.$emit('chekeboxChange', {
+        item: item,
+        index: index,
+        selected: e.target.checked
+      });
+    },
+    //全选
+    chekeboxChangeAll: function chekeboxChangeAll(e) {}
   }
 };
 exports.default = _default;
@@ -12508,7 +12532,16 @@ exports.default = _default;
           _c(
             "tr",
             [
-              _vm._m(0),
+              _c("th", [
+                _c("input", {
+                  attrs: { type: "checkbox" },
+                  on: {
+                    change: function($event) {
+                      return _vm.chekeboxChangeAll($event)
+                    }
+                  }
+                })
+              ]),
               _vm._v(" "),
               _vm._l(_vm.columns, function(item) {
                 return _c("th", [
@@ -12522,11 +12555,20 @@ exports.default = _default;
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(_vm.dataSource, function(item) {
+          _vm._l(_vm.dataSource, function(item, index) {
             return _c(
               "tr",
               [
-                _vm._m(1, true),
+                _c("th", [
+                  _c("input", {
+                    attrs: { type: "checkbox" },
+                    on: {
+                      change: function($event) {
+                        return _vm.chekeboxChange(item, index, $event)
+                      }
+                    }
+                  })
+                ]),
                 _vm._v(" "),
                 _vm._l(_vm.columns, function(column) {
                   return [_c("th", [_vm._v(_vm._s(item[column.field]))])]
@@ -12541,20 +12583,7 @@ exports.default = _default;
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("th", [_c("input", { attrs: { type: "checkbox" } })])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("th", [_c("input", { attrs: { type: "checkbox" } })])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
           return {
@@ -12640,6 +12669,11 @@ var _default = {
   },
   components: {
     GTable: _table.default
+  },
+  methods: {
+    changes: function changes(obj) {
+      console.log(obj);
+    }
   }
 };
 exports.default = _default;
@@ -12659,7 +12693,8 @@ exports.default = _default;
     "div",
     [
       _c("g-table", {
-        attrs: { border: "", columns: _vm.columns, dataSource: _vm.dataSource }
+        attrs: { border: "", columns: _vm.columns, dataSource: _vm.dataSource },
+        on: { chekeboxChange: _vm.changes }
       })
     ],
     1
@@ -12740,7 +12775,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54120" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57497" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
