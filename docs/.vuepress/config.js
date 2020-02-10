@@ -34,6 +34,7 @@ module.exports = {
           // '/components/cascader',
           '/components/nav',
           '/components/page',
+          '/components/table',
 
         ]
       },

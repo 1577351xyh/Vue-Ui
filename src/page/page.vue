@@ -1,10 +1,14 @@
 <template>
   <div class="x-page">
-    <span class="pager-nav"> <x-icon name="left"></x-icon></span>
+    <span class="pager-nav" @click="onClickPage(currentPage - 1)">
+      <x-icon name="left"></x-icon
+    ></span>
 
     <template v-for="page in pages">
       <template v-if="page === currentPage">
-        <span class="x-page-item current">{{ page }}</span>
+        <span class="x-page-item current" @click="onClickPage(page)">{{
+          page
+        }}</span>
       </template>
 
       <template v-else-if="page === '...'">
@@ -12,10 +16,14 @@
       </template>
 
       <template v-else>
-        <span class="x-page-item other">{{ page }}</span>
+        <span class="x-page-item other" @click="onClickPage(page)">{{
+          page
+        }}</span>
       </template>
     </template>
-    <span class="pager-nav"><x-icon name="right"></x-icon></span>
+    <span class="pager-nav" @click="onClickPage(currentPage + 1)"
+      ><x-icon name="right"></x-icon
+    ></span>
   </div>
 </template>
 <script>
@@ -56,6 +64,7 @@ export default {
       arr = this.unique(arr)
         //过滤
         .filter(n => n >= 1 && n <= this.totalPage)
+        //保证每次都有6个页码
         //reduce Api push ...
         .reduce((prev, currrt, index, arrar) => {
           prev.push(currrt)
@@ -67,10 +76,39 @@ export default {
           }
           return prev
         }, [])
-      return arr
+      return this.addNumber(arr)
     }
   },
   methods: {
+    onClickPage(page) {
+      this.$emit('update:currentPage', page)
+      this.$emit('pageSize', page)
+    },
+    addNumber(arr) {
+      let array = arr
+      if (this.currentPage == 1) {
+        array.splice(3, 0, 4)
+        array.splice(4, 0, 5)
+        array.splice(5, 0, 6)
+      }
+      if (this.currentPage == 2) {
+        array.splice(4, 0, 5)
+        array.splice(5, 0, 6)
+      }
+      if (this.currentPage == 3) {
+        array.splice(5, 0, 6)
+      } else if (this.currentPage === this.totalPage) {
+        array.splice(2, 0, this.totalPage - 3)
+        array.splice(2, 0, this.totalPage - 4)
+        array.splice(2, 0, this.totalPage - 5)
+      } else if (this.currentPage === this.totalPage - 1) {
+        array.splice(2, 0, this.totalPage - 4)
+        array.splice(2, 0, this.totalPage - 5)
+      } else if (this.currentPage === this.totalPage - 2) {
+        array.splice(2, 0, this.totalPage - 5)
+      }
+      return array
+    },
     unique(arr) {
       //去重,但是兼容性不是很好
       // return [...new Set(arr)]
@@ -99,8 +137,8 @@ export default {
     }
   }
   .current {
-    border: 1px solid blue;
-    color: blue;
+    border: 1px solid #409eff;
+    color: #409eff;
   }
   .pager-nav {
     display: flex;
