@@ -1,7 +1,8 @@
 <template>
   <div>
+    {{selected}}
     <!-- <Form-sample></Form-sample> -->
-    <g-table @chekeboxChange="changes" border :columns="columns" :dataSource="dataSource"></g-table>
+    <g-table :selectedItem.sync="selected" border :columns="columns" :dataSource="dataSource"></g-table>
   </div>
 </template>
 
@@ -12,7 +13,7 @@ export default {
   name: '',
   data() {
     return {
-      selected: ['home'],
+      selected: [],
       columns: [
         { text: '姓名', field: 'name' },
         { text: '分数', field: 'score' }
@@ -29,9 +30,7 @@ export default {
     GTable
   },
   methods:{
-    changes(obj){
-      console.log(obj)
-    }
+  
   }
 }
 </script>

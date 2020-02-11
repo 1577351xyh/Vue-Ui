@@ -8,9 +8,12 @@
   border-bottom: 1px solid #ebeef5;
 }
 .gulu-table-box .gulu-table th,
-.gulu-table-box .gulu-table tr {
+.gulu-table-box .gulu-table tr,
+.gulu-table-box .gulu-table td {
   border-bottom: 1px solid #ebeef5;
+  border-left: 1px solid #ebeef5;
   padding: 8px;
+  text-align: left;
 }
 .gulu-table-box .gulu-table tbody > tr:nth-child(odd) {
   background: white;

@@ -12463,6 +12463,11 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
 var _default = {
   data: function data() {
     return {};
@@ -12483,6 +12488,12 @@ var _default = {
       type: Array,
       required: true
     },
+    selectedItem: {
+      type: Array,
+      default: function _default() {
+        return [];
+      }
+    },
     //间距大小
     compact: {
       type: Boolean,
@@ -12494,17 +12505,39 @@ var _default = {
       default: false
     }
   },
+  computed: {
+    areItemAllSelected: function areItemAllSelected() {
+      //判断两个数组是否箱单
+      return true;
+    }
+  },
   methods: {
     chekeboxChange: function chekeboxChange(item, index, e) {
       //e.target.checked 当前checkbox选中的状态
-      this.$emit('chekeboxChange', {
-        item: item,
-        index: index,
-        selected: e.target.checked
-      });
+      // this.$emit('chekeboxChange', { item, index, selected: e.target.checked })
+      //深拷贝
+      var selected = e.target.checked;
+      var copy = JSON.parse(JSON.stringify(this.selectedItem));
+
+      if (selected) {
+        copy.push(item);
+      } else {
+        // copy.splice(copy.indexOf(item), 1)
+        copy = copy.filter(function (i) {
+          return i.id !== item.id;
+        });
+      }
+
+      this.$emit('update:selectedItem', copy);
     },
     //全选
-    chekeboxChangeAll: function chekeboxChangeAll(e) {}
+    chekeboxChangeAll: function chekeboxChangeAll(e) {
+      if (e.target.checked) {
+        this.$emit('update:selectedItem', this.dataSource);
+      } else {
+        this.$emit('update:selectedItem', []);
+      }
+    }
   }
 };
 exports.default = _default;
@@ -12535,6 +12568,7 @@ exports.default = _default;
               _c("th", [
                 _c("input", {
                   attrs: { type: "checkbox" },
+                  domProps: { checked: _vm.areItemAllSelected },
                   on: {
                     change: function($event) {
                       return _vm.chekeboxChangeAll($event)
@@ -12544,7 +12578,7 @@ exports.default = _default;
               ]),
               _vm._v(" "),
               _vm._l(_vm.columns, function(item) {
-                return _c("th", [
+                return _c("th", { key: item.field }, [
                   _vm._v("\n          " + _vm._s(item.text) + "\n        ")
                 ])
               })
@@ -12558,10 +12592,17 @@ exports.default = _default;
           _vm._l(_vm.dataSource, function(item, index) {
             return _c(
               "tr",
+              { key: item.id },
               [
-                _c("th", [
+                _c("td", [
                   _c("input", {
                     attrs: { type: "checkbox" },
+                    domProps: {
+                      checked:
+                        _vm.selectedItem.filter(function(i) {
+                          return i.id === item.id
+                        }).length > 0
+                    },
                     on: {
                       change: function($event) {
                         return _vm.chekeboxChange(item, index, $event)
@@ -12571,7 +12612,11 @@ exports.default = _default;
                 ]),
                 _vm._v(" "),
                 _vm._l(_vm.columns, function(column) {
-                  return [_c("th", [_vm._v(_vm._s(item[column.field]))])]
+                  return [
+                    _c("td", { key: column.field }, [
+                      _vm._v(_vm._s(item[column.field]))
+                    ])
+                  ]
                 })
               ],
               2
@@ -12635,12 +12680,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
 // import FormSample from "./Form/index";
 var _default = {
   name: '',
   data: function data() {
     return {
-      selected: ['home'],
+      selected: [],
       columns: [{
         text: '姓名',
         field: 'name'
@@ -12670,11 +12716,7 @@ var _default = {
   components: {
     GTable: _table.default
   },
-  methods: {
-    changes: function changes(obj) {
-      console.log(obj);
-    }
-  }
+  methods: {}
 };
 exports.default = _default;
         var $439c2f = exports.default || module.exports;
@@ -12692,9 +12734,23 @@ exports.default = _default;
   return _c(
     "div",
     [
+      _vm._v("\n  " + _vm._s(_vm.selected) + "\n  "),
+      _vm._v(" "),
       _c("g-table", {
-        attrs: { border: "", columns: _vm.columns, dataSource: _vm.dataSource },
-        on: { chekeboxChange: _vm.changes }
+        attrs: {
+          selectedItem: _vm.selected,
+          border: "",
+          columns: _vm.columns,
+          dataSource: _vm.dataSource
+        },
+        on: {
+          "update:selectedItem": function($event) {
+            _vm.selected = $event
+          },
+          "update:selected-item": function($event) {
+            _vm.selected = $event
+          }
+        }
       })
     ],
     1
@@ -12775,7 +12831,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57497" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53634" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
