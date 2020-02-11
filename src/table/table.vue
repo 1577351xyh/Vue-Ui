@@ -11,7 +11,21 @@
             />
           </th>
           <th v-for="item in columns" :key="item.field">
-            {{ item.text }}
+            <div class="table-flex">
+              {{ item.text }}
+              <span class="g-table-icon" v-if="item.field in orderBy">
+                <g-icon
+                  name="shang"
+                  :class="{ acitve: orderBy[item.field] === 'asc' }"
+                  @click="changeOrderBy(item.field)"
+                ></g-icon>
+                <g-icon
+                  name="xia"
+                  :class="{ acitve: orderBy[item.field] === 'desc' }"
+                  @click="changeOrderBy(item.field)"
+                ></g-icon>
+              </span>
+            </div>
           </th>
         </tr>
       </thead>
@@ -33,9 +47,13 @@
   </div>
 </template>
 <script>
+import GIcon from '../icon/icon'
 export default {
   data() {
     return {}
+  },
+  components: {
+    GIcon
   },
   props: {
     //数据源
@@ -45,6 +63,11 @@ export default {
       validator(arr) {
         return !(arr.filter(item => item.id === undefined).length > 0)
       }
+    },
+    //排序
+    orderBy: {
+      type: Object,
+      default: () => {}
     },
     //表头数据
     columns: {
@@ -87,6 +110,18 @@ export default {
     }
   },
   methods: {
+    changeOrderBy(key) {
+      let copy = JSON.parse(JSON.stringify(this.orderBy))
+      let odlVlaue = this.orderBy[key]
+      if (odlVlaue === 'asc') {
+        copy[key] = 'desc'
+      } else if (odlVlaue === 'desc') {
+        copy[key] = true
+      } else {
+        copy[key] = 'asc'
+      }
+      this.$emit('update:orderBy', copy)
+    },
     chekeboxChange(item, index, e) {
       //e.target.checked 当前checkbox选中的状态
       // this.$emit('chekeboxChange', { item, index, selected: e.target.checked })
@@ -128,6 +163,20 @@ export default {
       border-left: 1px solid #ebeef5;
       padding: 8px;
       text-align: left;
+      align-items: center;
+      .g-table-icon {
+        margin-left: 4px;
+        display: inline-flex;
+        flex-direction: column;
+        svg {
+          font-size: 11px;
+          cursor: pointer;
+          color: #666;
+        }
+        .acitve {
+          color: red;
+        }
+      }
     }
     tbody {
       > tr {
@@ -147,6 +196,10 @@ export default {
   }
   .border {
     border: 1px solid #ebeef5;
+  }
+  .table-flex {
+    display: flex;
+    align-items: center;
   }
 }
 </style>

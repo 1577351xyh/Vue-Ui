@@ -82,7 +82,6 @@ export default {
   methods: {
     onClickPage(page) {
       this.$emit('update:currentPage', page)
-      this.$emit('pageSize', page)
     },
     addNumber(arr) {
       let array = arr

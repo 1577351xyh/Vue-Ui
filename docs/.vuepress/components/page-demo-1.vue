@@ -6,8 +6,8 @@
     </p>
     <g-page
       :totalPage="20"
-      :currentPage.sync="currentPage"
-      @pageSize="pageSize"
+      :currentPage.sync="currentPageNub"
+      @update:currentPage="changePage"
     ></g-page>
     <p>
       <strong>代码</strong>
@@ -27,7 +27,7 @@ export default {
   components: { GPage },
   data() {
     return {
-      currentPage: 1,
+      currentPageNub: 1,
       content: `
       <g-page :totalPage="20" :currentPage.sync="currentPage" @pageSize="pageSize"></g-page>
       data:{
@@ -44,9 +44,9 @@ export default {
     }
   },
   methods: {
-    pageSize(page) {
+    changePage() {
       //当前页码
-      console.log(page)
+      console.log(this.currentPageNub)
     }
   }
 }
