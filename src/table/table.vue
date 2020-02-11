@@ -68,8 +68,22 @@ export default {
   },
   computed: {
     areItemAllSelected() {
-      //判断两个数组是否箱单
-      return true;
+      //判断两个数组是否箱单 1.根据id排序, 如果纯根据数组长度容易出现bug
+      //把id项筛选出出来,做字典排序
+      const a = this.dataSource.map(item => item.id).sort()
+      const b = this.selectedItem.map(item => item.id).sort()
+
+      if (a.length !== b.length) {
+        return false
+      }
+      let equal = true
+      for (let i = 0; i < a.length; i++) {
+        if (a[i] !== b[i]) {
+          equal = false
+          break
+        }
+      }
+      return equal
     }
   },
   methods: {

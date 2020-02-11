@@ -12507,8 +12507,29 @@ var _default = {
   },
   computed: {
     areItemAllSelected: function areItemAllSelected() {
-      //判断两个数组是否箱单
-      return true;
+      //判断两个数组是否箱单 1.根据id排序, 如果纯根据数组长度容易出现bug
+      //把id项筛选出出来,做字典排序
+      var a = this.dataSource.map(function (item) {
+        return item.id;
+      }).sort();
+      var b = this.selectedItem.map(function (item) {
+        return item.id;
+      }).sort();
+
+      if (a.length !== b.length) {
+        return false;
+      }
+
+      var equal = true;
+
+      for (var i = 0; i < a.length; i++) {
+        if (a[i] !== b[i]) {
+          equal = false;
+          break;
+        }
+      }
+
+      return equal;
     }
   },
   methods: {
@@ -12831,7 +12852,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53634" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53783" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
