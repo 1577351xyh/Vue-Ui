@@ -12643,7 +12643,7 @@ var _default = {
     },
     //高度
     height: {
-      type: String,
+      type: Number,
       required: true
     },
     //加载状态
@@ -12705,7 +12705,12 @@ var _default = {
       return equal;
     }
   },
-  mounted: function mounted() {// this.init()
+  mounted: function mounted() {
+    this.init();
+  },
+  beforeDestroy: function beforeDestroy() {
+    this.table2.remove();
+    this.table2 = null;
   },
   methods: {
     init: function init() {
@@ -12777,7 +12782,7 @@ exports.default = _default;
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { ref: "wrapper", staticClass: "gulu-table-box" }, [
-    _c("div", { style: { height: _vm.height, overflow: "auto" } }, [
+    _c("div", { style: { height: _vm.height + "px", overflow: "auto" } }, [
       _c(
         "table",
         {
@@ -12884,7 +12889,7 @@ exports.default = _default;
                         "td",
                         {
                           key: column.field,
-                          style: { width: item.width + "px" }
+                          style: { width: column.width + "px" }
                         },
                         [_vm._v(_vm._s(item[column.field]))]
                       )
@@ -13100,7 +13105,7 @@ exports.default = _default;
           dataSource: _vm.dataSource,
           orderBy: _vm.orderBy,
           loading: _vm.loading,
-          height: "400px"
+          height: 300
         },
         on: {
           "update:selectedItem": function($event) {
@@ -13199,7 +13204,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54157" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50942" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -9,7 +9,7 @@
       :orderBy.sync="orderBy"
       @update:orderBy="orderByChange"
       :loading="loading"
-      :height="'400px'"
+      :height="300"
     ></g-table>
   </div>
 </template>

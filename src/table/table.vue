@@ -1,6 +1,6 @@
 <template>
   <div class="gulu-table-box" ref="wrapper">
-    <div :style="{ height,overflow:'auto'}">
+    <div :style="{ height:height+'px',overflow:'auto'}">
       <table
         class="gulu-table"
         ref="table"
@@ -44,7 +44,7 @@
               />
             </td>
             <template v-for="column in columns">
-              <td :style="{width:item.width +'px'}" :key="column.field">{{ item[column.field] }}</td>
+              <td :style="{width:column.width +'px'}" :key="column.field">{{ item[column.field] }}</td>
             </template>
           </tr>
         </tbody>
@@ -77,7 +77,7 @@ export default {
     },
     //高度
     height: {
-      type: String,
+      type: Number,
       required: true
     },
     //加载状态
@@ -131,7 +131,11 @@ export default {
     }
   },
   mounted() {
-    // this.init()
+    this.init()
+  },
+  beforeDestroy(){
+    this.table2.remove();
+    this.table2 = null;
   },
   methods: {
     init() {
