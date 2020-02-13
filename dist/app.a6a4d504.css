@@ -6,11 +6,11 @@
   overflow: hidden;
 }
 .gulu-table-box {
-  padding: 4px;
+  position: relative;
 }
 .gulu-table-box .gulu-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: collapse!important;
   border-spacing: 0;
   border-bottom: 1px solid #ebeef5;
 }
@@ -21,7 +21,6 @@
   border-left: 1px solid #ebeef5;
   padding: 8px;
   text-align: left;
-  align-items: center;
 }
 .gulu-table-box .gulu-table th .g-table-icon,
 .gulu-table-box .gulu-table tr .g-table-icon,
@@ -48,6 +47,14 @@
 .gulu-table-box .gulu-table tbody > tr:nth-child(even) {
   background: #fafafa;
 }
+.gulu-table-box .gulu-copy-table {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  z-index: 1;
+}
 .gulu-table-box .compact tr {
   padding: 4px;
 }
@@ -57,5 +64,29 @@
 .gulu-table-box .table-flex {
   display: flex;
   align-items: center;
+}
+.gulu-table-box .gulu-table-loading {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+.gulu-table-box .gulu-table-loading .loading {
+  font-size: 42px;
+  animation: spin 2s infinite linear !important;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 

@@ -12,6 +12,7 @@
       :dataSource="dataSource"
       :orderBy.sync="orderBy"
       @update:orderBy="orderByChange"
+      :loading="loading"
     ></g-table>
     <p>
       <strong>代码</strong>
@@ -48,6 +49,7 @@ export default {
         { id: 3, name: '王五', score: '97' },
         { id: 4, name: '赵六', score: '96' }
       ],
+      loading: true,
       content: `
       data:{
         selected: [],
@@ -89,7 +91,11 @@ export default {
   },
   methods: {
     orderByChange() {
-      console.log(this.orderBy)
+      this.loading = true
+      setTimeout(() => {
+        console.log(this.orderBy)
+        this.loading = false;
+      }, 2000)
     }
   }
 }

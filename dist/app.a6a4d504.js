@@ -12612,9 +12612,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   data: function data() {
-    return {};
+    return {
+      table2: undefined
+    };
   },
   components: {
     GIcon: _icon.default
@@ -12629,6 +12640,16 @@ var _default = {
           return item.id === undefined;
         }).length > 0);
       }
+    },
+    //高度
+    height: {
+      type: String,
+      required: true
+    },
+    //加载状态
+    loading: {
+      type: Boolean,
+      default: false
     },
     //排序
     orderBy: {
@@ -12684,7 +12705,22 @@ var _default = {
       return equal;
     }
   },
+  mounted: function mounted() {// this.init()
+  },
   methods: {
+    init: function init() {
+      //复制一个空的table 把带有事件的thead添加进去,留下间距
+      this.table2 = this.$refs.table.cloneNode(false);
+      this.table2.classList.add('gulu-copy-table');
+      var tHead = this.$refs.table.children[0];
+
+      var _tHead$getBoundingCli = tHead.getBoundingClientRect(),
+          height = _tHead$getBoundingCli.height;
+
+      this.$refs.table.style.marginTop = height + 'px';
+      this.table2.appendChild(tHead);
+      this.$refs.wrapper.appendChild(this.table2);
+    },
     changeOrderBy: function changeOrderBy(key) {
       var copy = JSON.parse(JSON.stringify(this.orderBy));
       var odlVlaue = this.orderBy[key];
@@ -12740,115 +12776,140 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "gulu-table-box" }, [
-    _c(
-      "table",
-      {
-        staticClass: "gulu-table",
-        class: { compact: _vm.compact, border: _vm.border }
-      },
-      [
-        _c("thead", [
-          _c(
-            "tr",
-            [
-              _c("th", [
-                _c("input", {
-                  attrs: { type: "checkbox" },
-                  domProps: { checked: _vm.areItemAllSelected },
-                  on: {
-                    change: function($event) {
-                      return _vm.chekeboxChangeAll($event)
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _vm._l(_vm.columns, function(item) {
-                return _c("th", { key: item.field }, [
-                  _c("div", { staticClass: "table-flex" }, [
-                    _vm._v(
-                      "\n            " + _vm._s(item.text) + "\n            "
-                    ),
-                    item.field in _vm.orderBy
-                      ? _c(
-                          "span",
-                          { staticClass: "g-table-icon" },
-                          [
-                            _c("g-icon", {
-                              class: {
-                                acitve: _vm.orderBy[item.field] === "asc"
-                              },
-                              attrs: { name: "shang" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.changeOrderBy(item.field)
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("g-icon", {
-                              class: {
-                                acitve: _vm.orderBy[item.field] === "desc"
-                              },
-                              attrs: { name: "xia" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.changeOrderBy(item.field)
-                                }
-                              }
-                            })
-                          ],
-                          1
-                        )
-                      : _vm._e()
-                  ])
-                ])
-              })
-            ],
-            2
-          )
-        ]),
-        _vm._v(" "),
-        _c(
-          "tbody",
-          _vm._l(_vm.dataSource, function(item, index) {
-            return _c(
+  return _c("div", { ref: "wrapper", staticClass: "gulu-table-box" }, [
+    _c("div", { style: { height: _vm.height, overflow: "auto" } }, [
+      _c(
+        "table",
+        {
+          ref: "table",
+          staticClass: "gulu-table",
+          class: { compact: _vm.compact, border: _vm.border }
+        },
+        [
+          _c("thead", [
+            _c(
               "tr",
-              { key: item.id },
               [
-                _c("td", [
+                _c("th", { style: { width: "50px" } }, [
                   _c("input", {
                     attrs: { type: "checkbox" },
-                    domProps: {
-                      checked:
-                        _vm.selectedItem.filter(function(i) {
-                          return i.id === item.id
-                        }).length > 0
-                    },
+                    domProps: { checked: _vm.areItemAllSelected },
                     on: {
                       change: function($event) {
-                        return _vm.chekeboxChange(item, index, $event)
+                        return _vm.chekeboxChangeAll($event)
                       }
                     }
                   })
                 ]),
                 _vm._v(" "),
-                _vm._l(_vm.columns, function(column) {
-                  return [
-                    _c("td", { key: column.field }, [
-                      _vm._v(_vm._s(item[column.field]))
-                    ])
-                  ]
+                _vm._l(_vm.columns, function(item) {
+                  return _c(
+                    "th",
+                    { key: item.field, style: { width: item.width + "px" } },
+                    [
+                      _c("div", { staticClass: "table-flex" }, [
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(item.text) +
+                            "\n              "
+                        ),
+                        item.field in _vm.orderBy
+                          ? _c(
+                              "span",
+                              { staticClass: "g-table-icon" },
+                              [
+                                _c("g-icon", {
+                                  class: {
+                                    acitve: _vm.orderBy[item.field] === "asc"
+                                  },
+                                  attrs: { name: "shang" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.changeOrderBy(item.field)
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("g-icon", {
+                                  class: {
+                                    acitve: _vm.orderBy[item.field] === "desc"
+                                  },
+                                  attrs: { name: "xia" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.changeOrderBy(item.field)
+                                    }
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          : _vm._e()
+                      ])
+                    ]
+                  )
                 })
               ],
               2
             )
-          }),
-          0
+          ]),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            _vm._l(_vm.dataSource, function(item, index) {
+              return _c(
+                "tr",
+                { key: item.id },
+                [
+                  _c("td", { style: { width: "50px" } }, [
+                    _c("input", {
+                      attrs: { type: "checkbox" },
+                      domProps: {
+                        checked:
+                          _vm.selectedItem.filter(function(i) {
+                            return i.id === item.id
+                          }).length > 0
+                      },
+                      on: {
+                        change: function($event) {
+                          return _vm.chekeboxChange(item, index, $event)
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.columns, function(column) {
+                    return [
+                      _c(
+                        "td",
+                        {
+                          key: column.field,
+                          style: { width: item.width + "px" }
+                        },
+                        [_vm._v(_vm._s(item[column.field]))]
+                      )
+                    ]
+                  })
+                ],
+                2
+              )
+            }),
+            0
+          )
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _vm.loading
+      ? _c(
+          "div",
+          { staticClass: "gulu-table-loading" },
+          [
+            _c("g-icon", { staticClass: "loading", attrs: { name: "loading" } })
+          ],
+          1
         )
-      ]
-    )
+      : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -12911,6 +12972,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
 // import FormSample from "./Form/index";
 var _default = {
   name: '',
@@ -12919,7 +12981,8 @@ var _default = {
       selected: [],
       columns: [{
         text: '姓名',
-        field: 'name'
+        field: 'name',
+        width: 200
       }, {
         text: '分数',
         field: 'score'
@@ -12946,7 +13009,56 @@ var _default = {
         id: 4,
         name: '赵六',
         score: '96'
-      }]
+      }, {
+        id: 5,
+        name: '张三',
+        score: '99'
+      }, {
+        id: 6,
+        name: '李四',
+        score: '98'
+      }, {
+        id: 7,
+        name: '王五',
+        score: '97'
+      }, {
+        id: 8,
+        name: '赵六',
+        score: '96'
+      }, {
+        id: 9,
+        name: '张三',
+        score: '99'
+      }, {
+        id: 10,
+        name: '李四',
+        score: '98'
+      }, {
+        id: 13,
+        name: '王五',
+        score: '97'
+      }, {
+        id: 14,
+        name: '赵六',
+        score: '96'
+      }, {
+        id: 11,
+        name: '张三',
+        score: '99'
+      }, {
+        id: 12,
+        name: '李四',
+        score: '98'
+      }, {
+        id: 15,
+        name: '王五',
+        score: '97'
+      }, {
+        id: 16,
+        name: '赵六',
+        score: '96'
+      }],
+      loading: false
     };
   },
   components: {
@@ -12954,7 +13066,13 @@ var _default = {
   },
   methods: {
     orderByChange: function orderByChange() {
-      console.log(this.orderBy);
+      var _this = this;
+
+      this.loading = true;
+      setTimeout(function () {
+        console.log(_this.orderBy);
+        _this.loading = false;
+      }, 2000);
     }
   }
 };
@@ -12974,15 +13092,15 @@ exports.default = _default;
   return _c(
     "div",
     [
-      _vm._v("\n  " + _vm._s(_vm.selected) + "\n  "),
-      _vm._v(" "),
       _c("g-table", {
         attrs: {
           selectedItem: _vm.selected,
           border: "",
           columns: _vm.columns,
           dataSource: _vm.dataSource,
-          orderBy: _vm.orderBy
+          orderBy: _vm.orderBy,
+          loading: _vm.loading,
+          height: "400px"
         },
         on: {
           "update:selectedItem": function($event) {
@@ -13081,7 +13199,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49294" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54157" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ selected }}
     <!-- <Form-sample></Form-sample> -->
     <g-table
       :selectedItem.sync="selected"
@@ -9,6 +8,8 @@
       :dataSource="dataSource"
       :orderBy.sync="orderBy"
       @update:orderBy="orderByChange"
+      :loading="loading"
+      :height="'400px'"
     ></g-table>
   </div>
 </template>
@@ -22,8 +23,8 @@ export default {
     return {
       selected: [],
       columns: [
-        { text: '姓名', field: 'name' },
-        { text: '分数', field: 'score' }
+        { text: '姓名', field: 'name' ,width:200},
+        { text: '分数', field: 'score'}
       ],
       //排序规则
       orderBy: {
@@ -35,16 +36,33 @@ export default {
         { id: 1, name: '张三', score: '99' },
         { id: 2, name: '李四', score: '98' },
         { id: 3, name: '王五', score: '97' },
-        { id: 4, name: '赵六', score: '96' }
-      ]
+        { id: 4, name: '赵六', score: '96' },
+        { id: 5, name: '张三', score: '99' },
+        { id: 6, name: '李四', score: '98' },
+        { id: 7, name: '王五', score: '97' },
+        { id: 8, name: '赵六', score: '96' },
+        { id: 9, name: '张三', score: '99' },
+        { id: 10, name: '李四', score: '98' },
+        { id: 13, name: '王五', score: '97' },
+        { id: 14, name: '赵六', score: '96' },
+        { id: 11, name: '张三', score: '99' },
+        { id: 12, name: '李四', score: '98' },
+        { id: 15, name: '王五', score: '97' },
+        { id: 16, name: '赵六', score: '96' }
+      ],
+      loading: false
     }
   },
   components: {
     GTable
   },
   methods: {
-    orderByChange(){
-      console.log(this.orderBy)
+    orderByChange() {
+      this.loading = true
+      setTimeout(() => {
+        console.log(this.orderBy)
+        this.loading = false
+      }, 2000)
     }
   }
 }

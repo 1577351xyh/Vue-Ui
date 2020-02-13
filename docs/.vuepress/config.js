@@ -31,6 +31,7 @@ module.exports = {
           '/components/popover',
           '/components/slides',
           '/components/collapse',
+          '/components/from',
           // '/components/cascader',
           '/components/nav',
           '/components/page',
