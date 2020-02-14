@@ -62,7 +62,7 @@
 
             <tr
               :key="item.id + 'expend'"
-              v-if="expendFieldArray.indexOf(item.id)"
+              v-if="expendFieldArray.indexOf(item.id)>-1"
             >
               <td :colspan="colspanLengths">
                 {{ item.expendField || '无' }}

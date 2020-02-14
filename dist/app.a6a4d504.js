@@ -12992,7 +12992,7 @@ exports.default = _default;
                       2
                     ),
                     _vm._v(" "),
-                    _vm.expendFieldArray.indexOf(item.id)
+                    _vm.expendFieldArray.indexOf(item.id) > -1
                       ? _c("tr", { key: item.id + "expend" }, [
                           _c("td", { attrs: { colspan: _vm.colspanLengths } }, [
                             _vm._v(
@@ -13318,7 +13318,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54107" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55929" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
