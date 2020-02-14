@@ -1,21 +1,25 @@
 <template>
   <div class="gulu-table-box" ref="wrapper">
-    <div :style="{ height:height+'px',overflow:'auto'}">
-      <table
-        class="gulu-table"
-        ref="table"
-        :class="{ compact, border }"
-      >
+    <div
+      :style="{ height: height + 'px', overflow: 'auto' }"
+      ref="tableWrapper"
+    >
+      <table class="gulu-table" ref="table" :class="{ compact, border }">
         <thead>
           <tr>
-            <th :style="{width:'50px'}">
+            <th :style="{ width: '50px' }"></th>
+            <th v-if="checkeds" :style="{ width: '50px' }">
               <input
                 @change="chekeboxChangeAll($event)"
                 type="checkbox"
                 :checked="areItemAllSelected"
               />
             </th>
-            <th v-for="item in columns" :key="item.field" :style="{width:item.width+'px'}">
+            <th
+              v-for="item in columns"
+              :key="item.field"
+              :style="{ width: item.width + 'px' }"
+            >
               <div class="table-flex">
                 {{ item.text }}
                 <span class="g-table-icon" v-if="item.field in orderBy">
@@ -35,18 +39,36 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in dataSource" :key="item.id">
-            <td :style="{width:'50px'}">
-              <input
-                @change="chekeboxChange(item, index, $event)"
-                type="checkbox"
-                :checked="selectedItem.filter(i => i.id === item.id).length > 0"
-              />
-            </td>
-            <template v-for="column in columns">
-              <td :style="{width:column.width +'px'}" :key="column.field">{{ item[column.field] }}</td>
-            </template>
-          </tr>
+          <template v-for="(item, index) in dataSource">
+            <tr :key="item.id">
+              <th :style="{ width: '50px' }" @click="expendOpen(item.id)">
+                展
+              </th>
+              <td v-if="checkeds" :style="{ width: '50px' }">
+                <input
+                  @change="chekeboxChange(item, index, $event)"
+                  type="checkbox"
+                  :checked="
+                    selectedItem.filter(i => i.id === item.id).length > 0
+                  "
+                />
+              </td>
+              <template v-for="column in columns">
+                <td :style="{ width: column.width + 'px' }" :key="column.field">
+                  {{ item[column.field] }}
+                </td>
+              </template>
+            </tr>
+
+            <tr
+              :key="item.id + 'expend'"
+              v-if="expendFieldArray.indexOf(item.id)"
+            >
+              <td :colspan="colspanLengths">
+                {{ item.expendField || '无' }}
+              </td>
+            </tr>
+          </template>
         </tbody>
       </table>
     </div>
@@ -60,7 +82,9 @@ import GIcon from '../icon/icon'
 export default {
   data() {
     return {
-      table2: undefined
+      table2: undefined,
+      expendFieldArray: [],
+      colspanLength: 0
     }
   },
   components: {
@@ -108,9 +132,29 @@ export default {
     border: {
       type: Boolean,
       default: false
+    },
+    //是否有chekedbox
+    checkeds: {
+      type: Boolean,
+      default: false
+    },
+    //内容是否要折叠
+    expendField: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
+    colspanLengths() {
+      let number;
+      if (this.checkeds) {
+        this.colspanLengt = this.columns.length + 2
+      } else {
+        this.colspanLengt = this.columns.length + 1
+      }
+      number = this.colspanLengt
+      return number
+    },
     areItemAllSelected() {
       //判断两个数组是否箱单 1.根据id排序, 如果纯根据数组长度容易出现bug
       //把id项筛选出出来,做字典排序
@@ -133,9 +177,9 @@ export default {
   mounted() {
     this.init()
   },
-  beforeDestroy(){
-    this.table2.remove();
-    this.table2 = null;
+  beforeDestroy() {
+    this.table2.remove()
+    this.table2 = null
   },
   methods: {
     init() {
@@ -144,9 +188,19 @@ export default {
       this.table2.classList.add('gulu-copy-table')
       let tHead = this.$refs.table.children[0]
       const { height } = tHead.getBoundingClientRect()
-      this.$refs.table.style.marginTop = height + 'px'
+      this.$refs.tableWrapper.style.marginTop = height + 'px'
+      this.$refs.tableWrapper.style.height = this.height - height + 'px'
       this.table2.appendChild(tHead)
       this.$refs.wrapper.appendChild(this.table2)
+    },
+    expendOpen(id) {
+      if (this.expendFieldArray.indexOf(id)>-1) {
+        this.expendFieldArray.splice(this.expendFieldArray.indexOf(id), 1)
+        return
+      }
+      this.expendFieldArray.push(id)
+
+      console.log(this.expendFieldArray)
     },
     changeOrderBy(key) {
       let copy = JSON.parse(JSON.stringify(this.orderBy))
@@ -190,7 +244,7 @@ export default {
   position: relative;
   .gulu-table {
     width: 100%;
-    border-collapse: collapse!important;
+    border-collapse: collapse !important;
     border-spacing: 0;
     border-bottom: 1px solid #ebeef5;
     th,
@@ -213,9 +267,8 @@ export default {
           color: red;
         }
       }
-      
     }
-    
+
     tbody {
       > tr {
         &:nth-child(odd) {
@@ -226,7 +279,6 @@ export default {
         }
       }
     }
-   
   }
   .gulu-copy-table {
     position: fixed;

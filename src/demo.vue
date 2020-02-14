@@ -9,7 +9,9 @@
       :orderBy.sync="orderBy"
       @update:orderBy="orderByChange"
       :loading="loading"
-      :height="300"
+      :height="400"
+      :checkeds="true"
+      :expendField="true"
     ></g-table>
   </div>
 </template>
@@ -33,8 +35,8 @@ export default {
         score: 'desc'
       },
       dataSource: [
-        { id: 1, name: '张三', score: '99' },
-        { id: 2, name: '李四', score: '98' },
+        { id: 1, name: '张三', score: '99' ,expendField:'aaaaa'},
+        { id: 2, name: '李四', score: '98' ,expendField:'bbbbb'},
         { id: 3, name: '王五', score: '97' },
         { id: 4, name: '赵六', score: '96' },
         { id: 5, name: '张三', score: '99' },
