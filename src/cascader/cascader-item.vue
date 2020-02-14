@@ -59,7 +59,7 @@ export default {
     computed:{
         rightItems(){
             let currentSelected = this.selected[this.level];
-            console.log(currentSelected);
+            // console.log(currentSelected);
             if(currentSelected && currentSelected.children){
                 return currentSelected.children
             }else {
@@ -83,7 +83,7 @@ export default {
         }
         .right{
            height: 100%;
-            border-left: 1px solid #3333;;
+           border-left: 1px solid #3333;;
          }
         .label{
             display: flex;

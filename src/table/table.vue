@@ -42,7 +42,11 @@
           <template v-for="(item, index) in dataSource">
             <tr :key="item.id">
               <th :style="{ width: '50px' }" @click="expendOpen(item.id)">
-                展
+                <g-icon
+                  name="right"
+                  class="gulu-table-icon"
+                  :class="{ open: expendFieldArray.indexOf(item.id) > -1 }"
+                ></g-icon>
               </th>
               <td v-if="checkeds" :style="{ width: '50px' }">
                 <input
@@ -62,7 +66,7 @@
 
             <tr
               :key="item.id + 'expend'"
-              v-if="expendFieldArray.indexOf(item.id)>-1"
+              v-if="expendFieldArray.indexOf(item.id) > -1"
             >
               <td :colspan="colspanLengths">
                 {{ item.expendField || '无' }}
@@ -146,7 +150,7 @@ export default {
   },
   computed: {
     colspanLengths() {
-      let number;
+      let number
       if (this.checkeds) {
         this.colspanLengt = this.columns.length + 2
       } else {
@@ -194,7 +198,7 @@ export default {
       this.$refs.wrapper.appendChild(this.table2)
     },
     expendOpen(id) {
-      if (this.expendFieldArray.indexOf(id)>-1) {
+      if (this.expendFieldArray.indexOf(id) > -1) {
         this.expendFieldArray.splice(this.expendFieldArray.indexOf(id), 1)
         return
       }
@@ -324,5 +328,12 @@ export default {
   100% {
     transform: rotate(360deg);
   }
+}
+.open {
+  transform: rotate(90deg);
+  transition: all 0.5s;
+}
+.gulu-table-icon {
+  transition: all 0.5s;
 }
 </style>
