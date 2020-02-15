@@ -12,7 +12,12 @@
       :height="400"
       :checkeds="true"
       :expendField="true"
-    ></g-table>
+    >
+    <template slot-scope="item">
+        <button @click="edit(item.item)">编辑</button>
+        <button @click="view(item.item)">查看</button>
+    </template>
+    </g-table>
   </div>
 </template>
 
@@ -59,6 +64,13 @@ export default {
     GTable
   },
   methods: {
+    edit(item){
+      console.log(item)
+      alert(item.id)
+    },
+    view(item){
+      alert(item.id)
+    },
     orderByChange() {
       this.loading = true
       setTimeout(() => {

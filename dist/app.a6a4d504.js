@@ -12647,6 +12647,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
 var _default = {
   data: function data() {
     return {
@@ -12756,7 +12760,9 @@ var _default = {
     }
   },
   mounted: function mounted() {
-    this.init();
+    this.init(); //this.$scopedSlots 父组件是否传了插槽
+
+    console.log(this.$scopedSlots);
   },
   beforeDestroy: function beforeDestroy() {
     this.table2.remove();
@@ -12923,7 +12929,9 @@ exports.default = _default;
                         ])
                       ]
                     )
-                  })
+                  }),
+                  _vm._v(" "),
+                  _vm.$scopedSlots.default ? _c("th") : _vm._e()
                 ],
                 2
               )
@@ -13000,7 +13008,15 @@ exports.default = _default;
                               ]
                             )
                           ]
-                        })
+                        }),
+                        _vm._v(" "),
+                        _vm.$scopedSlots.default
+                          ? _c(
+                              "td",
+                              [_vm._t("default", null, { item: item })],
+                              2
+                            )
+                          : _vm._e()
                       ],
                       2
                     ),
@@ -13083,6 +13099,11 @@ var _table = _interopRequireDefault(require("./table/table"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//
+//
+//
+//
+//
 //
 //
 //
@@ -13195,6 +13216,13 @@ var _default = {
     GTable: _table.default
   },
   methods: {
+    edit: function edit(item) {
+      console.log(item);
+      alert(item.id);
+    },
+    view: function view(item) {
+      alert(item.id);
+    },
     orderByChange: function orderByChange() {
       var _this = this;
 
@@ -13250,7 +13278,39 @@ exports.default = _default;
           "update:order-by": function($event) {
             _vm.orderBy = $event
           }
-        }
+        },
+        scopedSlots: _vm._u([
+          {
+            key: "default",
+            fn: function(item) {
+              return [
+                _c(
+                  "button",
+                  {
+                    on: {
+                      click: function($event) {
+                        return _vm.edit(item.item)
+                      }
+                    }
+                  },
+                  [_vm._v("编辑")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    on: {
+                      click: function($event) {
+                        return _vm.view(item.item)
+                      }
+                    }
+                  },
+                  [_vm._v("查看")]
+                )
+              ]
+            }
+          }
+        ])
       })
     ],
     1
@@ -13331,7 +13391,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56346" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59392" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

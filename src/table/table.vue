@@ -36,6 +36,7 @@
                 </span>
               </div>
             </th>
+            <th v-if="$scopedSlots.default"></th>
           </tr>
         </thead>
         <tbody>
@@ -59,9 +60,12 @@
               </td>
               <template v-for="column in columns">
                 <td :style="{ width: column.width + 'px' }" :key="column.field">
-                  {{ item[column.field] }}
+                  {{item[column.field]}}
                 </td>
               </template>
+              <td v-if="$scopedSlots.default">
+                <slot :item="item"></slot>
+              </td>
             </tr>
 
             <tr
@@ -180,6 +184,9 @@ export default {
   },
   mounted() {
     this.init()
+
+    //this.$scopedSlots 父组件是否传了插槽
+    console.log(this.$scopedSlots)
   },
   beforeDestroy() {
     this.table2.remove()
@@ -272,7 +279,6 @@ export default {
         }
       }
     }
-
     tbody {
       > tr {
         &:nth-child(odd) {
