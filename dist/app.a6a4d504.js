@@ -12651,6 +12651,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
 var _default = {
   data: function data() {
     return {
@@ -12725,9 +12727,14 @@ var _default = {
       var number;
 
       if (this.checkeds) {
+        console.log(this.$scopedSlots.default);
         this.colspanLengt = this.columns.length + 2;
       } else {
         this.colspanLengt = this.columns.length + 1;
+      }
+
+      if (this.$scopedSlots.default) {
+        this.colspanLengt = this.columns.length + 3;
       }
 
       number = this.colspanLengt;
@@ -12761,8 +12768,30 @@ var _default = {
   },
   mounted: function mounted() {
     this.init(); //this.$scopedSlots 父组件是否传了插槽
+    //拿到插槽里面内容的宽度,动态复赋值给最后一行的td
 
-    console.log(this.$scopedSlots);
+    if (this.$scopedSlots.default) {
+      var div = this.$refs.actions[0];
+
+      var _div$getBoundingClien = div.getBoundingClientRect(),
+          width = _div$getBoundingClien.width;
+
+      var parent = div.parentNode;
+      var styles = getComputedStyle(parent); //返回节点所有的css属性
+
+      var paddingLeft = styles.getPropertyValue('padding-left');
+      var paddingRight = styles.getPropertyValue('padding-right');
+      var borderLeft = styles.getPropertyValue('border-left-width');
+      var bordergRight = styles.getPropertyValue('border-right-width');
+      var width2 = parseInt(width) + parseInt(paddingLeft) + parseInt(paddingRight) + parseInt(paddingLeft) + parseInt(borderLeft) + parseInt(bordergRight) + 'px'; //第一行的th 
+
+      this.$refs.actionsHeader.style.width = parseInt(width2) + 15 + 'px'; //后面每一行的td
+
+      this.$refs.actions.map(function (div) {
+        div.parentNode.style.width = width2;
+      });
+    } // console.log(this.$refs.actionsHeader.style.width)
+
   },
   beforeDestroy: function beforeDestroy() {
     this.table2.remove();
@@ -12790,7 +12819,6 @@ var _default = {
       }
 
       this.expendFieldArray.push(id);
-      console.log(this.expendFieldArray);
     },
     changeOrderBy: function changeOrderBy(key) {
       var copy = JSON.parse(JSON.stringify(this.orderBy));
@@ -12931,7 +12959,9 @@ exports.default = _default;
                     )
                   }),
                   _vm._v(" "),
-                  _vm.$scopedSlots.default ? _c("th") : _vm._e()
+                  _vm.$scopedSlots.default
+                    ? _c("th", { ref: "actionsHeader" })
+                    : _vm._e()
                 ],
                 2
               )
@@ -13011,11 +13041,18 @@ exports.default = _default;
                         }),
                         _vm._v(" "),
                         _vm.$scopedSlots.default
-                          ? _c(
-                              "td",
-                              [_vm._t("default", null, { item: item })],
-                              2
-                            )
+                          ? _c("td", [
+                              _c(
+                                "div",
+                                {
+                                  ref: "actions",
+                                  refInFor: true,
+                                  staticStyle: { display: "inline-block" }
+                                },
+                                [_vm._t("default", null, { item: item })],
+                                2
+                              )
+                            ])
                           : _vm._e()
                       ],
                       2
@@ -13391,7 +13428,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59392" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58197" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -1,7 +1,7 @@
 <template>
   <div class="gulu-table-box" ref="wrapper">
     <div
-      :style="{ height: height + 'px', overflow: 'auto' }"
+      :style="{ height: height + 'px', overflow: 'auto'}"
       ref="tableWrapper"
     >
       <table class="gulu-table" ref="table" :class="{ compact, border }">
@@ -36,7 +36,7 @@
                 </span>
               </div>
             </th>
-            <th v-if="$scopedSlots.default"></th>
+            <th ref="actionsHeader" v-if="$scopedSlots.default"></th>
           </tr>
         </thead>
         <tbody>
@@ -60,11 +60,13 @@
               </td>
               <template v-for="column in columns">
                 <td :style="{ width: column.width + 'px' }" :key="column.field">
-                  {{item[column.field]}}
+                  {{ item[column.field] }}
                 </td>
               </template>
               <td v-if="$scopedSlots.default">
-                <slot :item="item"></slot>
+                <div ref="actions" style="display:inline-block">
+                  <slot :item="item"></slot>
+                </div>
               </td>
             </tr>
 
@@ -156,9 +158,13 @@ export default {
     colspanLengths() {
       let number
       if (this.checkeds) {
+        console.log(this.$scopedSlots.default)
         this.colspanLengt = this.columns.length + 2
-      } else {
+      }else {
         this.colspanLengt = this.columns.length + 1
+      }
+      if(this.$scopedSlots.default){
+       this.colspanLengt = this.columns.length + 3
       }
       number = this.colspanLengt
       return number
@@ -186,7 +192,26 @@ export default {
     this.init()
 
     //this.$scopedSlots 父组件是否传了插槽
-    console.log(this.$scopedSlots)
+    //拿到插槽里面内容的宽度,动态复赋值给最后一行的td
+    if (this.$scopedSlots.default) {
+      let div = this.$refs.actions[0]
+      let { width } = div.getBoundingClientRect()
+      let parent = div.parentNode
+      let styles = getComputedStyle(parent) //返回节点所有的css属性
+      let paddingLeft = styles.getPropertyValue('padding-left')
+      let paddingRight = styles.getPropertyValue('padding-right')
+      let borderLeft = styles.getPropertyValue('border-left-width')
+      let bordergRight = styles.getPropertyValue('border-right-width')
+      let width2 =parseInt(width) +parseInt(paddingLeft) +parseInt(paddingRight) +parseInt(paddingLeft) +parseInt(borderLeft) +parseInt(bordergRight) +'px'
+      //第一行的th 
+      this.$refs.actionsHeader.style.width = parseInt(width2) + 15 +'px'
+      //后面每一行的td
+      this.$refs.actions.map(div => {
+        div.parentNode.style.width = width2
+      })
+    }
+
+    // console.log(this.$refs.actionsHeader.style.width)
   },
   beforeDestroy() {
     this.table2.remove()
@@ -211,7 +236,6 @@ export default {
       }
       this.expendFieldArray.push(id)
 
-      console.log(this.expendFieldArray)
     },
     changeOrderBy(key) {
       let copy = JSON.parse(JSON.stringify(this.orderBy))
