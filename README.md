@@ -30,7 +30,7 @@ ie8以上浏览器都支持此样式
 
 2.安装ui
 ```
-npm i --save test-2019-8-26
+npm i --save xu-ui-test
 ```
 
 3.引入
