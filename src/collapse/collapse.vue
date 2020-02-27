@@ -1,8 +1,6 @@
 <template>
 <div class="collapse">
-    <slot>
-
-    </slot>
+    <slot></slot>
 </div>
 </template>
 
@@ -16,6 +14,7 @@ export default {
         },
         selected:{
             type:Array,
+            required:true
         }
     },
     data(){
@@ -58,7 +57,7 @@ export default {
 <style scoped lang="scss">
 .collapse{
     border: 1px solid gray;
-    border-radius: 8px;
+    border-radius: 4px;
     overflow: hidden;
 }
 </style>

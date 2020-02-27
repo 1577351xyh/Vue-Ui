@@ -2,11 +2,13 @@
   <div style="padding-top: 16px;">
     <h2>布局</h2>
     <p>
-      <strong>预览</strong>
+      <strong>左右两栏布局，右侧主体部分三栏</strong>
     </p>
 
-    <g-layout style="color: white; overflow:hidden; margin-bottom:50px;">
-      <g-sider style=" background:#ddd; width:200px; color: black;">
+    <g-layout
+      style="color: white; overflow:hidden; margin-bottom:50px;"
+    >
+      <g-sider style=" background:#ddd; width:200px; color: black;" closeButton>
         sider
       </g-sider>
       <g-layout>
@@ -45,7 +47,7 @@ export default {
     return {
       content: `
           <g-layout style="color: white; overflow:hidden; margin-bottom:50px;">
-            <g-sider style=" background:#ddd; width:200px; color: black;">
+            <g-sider style=" background:#ddd; width:200px; color: black;" closeButton>
               sider
             </g-sider>
             <g-layout>
@@ -60,7 +62,6 @@ export default {
               </g-footer>
             </g-layout>
           </g-layout>
-
       `
         .replace(/^ {8}/gm, '')
         .trim()

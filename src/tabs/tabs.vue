@@ -39,9 +39,9 @@
             this.$children.forEach((vm)=>{
                 if(vm.$options.name==='Head'){
                     vm.$children.forEach((item)=>{
-                        if(item.$options.name==='TabItem' &&item.name===this.selected){
+                      console.log(item.name)
+                        if(item.$options.name==='TabItem' && item.name===this.selected){
                             this.eventBus.$emit('update:selected',this.selected,item)
-
                         }
                     })
                 }

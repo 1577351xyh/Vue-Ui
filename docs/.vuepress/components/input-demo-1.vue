@@ -6,7 +6,7 @@
     </p>
     <g-input value="中文"></g-input>
     <g-input value="中文" disabled></g-input>
-    <g-input value="中文" readonly></g-input>
+    <g-input value="中文" error="错误消息"></g-input>
 
     <p>
       <strong>代码</strong>
@@ -15,20 +15,22 @@
   </div>
 </template>
 <script>
-  import GInput from '../../../src/input'
+import GInput from '../../../src/input'
 
-  export default {
-    components: {GInput},
-    data () {
-      return {
-        selected: '1',
-        content: `
+export default {
+  components: { GInput },
+  data() {
+    return {
+      selected: '1',
+      content: `
           <g-input></g-input>
           <g-input value="中文"></g-input>
           <g-input value="中文" disabled></g-input>
-          <g-input value="中文" readonly></g-input>
-      `.replace(/^ {8}/gm, '').trim()
-      }
+          <g-input value="中文" error="错误消息"></g-input>
+      `
+        .replace(/^ {10}/gm, '')
+        .trim()
     }
   }
+}
 </script>

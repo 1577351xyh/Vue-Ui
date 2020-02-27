@@ -47,7 +47,6 @@ export default {
     },
     x() {
       this.root.namePath.unshift(this.name)
-      console.log(this.root.namePath)
       if (this.$parent.x) {
         this.$parent.x()
       }

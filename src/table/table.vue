@@ -7,7 +7,7 @@
       <table class="gulu-table" ref="table" :class="{ compact, border }">
         <thead>
           <tr>
-            <th :style="{ width: '50px' }"></th>
+            <th :style="{ width: '50px' }" v-if="expendField"></th>
             <th v-if="checkeds" :style="{ width: '50px' }">
               <input
                 @change="chekeboxChangeAll($event)"
@@ -42,7 +42,7 @@
         <tbody>
           <template v-for="(item, index) in dataSource">
             <tr :key="item.id">
-              <th :style="{ width: '50px' }" @click="expendOpen(item.id)">
+              <th v-if="expendField" :style="{ width: '50px' }" @click="expendOpen(item.id)">
                 <g-icon
                   name="right"
                   class="gulu-table-icon"
@@ -59,7 +59,7 @@
                 />
               </td>
               <template v-for="column in columns">
-                <td :style="{ width: column.width + 'px' }" :key="column.field">
+                <td  :style="{ width: column.width + 'px' }" :key="column.field">
                   {{ item[column.field] }}
                 </td>
               </template>
@@ -224,7 +224,7 @@ export default {
       this.table2.classList.add('gulu-copy-table')
       let tHead = this.$refs.table.children[0]
       const { height } = tHead.getBoundingClientRect()
-      this.$refs.tableWrapper.style.marginTop = height + 'px'
+      this.$refs.wrapper.style.paddingTop = height + 'px'
       this.$refs.tableWrapper.style.height = this.height - height + 'px'
       this.table2.appendChild(tHead)
       this.$refs.wrapper.appendChild(this.table2)
@@ -315,7 +315,7 @@ export default {
     }
   }
   .gulu-copy-table {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -350,6 +350,10 @@ export default {
       animation: spin 2s infinite linear !important;
     }
   }
+  .open {
+  transform: rotate(90deg);
+  transition: all 0.5s;
+}
 }
 @keyframes spin {
   0% {
@@ -359,10 +363,7 @@ export default {
     transform: rotate(360deg);
   }
 }
-.open {
-  transform: rotate(90deg);
-  transition: all 0.5s;
-}
+
 .gulu-table-icon {
   transition: all 0.5s;
 }

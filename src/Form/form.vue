@@ -1,7 +1,7 @@
 
 <template>
 <!--接收校验规则-->
-    <div>
+    <div class="g-from">
         <slot></slot>
     </div>
 </template>

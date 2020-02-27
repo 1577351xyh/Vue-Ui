@@ -37,12 +37,6 @@ export default {
   data() {
     return {
       content: `
-          <style>
-            .gulu-toast {
-              z-index: 30;
-            }
-          </style>
-
           <div>
             <g-button @click="onClickButton">上方弹出</g-button>
           </div>
@@ -60,7 +54,7 @@ export default {
             }
           },
       `
-        .replace(/^ {8}/gm, '')
+        .replace(/^ {9}/gm, '')
         .trim()
     }
   },

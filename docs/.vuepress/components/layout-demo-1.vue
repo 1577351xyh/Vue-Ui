@@ -2,7 +2,7 @@
   <div style="padding-top: 16px;">
     <h2>布局</h2>
     <p>
-      <strong>预览</strong>
+      <strong>普通上中下三栏布局</strong>
     </p>
 
     <g-layout style="color: white; margin-bottom:50px;">

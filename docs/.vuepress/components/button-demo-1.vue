@@ -1,11 +1,11 @@
 <template>
   <div style="padding-top: 16px;">
-    <h2>简单用法</h2>
+    <h2>基础用法</h2>
     <p>
       <strong>预览</strong>
     </p>
     <g-button>默认按钮</g-button>
-    <g-button icon="settings">默认按钮</g-button>
+    <g-button icon="settings" iconPosition="right">默认按钮</g-button>
     <g-button :loading="true">默认按钮</g-button>
     <g-button disabled>默认按钮</g-button>
     <p>
@@ -25,11 +25,11 @@ export default {
     return {
       content: `
           <g-button>默认按钮</g-button>
-          <g-button icon="settings">默认按钮</g-button>
+          <g-button icon="settings" iconPosition="right">默认按钮</g-button>
           <g-button :loading="true">默认按钮</g-button>
           <g-button disabled>默认按钮</g-button>
       `
-        .replace(/^ {8}/gm, '')
+        .replace(/^ {10}/gm, '')
         .trim()
     }
   }

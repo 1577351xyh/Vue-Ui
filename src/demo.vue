@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <Form-sample></Form-sample> -->
     <g-table
       :selectedItem.sync="selected"
       border
@@ -18,11 +17,26 @@
         <button @click="view(item.item)">查看</button>
     </template>
     </g-table>
+    <g-form :model="model" :rules="rules" ref="loginForm">
+      <g-form-item label="用户名" prop="username">
+        <g-input icon="ren" v-model="model.username" autocomplete="off" placeholder="输入用户名"></g-input>
+      </g-form-item>
+      <g-form-item label="密码" prop="password">
+        <g-input icon="mima" type="password" v-model="model.password" autocomplete="off" placeholder="输入密码"></g-input>
+      </g-form-item>
+      <g-form-item>
+        <g-buttom @click="submitForm('loginForm')">提交</g-button>
+      </g-form-item>
+    </g-form>
   </div>
 </template>
 
 <script>
-// import FormSample from "./Form/index";
+import GForm from './Form/form'
+import GFormItem from './Form/formitem'
+import GInput from './input'
+import GButtom from './botton/button'
+
 import GTable from './table/table'
 export default {
   name: '',
@@ -30,8 +44,8 @@ export default {
     return {
       selected: [],
       columns: [
-        { text: '姓名', field: 'name' ,width:200},
-        { text: '分数', field: 'score'}
+        { text: '姓名', field: 'name', width: 200 },
+        { text: '分数', field: 'score' }
       ],
       //排序规则
       orderBy: {
@@ -40,8 +54,8 @@ export default {
         score: 'desc'
       },
       dataSource: [
-        { id: 1, name: '张三', score: '99' ,expendField:'aaaaa'},
-        { id: 2, name: '李四', score: '98' ,expendField:'bbbbb'},
+        { id: 1, name: '张三', score: '99', expendField: 'aaaaa' },
+        { id: 2, name: '李四', score: '98', expendField: 'bbbbb' },
         { id: 3, name: '王五', score: '97' },
         { id: 4, name: '赵六', score: '96' },
         { id: 5, name: '张三', score: '99' },
@@ -57,11 +71,20 @@ export default {
         { id: 15, name: '王五', score: '97' },
         { id: 16, name: '赵六', score: '96' }
       ],
-      loading: false
+      loading: false,
+      model: { username: '', password: '' },
+      rules: {
+        username: [{ required: true, message: '请输入用户名' }],
+        password: [{ required: true, message: '请输入密码' }]
+      }
     }
   },
   components: {
-    GTable
+    GTable,
+    GForm,
+    GFormItem,
+    GInput,
+    GButtom
   },
   methods: {
     edit(item){
@@ -77,7 +100,22 @@ export default {
         console.log(this.orderBy)
         this.loading = false
       }, 2000)
-    }
+    },
+    submitForm(form) {
+                this.$refs[form].validate(valid => {
+                    if(valid){
+                        window.alert('请求登录')
+                    }else {
+                        window.alert(('校验失败'))
+                    }
+                    const notice = this.$create(Notice, {
+                        title: "社会你杨哥喊你来搬砖",
+                        message: valid ? "请求登录!" : "校验失败!",
+                        duration: 1000
+                    });
+                    notice.show();
+                });
+            }
   }
 }
 </script>

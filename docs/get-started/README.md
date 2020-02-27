@@ -4,16 +4,13 @@ title: 快速上手
 
 # 快速上手
 
-本章节待完善
-
-## 安装
 
 请参考 [安装](../install/) 章节
 
 ## Hello World
 
 ```javascript
-import { Button } from 'gulu'
+import { Button } from 'xu-ui'
 import Vue from 'vue'
 
 new Vue({
@@ -22,4 +19,11 @@ new Vue({
     'g-button': Button
   }
 })
+//使用xu-ui时，您需要使用border-box盒模型，否则会影响样式。CSS代码示例
+//css
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 ```
