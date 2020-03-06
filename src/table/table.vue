@@ -195,6 +195,7 @@ export default {
     //拿到插槽里面内容的宽度,动态复赋值给最后一行的td
     if (this.$scopedSlots.default) {
       let div = this.$refs.actions[0]
+      console.log(div)
       let { width } = div.getBoundingClientRect()
       let parent = div.parentNode
       let styles = getComputedStyle(parent) //返回节点所有的css属性
@@ -235,7 +236,6 @@ export default {
         return
       }
       this.expendFieldArray.push(id)
-
     },
     changeOrderBy(key) {
       let copy = JSON.parse(JSON.stringify(this.orderBy))

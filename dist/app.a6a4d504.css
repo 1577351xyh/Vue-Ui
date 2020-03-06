@@ -1,0 +1,42 @@
+.gulu-redio {
+  display: inline-flex;
+}
+
+.gulu-redio {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+.redio-inner {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid #bbb;
+  margin-right: 6px;
+  display: block;
+}
+.active {
+  border-color: #409eff;
+  background: #409eff;
+  position: relative;
+}
+.active::after {
+  width: 8px;
+  height: 8px;
+  border-radius: 100%;
+  background-color: #fff;
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease-in;
+}
+
+.gulu-checkbox {
+  display: flex;
+}
+.gulu-checkbox .gulu-checkbox-text {
+  font-size: 12px;
+}
+

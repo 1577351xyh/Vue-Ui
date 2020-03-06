@@ -46,7 +46,6 @@ export default {
             let selectedCopy = JSON.parse(JSON.stringify(this.selected));
             let index = selectedCopy.indexOf(name);
             selectedCopy.splice(index,1);
-            console.log(selectedCopy)
             this.eventBus.$emit('update:selected',selectedCopy);
             this.$emit('update:selected',selectedCopy)
         });
