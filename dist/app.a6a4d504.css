@@ -33,8 +33,25 @@
   transition: transform 0.15s ease-in;
 }
 
+.gulu-chebox-group {
+  display: inline-flex;
+}
+.gulu-chebox-group .gulu-group {
+  display: inline-flex;
+  align-items: center;
+}
+.gulu-chebox-group span {
+  font-size: 14px;
+}
+.checkAll {
+  margin-bottom: 8px;
+  flex-direction: column;
+}
+
 .gulu-checkbox {
   display: flex;
+  margin: 0 8px;
+  margin-left: 0;
 }
 .gulu-checkbox .gulu-checkbox-text {
   font-size: 12px;

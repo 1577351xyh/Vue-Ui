@@ -12598,6 +12598,161 @@ render._withStripped = true
       
       }
     })();
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/chebox/chebox-group.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  props: {
+    checkList: {
+      type: Array,
+      requierd: true
+    },
+    checkAll: {
+      type: Boolean,
+      defalte: false
+    }
+  },
+  data: function data() {
+    return {
+      arr: [],
+      children: []
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$children.forEach(function (item) {
+      _this.children.push(item.label);
+    });
+  },
+  computed: {
+    allSelected: function allSelected() {
+      //判断两个数组是否相等,不能纯根据数组长度去做判断
+      var a = this.children.toString().length;
+      var b = this.arr.toString().length;
+      return a === b ? true : false;
+    }
+  },
+  methods: {
+    Allchange: function Allchange(e) {
+      var _this2 = this;
+
+      var arr = [];
+      this.$children.forEach(function (item) {
+        if (e.target.checked) {
+          arr.push(item.label);
+          item.$data.arr = arr;
+
+          _this2.$emit('update:checkList', arr);
+
+          return;
+        } else {
+          item.$data.arr = [];
+
+          _this2.$emit('update:checkList', arr);
+        }
+      });
+    },
+    addItem: function addItem(label) {
+      this.arr = JSON.parse(JSON.stringify(this.checkList));
+      this.arr.push(label);
+      this.$emit('update:checkList', this.arr);
+    },
+    removeItem: function removeItem(label) {
+      this.arr = JSON.parse(JSON.stringify(this.checkList));
+      var index = this.arr.indexOf(label);
+      this.arr.splice(index, 1);
+      this.$emit('update:checkList', this.arr);
+    }
+  }
+};
+exports.default = _default;
+        var $47a1ee = exports.default || module.exports;
+      
+      if (typeof $47a1ee === 'function') {
+        $47a1ee = $47a1ee.options;
+      }
+    
+        /* template */
+        Object.assign($47a1ee, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "gulu-chebox-group", class: { checkAll: _vm.checkAll } },
+    [
+      _c("div", { staticClass: "gulu-chebox-all" }, [
+        _c("span", [_vm._v("全选")]),
+        _vm._v(" "),
+        _c("input", {
+          attrs: { type: "checkbox" },
+          domProps: { checked: _vm.allSelected },
+          on: {
+            change: function($event) {
+              return _vm.Allchange($event)
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "gulu-group" }, [_vm._t("default")], 2)
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$47a1ee', $47a1ee);
+          } else {
+            api.reload('$47a1ee', $47a1ee);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
 },{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/chebox/chebox.vue":[function(require,module,exports) {
 "use strict";
 
@@ -12614,8 +12769,31 @@ exports.default = void 0;
 //
 //
 var _default = {
+  props: {
+    label: {
+      type: String,
+      requierd: true
+    }
+  },
   data: function data() {
-    return {};
+    return {
+      arr: []
+    };
+  },
+  computed: {
+    itemSelectet: function itemSelectet() {
+      return this.arr.indexOf(this.label) > -1;
+    }
+  },
+  methods: {
+    change: function change(e) {
+      //true
+      if (e.target.checked) {
+        this.$parent.addItem(this.label); //false
+      } else {
+        this.$parent.removeItem(this.label);
+      }
+    }
   }
 };
 exports.default = _default;
@@ -12632,9 +12810,19 @@ exports.default = _default;
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "gulu-checkbox" }, [
-    _c("input", { attrs: { type: "checkbox" } }),
+    _c("input", {
+      attrs: { type: "checkbox" },
+      domProps: { checked: _vm.itemSelectet },
+      on: {
+        change: function($event) {
+          return _vm.change($event)
+        }
+      }
+    }),
     _vm._v(" "),
-    _c("span", { staticClass: "gulu-checkbox-text" }, [_vm._t("default")], 2)
+    _c("span", { staticClass: "gulu-checkbox-text" }, [
+      _vm._v("\n    " + _vm._s(this.label) + "\n  ")
+    ])
   ])
 }
 var staticRenderFns = []
@@ -12682,6 +12870,8 @@ var _options = _interopRequireDefault(require("./radio/options"));
 
 var _redio = _interopRequireDefault(require("./radio/redio"));
 
+var _cheboxGroup = _interopRequireDefault(require("./chebox/chebox-group"));
+
 var _chebox = _interopRequireDefault(require("./chebox/chebox"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -12696,22 +12886,30 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
 var _default = {
   name: '',
   data: function data() {
     return {
-      name: 1
+      name: 1,
+      checkList: []
     };
   },
   methods: {
     aaa: function aaa() {
-      console.log(this.name);
+      console.log(this.vlaue);
+      console.log(this.checkList);
     }
   },
   components: {
     redio: _redio.default,
     Options: _options.default,
-    Checkbox: _chebox.default
+    Checkbox: _chebox.default,
+    CheckboxGroud: _cheboxGroup.default
   }
 };
 exports.default = _default;
@@ -12748,7 +12946,30 @@ exports.default = _default;
         1
       ),
       _vm._v(" "),
-      _c("Checkbox", [_vm._v("选项1")])
+      _c(
+        "Checkbox-groud",
+        {
+          attrs: { checkList: _vm.checkList, checkAll: "" },
+          on: {
+            "update:checkList": function($event) {
+              _vm.checkList = $event
+            },
+            "update:check-list": function($event) {
+              _vm.checkList = $event
+            }
+          }
+        },
+        [
+          _c("Checkbox", { attrs: { label: "复选框 A" } }),
+          _vm._v(" "),
+          _c("Checkbox", { attrs: { label: "复选框 b" } }),
+          _vm._v(" "),
+          _c("Checkbox", { attrs: { label: "复选框 c" } })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("button", { on: { click: _vm.aaa } }, [_vm._v("adds")])
     ],
     1
   )
@@ -12786,7 +13007,7 @@ render._withStripped = true
       
       }
     })();
-},{"./radio/options":"src/radio/options.vue","./radio/redio":"src/radio/redio.vue","./chebox/chebox":"src/chebox/chebox.vue","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/app.js":[function(require,module,exports) {
+},{"./radio/options":"src/radio/options.vue","./radio/redio":"src/radio/redio.vue","./chebox/chebox-group":"src/chebox/chebox-group.vue","./chebox/chebox":"src/chebox/chebox.vue","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/app.js":[function(require,module,exports) {
 "use strict";
 
 var _vue = _interopRequireDefault(require("vue"));
@@ -12830,7 +13051,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57778" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60544" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

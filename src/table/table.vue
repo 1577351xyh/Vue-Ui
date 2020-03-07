@@ -170,7 +170,7 @@ export default {
       return number
     },
     areItemAllSelected() {
-      //判断两个数组是否箱单 1.根据id排序, 如果纯根据数组长度容易出现bug
+      //判断两个数组是否相等 1.根据id排序, 如果纯根据数组长度容易出现bug
       //把id项筛选出出来,做字典排序
       const a = this.dataSource.map(item => item.id).sort()
       const b = this.selectedItem.map(item => item.id).sort()
