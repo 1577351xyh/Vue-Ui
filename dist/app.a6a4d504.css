@@ -57,3 +57,17 @@
   font-size: 12px;
 }
 
+.gulu-list {
+  overflow: auto;
+  height: 300px;
+}
+.gulu-list .gulu-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  background: #e8f3fe;
+  margin: 10px;
+  color: #7dbcfc;
+}
+

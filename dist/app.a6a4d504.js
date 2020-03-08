@@ -12858,6 +12858,140 @@ render._withStripped = true
       
       }
     })();
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/Scroll/scroll.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  props: {
+    arrCount: {
+      type: Array,
+      requierd: true
+    }
+  },
+  data: function data() {
+    return {
+      childrenHight: 0
+    };
+  },
+  mounted: function mounted() {
+    this.scroll();
+  },
+  computed: {
+    childHeight: function childHeight() {
+      var _this = this;
+
+      this.$refs.ScrollChild.forEach(function (element) {
+        var styles = getComputedStyle(element); //返回节点所有的css属性
+
+        var padding = styles.getPropertyValue('margin');
+        _this.childrenHight += element.clientHeight + parseInt(padding);
+      });
+      return this.childrenHight;
+    }
+  },
+  methods: {
+    scroll: function scroll() {
+      var _this2 = this;
+
+      var div = this.$refs.scrollDiv;
+      var parentHight = div.clientHeight;
+      var scrollTop;
+      this.$refs.scrollDiv.addEventListener('scroll', function () {
+        scrollTop = div.scrollTop;
+
+        if (scrollTop + parentHight - 10 >= _this2.childHeight) {
+          _this2.childrenHight = 0;
+
+          _this2.$emit('scrollLoad');
+        }
+      });
+    }
+  }
+};
+exports.default = _default;
+        var $562453 = exports.default || module.exports;
+      
+      if (typeof $562453 === 'function') {
+        $562453 = $562453.options;
+      }
+    
+        /* template */
+        Object.assign($562453, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "ul",
+      { ref: "scrollDiv", staticClass: "gulu-list" },
+      _vm._l(_vm.arrCount, function(item, index) {
+        return _c(
+          "li",
+          {
+            key: index,
+            ref: "ScrollChild",
+            refInFor: true,
+            staticClass: "gulu-list-item"
+          },
+          [_vm._v("\n      " + _vm._s(item) + "\n    ")]
+        )
+      }),
+      0
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$562453', $562453);
+          } else {
+            api.reload('$562453', $562453);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
 },{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/demo.vue":[function(require,module,exports) {
 "use strict";
 
@@ -12874,8 +13008,11 @@ var _cheboxGroup = _interopRequireDefault(require("./chebox/chebox-group"));
 
 var _chebox = _interopRequireDefault(require("./chebox/chebox"));
 
+var _scroll = _interopRequireDefault(require("./Scroll/scroll"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//
 //
 //
 //
@@ -12896,20 +13033,30 @@ var _default = {
   data: function data() {
     return {
       name: 1,
-      checkList: []
+      checkList: [],
+      arr: [1, 2, 3, 4, 5, 6, 7, 8, 10]
     };
   },
   methods: {
     aaa: function aaa() {
       console.log(this.vlaue);
       console.log(this.checkList);
+    },
+    scrollLoad: function scrollLoad() {
+      var _this = this;
+
+      console.log('触底了');
+      setTimeout(function () {
+        _this.arr = _this.arr.concat([1, 2, 3, 4]);
+      }, 500);
     }
   },
   components: {
     redio: _redio.default,
     Options: _options.default,
     Checkbox: _chebox.default,
-    CheckboxGroud: _cheboxGroup.default
+    CheckboxGroud: _cheboxGroup.default,
+    Scroll: _scroll.default
   }
 };
 exports.default = _default;
@@ -12969,7 +13116,12 @@ exports.default = _default;
         1
       ),
       _vm._v(" "),
-      _c("button", { on: { click: _vm.aaa } }, [_vm._v("adds")])
+      _c("button", { on: { click: _vm.aaa } }, [_vm._v("adds")]),
+      _vm._v(" "),
+      _c("Scroll", {
+        attrs: { arrCount: _vm.arr },
+        on: { scrollLoad: _vm.scrollLoad }
+      })
     ],
     1
   )
@@ -13007,7 +13159,7 @@ render._withStripped = true
       
       }
     })();
-},{"./radio/options":"src/radio/options.vue","./radio/redio":"src/radio/redio.vue","./chebox/chebox-group":"src/chebox/chebox-group.vue","./chebox/chebox":"src/chebox/chebox.vue","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/app.js":[function(require,module,exports) {
+},{"./radio/options":"src/radio/options.vue","./radio/redio":"src/radio/redio.vue","./chebox/chebox-group":"src/chebox/chebox-group.vue","./chebox/chebox":"src/chebox/chebox.vue","./Scroll/scroll":"src/Scroll/scroll.vue","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/app.js":[function(require,module,exports) {
 "use strict";
 
 var _vue = _interopRequireDefault(require("vue"));
@@ -13051,7 +13203,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60544" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58120" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

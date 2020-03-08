@@ -10,6 +10,7 @@
       <Checkbox label="复选框 c"></Checkbox>
     </Checkbox-groud>
     <button @click="aaa">adds</button>
+    <Scroll :arrCount="arr" @scrollLoad="scrollLoad"></Scroll>
   </div>
 </template>
 
@@ -18,26 +19,34 @@ import Options from './radio/options'
 import redio from './radio/redio'
 import CheckboxGroud from './chebox/chebox-group'
 import Checkbox from './chebox/chebox'
-
+import Scroll from './Scroll/scroll'
 export default {
   name: '',
   data() {
     return {
       name: 1,
-      checkList: []
+      checkList: [],
+      arr:[1, 2, 3, 4, 5, 6, 7, 8, 10]
     }
   },
   methods: {
     aaa() {
       console.log(this.vlaue)
       console.log(this.checkList)
+    },
+    scrollLoad(){
+      console.log('触底了')
+      setTimeout(()=>{
+       this.arr = this.arr.concat([1,2,3,4])
+      },500)
     }
   },
   components: {
     redio,
     Options,
     Checkbox,
-    CheckboxGroud
+    CheckboxGroud,
+    Scroll
   }
 }
 </script>
