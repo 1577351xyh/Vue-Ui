@@ -1,25 +1,12 @@
 <template>
   <div>
     <ul class="gulu-list" ref="scrollDiv">
-      <li
-        ref="ScrollChild"
-        class="gulu-list-item"
-        v-for="(item, index) in arrCount"
-        :key="index"
-      >
-        {{ item }}
-      </li>
+      <slot></slot>
     </ul>
   </div>
 </template>
 <script>
 export default {
-  props: {
-    arrCount: {
-      type: Array,
-      requierd: true
-    }
-  },
   data() {
     return {
       childrenHight: 0
@@ -30,7 +17,7 @@ export default {
   },
   computed: {
     childHeight() {
-      this.$refs.ScrollChild.forEach(element => {
+      this.$refs.scrollDiv.childNodes.forEach(element => {
         let styles = getComputedStyle(element) //返回节点所有的css属性
         let padding = styles.getPropertyValue('margin')
         this.childrenHight += element.clientHeight + parseInt(padding)
@@ -58,14 +45,5 @@ export default {
 .gulu-list {
   overflow: auto;
   height: 300px;
-  .gulu-list-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 50px;
-    background: #e8f3fe;
-    margin: 10px;
-    color: #7dbcfc;
-  }
 }
 </style>

@@ -61,7 +61,8 @@
   overflow: auto;
   height: 300px;
 }
-.gulu-list .gulu-list-item {
+
+.gulu-list-item[data-v-439c2f] {
   display: flex;
   align-items: center;
   justify-content: center;

@@ -12872,20 +12872,7 @@ exports.default = void 0;
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 var _default = {
-  props: {
-    arrCount: {
-      type: Array,
-      requierd: true
-    }
-  },
   data: function data() {
     return {
       childrenHight: 0
@@ -12898,7 +12885,7 @@ var _default = {
     childHeight: function childHeight() {
       var _this = this;
 
-      this.$refs.ScrollChild.forEach(function (element) {
+      this.$refs.scrollDiv.childNodes.forEach(function (element) {
         var styles = getComputedStyle(element); //返回节点所有的css属性
 
         var padding = styles.getPropertyValue('margin');
@@ -12943,19 +12930,8 @@ exports.default = _default;
     _c(
       "ul",
       { ref: "scrollDiv", staticClass: "gulu-list" },
-      _vm._l(_vm.arrCount, function(item, index) {
-        return _c(
-          "li",
-          {
-            key: index,
-            ref: "ScrollChild",
-            refInFor: true,
-            staticClass: "gulu-list-item"
-          },
-          [_vm._v("\n      " + _vm._s(item) + "\n    ")]
-        )
-      }),
-      0
+      [_vm._t("default")],
+      2
     )
   ])
 }
@@ -13028,6 +13004,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   name: '',
   data: function data() {
@@ -13047,7 +13031,7 @@ var _default = {
 
       console.log('触底了');
       setTimeout(function () {
-        _this.arr = _this.arr.concat([1, 2, 3, 4]);
+        _this.arr = _this.arr.concat(_this.arr);
       }, 500);
     }
   },
@@ -13118,10 +13102,16 @@ exports.default = _default;
       _vm._v(" "),
       _c("button", { on: { click: _vm.aaa } }, [_vm._v("adds")]),
       _vm._v(" "),
-      _c("Scroll", {
-        attrs: { arrCount: _vm.arr },
-        on: { scrollLoad: _vm.scrollLoad }
-      })
+      _c(
+        "Scroll",
+        { on: { scrollLoad: _vm.scrollLoad } },
+        _vm._l(_vm.arr, function(item, index) {
+          return _c("li", { key: index, staticClass: "gulu-list-item" }, [
+            _vm._v("\n      " + _vm._s(item) + "\n    ")
+          ])
+        }),
+        0
+      )
     ],
     1
   )
@@ -13203,7 +13193,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58120" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65504" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

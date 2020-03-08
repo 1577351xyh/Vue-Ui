@@ -10,7 +10,15 @@
       <Checkbox label="复选框 c"></Checkbox>
     </Checkbox-groud>
     <button @click="aaa">adds</button>
-    <Scroll :arrCount="arr" @scrollLoad="scrollLoad"></Scroll>
+    <Scroll @scrollLoad="scrollLoad">
+      <li
+        class="gulu-list-item"
+        v-for="(item, index) in arr"
+        :key="index"
+      >
+        {{ item }}
+      </li>
+    </Scroll>
   </div>
 </template>
 
@@ -26,7 +34,7 @@ export default {
     return {
       name: 1,
       checkList: [],
-      arr:[1, 2, 3, 4, 5, 6, 7, 8, 10]
+      arr: [1, 2, 3, 4, 5, 6, 7, 8, 10]
     }
   },
   methods: {
@@ -34,11 +42,11 @@ export default {
       console.log(this.vlaue)
       console.log(this.checkList)
     },
-    scrollLoad(){
+    scrollLoad() {
       console.log('触底了')
-      setTimeout(()=>{
-       this.arr = this.arr.concat([1,2,3,4])
-      },500)
+      setTimeout(() => {
+        this.arr = this.arr.concat(this.arr)
+      }, 500)
     }
   },
   components: {
@@ -51,4 +59,14 @@ export default {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.gulu-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  background: #e8f3fe;
+  margin: 10px;
+  color: #7dbcfc;
+}
+</style>
