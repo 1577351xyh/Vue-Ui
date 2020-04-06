@@ -1,74 +1,95 @@
-.gulu-redio {
-  display: inline-flex;
-}
-
-.gulu-redio {
-  display: flex;
-  align-items: center;
-  margin-right: 8px;
-}
-.redio-inner {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 1px solid #bbb;
-  margin-right: 6px;
-  display: block;
-}
-.active {
-  border-color: #409eff;
-  background: #409eff;
+header {
+  height: 80px;
+  background-color: #fff;
+  color: #1989fa;
+  top: 0;
+  left: 0;
+  width: 100%;
+  line-height: 80px;
+  z-index: 100;
   position: relative;
 }
-.active::after {
-  width: 8px;
-  height: 8px;
-  border-radius: 100%;
-  background-color: #fff;
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  transition: transform 0.15s ease-in;
-}
-
-.gulu-chebox-group {
-  display: inline-flex;
-}
-.gulu-chebox-group .gulu-group {
-  display: inline-flex;
+header .container {
+  margin: 0 auto;
+  height: 100%;
+  box-sizing: border-box;
+  border-bottom: 1px solid #dcdfe6;
+  max-width: 1240px;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 }
-.gulu-chebox-group span {
-  font-size: 14px;
-}
-.checkAll {
-  margin-bottom: 8px;
-  flex-direction: column;
-}
-
-.gulu-checkbox {
-  display: flex;
-  margin: 0 8px;
-  margin-left: 0;
-}
-.gulu-checkbox .gulu-checkbox-text {
-  font-size: 12px;
-}
-
-.gulu-list {
-  overflow: auto;
-  height: 300px;
-}
-
-.gulu-list-item[data-v-439c2f] {
-  display: flex;
+header .container .container-left {
+  height: 100%;
   align-items: center;
+  display: flex;
+}
+header .container .container-left > img {
+  width: 60px;
+  height: 60px;
+}
+header .container .container-left a {
+  font-size: 26px;
+}
+header .container .container-right {
+  height: 100%;
+  display: flex;
+}
+header .container .container-right a {
+  width: 60px;
+}
+header .container .gitIcon {
+  height: 100%;
+  display: flex;
   justify-content: center;
-  height: 50px;
-  background: #e8f3fe;
-  margin: 10px;
-  color: #7dbcfc;
+  align-items: center;
+  width: 60px;
+}
+header .container .gitIcon > svg {
+  color: #409eff;
+  font-size: 34px;
 }
 
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+dd {
+  margin: 0;
+}
+ul,
+ol,
+dl {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+img {
+  border: none;
+  vertical-align: middle;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+}
+* {
+  box-sizing: border-box;
+}
+
+
+/*# sourceMappingURL=/app.a6a4d504.css.map */

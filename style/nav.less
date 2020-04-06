@@ -1,0 +1,51 @@
+header {
+  height: 80px;
+  background-color: #fff;
+  color: #1989fa;
+  top: 0;
+  left: 0;
+  width: 100%;
+  line-height: 80px;
+  z-index: 100;
+  position: relative;
+  .container {
+    margin: 0 auto;
+    height: 100%;
+    box-sizing: border-box;
+    border-bottom: 1px solid #dcdfe6;
+    max-width: 1240px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .container-left {
+      height: 100%;
+      align-items: center;
+      display: flex;
+      > img {
+        width: 60px;
+        height: 60px;
+      }
+      a{
+        font-size: 26px;
+      }
+    }
+    .container-right {
+      height: 100%;
+      display: flex;
+      a {
+        width: 60px;
+      }
+    }
+    .gitIcon {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 60px;
+      > svg {
+        color: #409eff;
+        font-size: 34px;
+      }
+    }
+  }
+}

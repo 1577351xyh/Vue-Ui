@@ -158,7 +158,6 @@ export default {
     colspanLengths() {
       let number
       if (this.checkeds) {
-        console.log(this.$scopedSlots.default)
         this.colspanLengt = this.columns.length + 2
       }else {
         this.colspanLengt = this.columns.length + 1

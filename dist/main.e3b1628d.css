@@ -1,0 +1,45 @@
+.main-menu-inner {
+  height: 100%;
+  margin-top: 10px;
+  max-height: 100vh;
+  overflow: hidden;
+  max-width: 260px;
+  border-right: 1px solid #dcdfe6;
+  padding-left: 20px;
+}
+.main-menu-inner .main-menu-title {
+  font-size: 16px;
+  color: #333;
+  line-height: 40px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  display: block;
+  position: relative;
+  transition: 0.15s ease-out;
+  cursor: pointer;
+  font-weight: 700;
+}
+.main-menu-inner .nav-item {
+  display: block;
+  height: 40px;
+  color: #444;
+  line-height: 40px;
+  cursor: pointer;
+  font-size: 14px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding-left: 20px;
+  font-weight: 400;
+}
+.main-menu-inner .nav-item:hover {
+  color: #409eff;
+}
+
+.main-cnt {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+

@@ -1,10 +1,8 @@
 import Vue from 'vue'
-import demo from './demo'
-
-
-// export {default as Uploader} from './uploader'
-// export {default as Validate} from './validate'
-
+import pathout from '/layout/pathOut'
+import router from '/utils/router'
+import '/style/common'
 new Vue({
-    render: h => h(demo),
+  router,
+  render: h => h(pathout),
 }).$mount('#app')
