@@ -29,14 +29,6 @@ export default {
   display: flex;
   align-items: center;
   margin-right: 8px;
-}
-.redio-inner {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 1px solid #bbb;
-  margin-right: 6px;
-  display: block;
   .active {
     border-color: #409eff;
     background: #409eff;
@@ -54,5 +46,13 @@ export default {
     transform: translate(-50%, -50%);
     transition: transform 0.15s ease-in;
   }
+}
+.redio-inner {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid #bbb;
+  margin-right: 6px;
+  display: block;
 }
 </style>

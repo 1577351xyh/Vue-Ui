@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     aaa() {
-      console.log(this.vlaue)
+      console.log(this.name)
       console.log(this.checkList)
     },
     scrollLoad() {
