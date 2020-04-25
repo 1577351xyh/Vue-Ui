@@ -28,7 +28,6 @@ module.exports = {
           '/components/input',
           '/components/checkbox',
           '/components/option',
-          '/components/input',
           '/components/grid',
           '/components/layout',
           '/components/toast',
