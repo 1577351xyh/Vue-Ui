@@ -1,6 +1,8 @@
+console.log(1)
+
 import Vue from 'vue'
-import pathout from './layouts/pathOut.vue'
+import demo from './demo.vue'
 new Vue({
   el: '#app',
-  render: h => h(pathout),
+  render: h => h(demo),
 })

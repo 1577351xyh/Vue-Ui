@@ -11,11 +11,7 @@
     </Checkbox-groud>
     <button @click="aaa">adds</button>
     <Scroll @scrollLoad="scrollLoad">
-      <li
-        class="gulu-list-item"
-        v-for="(item, index) in arr"
-        :key="index"
-      >
+      <li class="gulu-list-item" v-for="(item, index) in arr" :key="index">
         {{ item }}
       </li>
     </Scroll>
@@ -23,18 +19,18 @@
 </template>
 
 <script>
-import Options from './radio/options'
-import redio from './radio/redio'
-import CheckboxGroud from './chebox/chebox-group'
-import Checkbox from './chebox/chebox'
-import Scroll from './Scroll/scroll'
+import Options from './radio/options.vue'
+import redio from './radio/redio.vue'
+import CheckboxGroud from './chebox/chebox-group.vue'
+import Checkbox from './chebox/chebox.vue'
+import Scroll from './Scroll/scroll.vue'
 export default {
   name: '',
   data() {
     return {
       name: 1,
       checkList: [],
-      arr: [1, 2, 3, 4, 5, 6, 7, 8, 10]
+      arr: [1, 2, 3, 4, 5, 6, 7, 8, 10],
     }
   },
   methods: {
@@ -47,19 +43,19 @@ export default {
       setTimeout(() => {
         this.arr = this.arr.concat(this.arr)
       }, 500)
-    }
+    },
   },
   components: {
     redio,
     Options,
     Checkbox,
     CheckboxGroud,
-    Scroll
-  }
+    Scroll,
+  },
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="less" scoped>
 .gulu-list-item {
   display: flex;
   align-items: center;
