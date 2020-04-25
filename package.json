@@ -32,6 +32,7 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
+    "cache-loader": "^4.1.0",
     "css-loader": "^3.4.2",
     "git-open": "^2.1.0",
     "html-loader": "^1.1.0",
