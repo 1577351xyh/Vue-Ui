@@ -1,8 +1,8 @@
 <template>
   <div style="padding-top: 16px;">
-    <h2>24格网格</h2>
     <p>
-      <strong>预览</strong>
+      <strong>基础布局</strong>
+      <p>使用单一分栏创建基础的栅格布局</p>
     </p>
     <g-row class="demoRow">
       <g-col span="8">
@@ -87,11 +87,6 @@
         <div class="demoCol">2</div>
       </g-col>
     </g-row>
-
-    <p>
-      <strong>代码</strong>
-    </p>
-    <pre><code>{{content}}</code></pre>
   </div>
 </template>
 <style scoped>
@@ -219,8 +214,8 @@ export default {
           </g-row>
       `
         .replace(/^ {8}/gm, '')
-        .trim()
+        .trim(),
     }
-  }
+  },
 }
 </script>

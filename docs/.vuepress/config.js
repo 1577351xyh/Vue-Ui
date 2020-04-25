@@ -6,7 +6,7 @@ module.exports = {
   themeConfig: {
     nav: [
       { text: '主页', link: '/' },
-      // { text: '文档', link: '/guide/' },
+      { text: 'GitHub', link: 'https://github.com/1577351xyh/Vue-Ui ' },
       // {text: '交流', link: 'https://google.com'},
     ],
     sidebar: [
@@ -26,6 +26,9 @@ module.exports = {
           '/components/button',
           '/components/tabs',
           '/components/input',
+          '/components/checkbox',
+          '/components/option',
+          '/components/input',
           '/components/grid',
           '/components/layout',
           '/components/toast',
@@ -37,6 +40,7 @@ module.exports = {
           '/components/nav',
           '/components/page',
           '/components/table',
+          '/components/scroll',
 
         ]
       },
@@ -46,5 +50,15 @@ module.exports = {
 
   scss: {
     includePaths: [path.join(__dirname, '../../styles.paletts.styl')]
-  }
+  },
+  plugins: [
+    [
+      'vuepress-plugin-container',
+      {
+        type: 'theorem',
+        before: info => `<div class="theorem"><p class="title">${info}</p>`,
+        after: '</div>',
+      },
+    ],
+  ],
 }

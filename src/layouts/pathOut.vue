@@ -5,7 +5,7 @@
   </div>
 </template>
 <script>
-import headers from '/component/nav.vue'
+import headers from '../component/nav.vue'
 export default {
   data() {
     return {}

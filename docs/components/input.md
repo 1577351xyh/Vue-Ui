@@ -6,8 +6,41 @@ title: 输入框
 
 <ClientOnly>
   <input-demo-1></input-demo-1>
-  <input-demo-2></input-demo-2>
 </ClientOnly>
+
+::: details 查看代码
+
+```html
+<g-input value="中文"></g-input>
+<g-input value="中文" disabled></g-input>
+<g-input icon="ren" placeholder="输入用户名"></g-input>
+<g-input value="中文" error="错误消息"></g-input>
+```
+
+:::
+
+支持双向绑定
+<ClientOnly>
+<input-demo-2></input-demo-2>
+</ClientOnly>
+
+::: details 查看代码
+
+```html
+<g-input v-model="value"></g-input>
+<div>value: {{ value }}</div>
+<script>
+  export default {
+    data() {
+      return {
+        value: '1',
+      }
+    },
+  }
+</script>
+```
+
+:::
 
 # Attributes
 

@@ -8,10 +8,6 @@
       :currentPage.sync="currentPage"
       @update:currentPage="changePage"
     ></g-page>
-    <p>
-      <strong>代码</strong>
-    </p>
-    <pre><code>{{content}}</code></pre>
   </div>
 </template>
 <style scoped>
@@ -27,21 +23,6 @@ export default {
   data() {
     return {
       currentPage: 1,
-      content: `
-        <g-page :totalPage="20" :currentPage.sync="currentPage" @update:currentPage="changePage"></g-page>
-
-        data:{
-          currentPage:1,
-        }
-
-        methods:{
-          pageSize(){
-            //当前页码
-            console.log(this.currentPage)
-          }
-        }`
-        .replace(/^ {8}/gm, '')
-        .trim()
     }
   },
   methods: {

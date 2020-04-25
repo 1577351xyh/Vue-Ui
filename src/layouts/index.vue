@@ -9,7 +9,7 @@
         href="https://github.com/1577351xyh/Vue-Ui"
         target="_blank"
       >
-        <x-icon name="github"></x-icon>
+        <!-- <x-icon name="github"></x-icon> -->
         GitHub
       </a>
     </div>
@@ -17,14 +17,14 @@
   </div>
 </template>
 <script>
-import XIcon from '/src/icon/icon.vue'
+// import XIcon from '/src/icon/icon.vue'
 
 export default {
   data() {
     return {}
   },
   components: {
-    XIcon,
+    // XIcon,
   },
 }
 </script>

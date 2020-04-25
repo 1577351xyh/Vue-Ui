@@ -10,10 +10,6 @@
       <g-collapse-item title="标题2" name="2">内容2</g-collapse-item>
       <g-collapse-item title="标题3" name="3">内容3</g-collapse-item>
     </g-collapse>
-    <p>
-      <strong>代码</strong>
-    </p>
-    <pre><code>{{content}}</code></pre>
   </div>
 </template>
 <script>
@@ -23,24 +19,10 @@ import GCollapse from '../../../src/collapse/collapse'
 export default {
   components: {
     GCollapseItem,
-    GCollapse
+    GCollapse,
   },
   data() {
-    return {
-      selected: ['1'],
-      content: `
-       data: {
-            selected: ['1']
-          }
-          <g-collapse :selected.sync="selected" single>
-      <g-collapse-item title="标题1" name="1">内容1</g-collapse-item>
-      <g-collapse-item title="标题2" name="2">内容2</g-collapse-item>
-      <g-collapse-item title="标题3" name="3">内容3</g-collapse-item>
-    </g-collapse>
-      `
-        .replace(/^ {8}/gm, '')
-        .trim()
-    }
-  }
+    return {}
+  },
 }
 </script>

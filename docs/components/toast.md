@@ -6,8 +6,54 @@ title: Toast 通知
 
 <ClientOnly>
   <toast-demo-1></toast-demo-1>
+</ClientOnly>
+
+::: details 查看代码
+
+```html
+<g-button @click="$toast('点击弹出提示')">上方弹出</g-button>
+<g-button @click="$toast('点击弹出提示', {position:'middle'})"
+  >中间弹出</g-button
+>
+<g-button @click="$toast('点击弹出提示', {position:'bottom'})"
+  >下方弹出</g-button
+>
+```
+
+:::
+
+<ClientOnly>
   <toast-demo-2></toast-demo-2>
 </ClientOnly>
+
+::: details 查看代码
+
+```html
+<script>
+  import plugin from '../../../src/toast/plugin'
+  import Vue from 'vue'
+  Vue.use(plugin)
+  export default {
+    data() {
+      return {}
+    },
+    methods: {
+      onClickButton() {
+        this.$toast('toast信息', {
+          closeButton: {
+            text: '知道了',
+            callback: () => {
+              console.log('回调触发了')
+            },
+          },
+        })
+      },
+    },
+  }
+</script>
+```
+
+:::
 
 # Attributes
 

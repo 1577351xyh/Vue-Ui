@@ -1,47 +1,44 @@
 ---
-title: Slides 轮播图
+title: Scroll 无限滚动
 ---
 
-# Slides
+# Scroll
 
 <ClientOnly>
-  <slides-demo-1></slides-demo-1>
+  <scroll-demo-1></scroll-demo-1>
 </ClientOnly>
 
 ::: details 查看代码
 
 ```html
-<g-slides :selected.sync="selected" autoplay>
-  <g-slides-item name="1">
-    <div class="box">1</div>
-  </g-slides-item>
-  <g-slides-item name="2">
-    <div class="box">2</div>
-  </g-slides-item>
-  <g-slides-item name="3">
-    <div class="box">3</div>
-  </g-slides-item>
-</g-slides>
+<Scroll @scrollLoad="scrollLoad">
+  <li class="gulu-list-item" v-for="(item, index) in arr" :key="index">
+    {{ item }}
+  </li>
+</Scroll>
 
 <script>
   export default {
     data() {
-      return {
-        selected: '1',
-      }
+      return {}
+    },
+    scrollLoad() {
+      console.log('触底了')
+      setTimeout(() => {
+        this.arr = this.arr.concat(this.arr)
+      }, 500)
     },
   }
 </script>
 <style lang="scss" scoped>
-  .box {
-    height: 300px;
-    width: 400px;
-    background: blue;
-    color: white;
-    font-size: 30px;
+  .gulu-list-item {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    height: 50px;
+    background: #e8f3fe;
+    margin: 10px;
+    color: #7dbcfc;
   }
 </style>
 ```

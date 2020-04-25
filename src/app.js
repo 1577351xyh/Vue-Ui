@@ -1,8 +1,6 @@
 import Vue from 'vue'
-import pathout from '/layout/pathOut'
-import router from '/utils/router'
-import '/style/common'
+import pathout from './layouts/pathOut.vue'
 new Vue({
-  router,
+  el: '#app',
   render: h => h(pathout),
-}).$mount('#app')
+})

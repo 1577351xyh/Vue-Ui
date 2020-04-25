@@ -1,25 +1,26 @@
 <template>
   <div class="main-cnt">
     <!-- 左侧导航栏 -->
-    <leftNav></leftNav>
+    <!-- <leftNav></leftNav> -->
+    <!-- <router-view></router-view> -->
     <!-- 右侧导航栏 -->
     <!-- 底部前进后退导航 -->
   </div>
 </template>
 <script>
-import leftNav from '/component/main-menu.vue'
+// import leftNav from '../component/main-menu.vue'
 export default {
   data() {
     return {}
   },
   components: {
-    leftNav,
+    // leftNav,
   },
 }
 </script>
 <style lang="less" scope>
 .main-cnt {
   max-width: 1240px;
-  margin:0 auto;
+  margin: 0 auto;
 }
 </style>
