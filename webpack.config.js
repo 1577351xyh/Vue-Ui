@@ -62,7 +62,7 @@ module.exports = function (env, argv) {
     ...config,
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, './src/'),
+        '@': path.resolve(__dirname, './src'),
       }
     },
   }

@@ -1,68 +1,38 @@
 <template>
-  <div>
-    <Options :default.sync="name">
-      <redio :name="1">内容1</redio>
-      <redio :name="2">内容2</redio>
-    </Options>
-    <Checkbox-groud :checkList.sync="checkList" checkAll>
-      <Checkbox label="复选框 A"></Checkbox>
-      <Checkbox label="复选框 b"></Checkbox>
-      <Checkbox label="复选框 c"></Checkbox>
-    </Checkbox-groud>
-    <button @click="aaa">adds</button>
-    <Scroll @scrollLoad="scrollLoad">
-      <li class="gulu-list-item" v-for="(item, index) in arr" :key="index">
-        {{ item }}
-      </li>
-    </Scroll>
+  <div class="box">
+    <g-steps :active="active">
+      <g-step title="步骤1"></g-step>
+      <g-step title="步骤2222222"></g-step>
+      <g-step title="步骤3"></g-step>
+    </g-steps>
+    <button @click="next">下一步</button>
   </div>
 </template>
 
 <script>
-import Options from './radio/options.vue'
-import redio from './radio/redio.vue'
-import CheckboxGroud from './chebox/chebox-group.vue'
-import Checkbox from './chebox/chebox.vue'
-import Scroll from './Scroll/scroll.vue'
+import GSteps from '@/steps/steps.vue'
+import GStep from '@/steps/step.vue'
 export default {
   name: '',
   data() {
     return {
-      name: 1,
-      checkList: [],
-      arr: [1, 2, 3, 4, 5, 6, 7, 8, 10],
+      active: 0,
     }
   },
   methods: {
-    aaa() {
-      console.log(this.name)
-      console.log(this.checkList)
-    },
-    scrollLoad() {
-      console.log('触底了')
-      setTimeout(() => {
-        this.arr = this.arr.concat(this.arr)
-      }, 500)
+    next() {
+      if (this.active++ > 2) this.active = 0
     },
   },
   components: {
-    redio,
-    Options,
-    Checkbox,
-    CheckboxGroud,
-    Scroll,
+    GSteps,
+    GStep,
   },
 }
 </script>
 
 <style lang="less" scoped>
-.gulu-list-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 50px;
-  background: #e8f3fe;
-  margin: 10px;
-  color: #7dbcfc;
+.box {
+  width: 600px;
 }
 </style>
