@@ -1,0 +1,43 @@
+.gulu-step {
+  width: 200px;
+  .gulu-step-centent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    position: relative;
+  }
+  .gulu-step-head {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    text-align: left;
+    .gulu-icon {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 4px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1px solid #303133;
+      background-color: #fff;
+    }
+    .gulu-line {
+      position: absolute;
+      display: block;
+      width: 100%;
+      right: 26px;
+      height: 1px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #303133;
+    }
+  }
+}
+.activeClass {
+  color: #67c23a;
+  .gulu-icon {
+    border-color: #67c23a;
+  }
+}
