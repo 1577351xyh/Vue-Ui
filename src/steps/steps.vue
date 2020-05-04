@@ -10,10 +10,12 @@
 <script>
 export default {
   props: {
+    //当前高亮的选项
     active: {
       type: Number,
       required: true,
     },
+    // 方向
     direction: {
       type: String,
       default: 'horizontal',

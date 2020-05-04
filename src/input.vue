@@ -13,8 +13,7 @@
         @blur="$emit('blur', $event.target.value)"
         v-bind="$attrs"
       />
-      <!-- <icon name="error" class="iconvc-error"></icon> -->
-      <span class="errorMessage">{{ error }}</span>
+      <span v-if="error" class="errorMessage">{{ error }}</span>
     </div>
 
     <div class="wrapper" v-else>
@@ -30,49 +29,48 @@
         v-bind="$attrs"
       />
       <!-- <icon name="error" class="iconvc-error"></icon> -->
-      <span class="errorMessage">{{ error }}</span>
+      <span v-if="error" class="errorMessage">{{ error }}</span>
     </div>
   </div>
 </template>
 <script>
-import Icon from './icon/icon'
+import Icon from './icon/icon.vue'
 export default {
-  inheritAttrs: false,
+  inheritAttrs: true,
   components: {
-    Icon
+    Icon,
   },
   props: {
     icon: {
-      type: String
+      type: String,
     },
     value: {
-      type: String
+      type: String,
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     readonly: {
       type: Boolean,
-      default: false
+      default: false,
     },
     error: {
-      type: String
-    }
+      type: String,
+    },
   },
-  
-    methods: {
-      onInput(e) {
-        this.$emit('input', e.target.value)
-        //input校验
-        this.$parent.$emit('validate')
-      }
-    }
-  
+
+  methods: {
+    onInput(e) {
+      this.$emit('input', e.target.value)
+      //input校验
+      this.$parent.$emit('validate')
+    },
+  },
 }
 </script>
 
-<style scoped lang="less">
+<style lang="less" scope>
 // $height:32px;
 // $border-color:#999;
 // $border-color-hover:#666;
@@ -114,6 +112,7 @@ export default {
   }
   .errorMessage {
     color: #f1353d;
+    margin-left: 0.5em;
   }
   .icon-error {
     color: #f1353d;

@@ -1,41 +1,64 @@
 <template>
   <div class="box">
-    <g-steps :active="active">
-      <g-step title="步骤1" description="描述文字"></g-step>
-      <g-step title="步骤2" description="描述文字"></g-step>
-      <g-step title="步骤3" description="描述文字"></g-step>
-    </g-steps>
-    <button @click="next">下一步</button>
-
-    <div class="box" style="height:400px">
-      <g-steps :active="active" direction="vertical">
-        <g-step title="步骤1"></g-step>
-        <g-step title="步骤2"></g-step>
-        <g-step title="步骤3"></g-step>
-      </g-steps>
-      <button @click="next">下一步</button>
-    </div>
+    <g-select placeholder="请选择" v-model="value">
+      <g-option
+        v-for="item in options"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value"
+      ></g-option>
+    </g-select>
+    <button @click="next">按钮</button>
   </div>
 </template>
 
 <script>
 import GSteps from '@/steps/steps.vue'
 import GStep from '@/steps/step.vue'
+
+import GSelect from '@/selecte/select.vue'
+import GOption from '@/selecte/option.vue'
 export default {
   name: '',
   data() {
     return {
       active: 0,
+      value: '',
+      options: [
+        {
+          value: '选项1',
+          label: '黄金糕',
+        },
+        {
+          value: '选项2',
+          label: '双皮奶',
+        },
+        {
+          value: '选项3',
+          label: '蚵仔煎',
+        },
+        {
+          value: '选项4',
+          label: '龙须面',
+        },
+        {
+          value: '选项5',
+          label: '北京烤鸭',
+        },
+      ],
     }
   },
   methods: {
     next() {
-      if (this.active++ > 2) this.active = 0
+      console.log(this.value)
+      // if (this.active++ > 2) this.active = 0
     },
   },
   components: {
     GSteps,
     GStep,
+    GSelect,
+    GOption,
   },
 }
 </script>

@@ -1,62 +1,62 @@
 <template>
-<div class="collapse">
+  <div class="collapse">
     <slot></slot>
-</div>
+  </div>
 </template>
 
 <script>
-    import Vue from 'vue'
+import Vue from 'vue'
 export default {
-    props:{
-        single:{
-            type:Boolean,
-            default:false
-        },
-        selected:{
-            type:Array,
-            required:true
-        }
+  props: {
+    single: {
+      type: Boolean,
+      default: false,
     },
-    data(){
-        return{
-            eventBus:new Vue()
-        }
+    selected: {
+      type: Array,
+      required: true,
     },
-    provide(){
-            return{
-                eventBus: this.eventBus
-            }
-    },
-    mounted(){
-        this.eventBus.$emit('update:selected',this.selected);
-        this.eventBus.$on('update:addSelected',(name)=>{
-            //深拷贝selected
-            let selectedCopy = JSON.parse(JSON.stringify(this.selected));
-            if(this.single){
-                selectedCopy = [name];
-            }else {
-                selectedCopy.push(name)
-            }
-            this.eventBus.$emit('update:selected',selectedCopy);
-            this.$emit('update:selected',selectedCopy)
-        });
-
-        this.eventBus.$on('update:removeSelected',(name)=>{
-            //深拷贝selected
-            let selectedCopy = JSON.parse(JSON.stringify(this.selected));
-            let index = selectedCopy.indexOf(name);
-            selectedCopy.splice(index,1);
-            this.eventBus.$emit('update:selected',selectedCopy);
-            this.$emit('update:selected',selectedCopy)
-        });
+  },
+  data() {
+    return {
+      eventBus: new Vue(),
     }
+  },
+  provide() {
+    return {
+      eventBus: this.eventBus,
+    }
+  },
+  mounted() {
+    this.eventBus.$emit('update:selected', this.selected)
+    this.eventBus.$on('update:addSelected', (name) => {
+      //深拷贝selected
+      let selectedCopy = JSON.parse(JSON.stringify(this.selected))
+      if (this.single) {
+        selectedCopy = [name]
+      } else {
+        selectedCopy.push(name)
+      }
+      this.eventBus.$emit('update:selected', selectedCopy)
+      this.$emit('update:selected', selectedCopy)
+    })
+
+    this.eventBus.$on('update:removeSelected', (name) => {
+      //深拷贝selected
+      let selectedCopy = JSON.parse(JSON.stringify(this.selected))
+      let index = selectedCopy.indexOf(name)
+      selectedCopy.splice(index, 1)
+      this.eventBus.$emit('update:selected', selectedCopy)
+      this.$emit('update:selected', selectedCopy)
+    })
+  },
 }
 </script>
 
 <style scoped lang="scss">
-.collapse{
-    border: 1px solid gray;
-    border-radius: 4px;
-    overflow: hidden;
+.collapse {
+  border: 1px solid gray;
+  border-radius: 4px;
+  overflow: hidden;
 }
 </style>
