@@ -7,6 +7,9 @@
       class="input__inner"
       v-model="value"
     ></g-input>
+    <div class="gulu-selecte-box">
+      <g-icon class="gulu-selecte-icon" :class="{ flip }" name="xia1"></g-icon>
+    </div>
     <span v-if="label" class="gulu-selecte-text">{{ label }}</span>
     <div class="gulu-selecte-item" v-show="show">
       <slot></slot>
@@ -15,8 +18,15 @@
 </template>
 <script>
 import GInput from '@/input.vue'
+import GIcon from '@/icon/icon.vue'
 import Vue from 'vue'
 export default {
+  props: {
+    filterable: {
+      type: Boolean,
+      default: false,
+    },
+  },
   inheritAttrs: false,
   data() {
     return {
@@ -26,6 +36,11 @@ export default {
       label: null,
     }
   },
+  computed: {
+    flip() {
+      return this.show
+    },
+  },
   provide() {
     return {
       eventBus: this.eventBus,
@@ -33,14 +48,14 @@ export default {
   },
   components: {
     GInput,
+    GIcon,
   },
   mounted() {
     this.eventBus.$on('update:selectedValue', (row) => {
       this.label = row.label
       this.value = row.value
-      this.$emit('input',this.value)
+      this.$emit('input', this.value)
     })
-    // this.$emit('input', e.target.value)
   },
   methods: {
     isShow() {
@@ -53,9 +68,25 @@ export default {
 .gulu-selecte {
   display: inline-block;
   position: relative;
+  .gulu-selecte-box {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9;
+    .gulu-selecte-icon {
+      transition: all 0.5s;
+      transform: rotate(0deg);
+    }
+    .flip {
+      transform: rotate(180deg);
+    }
+  }
+
   .gulu-selecte-text {
     position: absolute;
     font-size: 12px;
+    cursor: pointer;
     left: 8px;
     top: 50%;
     transform: translateY(-50%);
