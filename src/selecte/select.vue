@@ -2,17 +2,18 @@
   <div class="gulu-selecte" @click="isShow">
     <g-input
       v-bind="$attrs"
-      readonly="readonly"
+      :readonly="!filterable"
       autocomplete="readonly"
       class="input__inner"
       v-model="value"
+      @input="searchChange"
     ></g-input>
     <div class="gulu-selecte-box">
       <g-icon class="gulu-selecte-icon" :class="{ flip }" name="xia1"></g-icon>
     </div>
-    <span v-if="label" class="gulu-selecte-text">{{ label }}</span>
-    <div class="gulu-selecte-item" v-show="show">
+    <div class="gulu-selecte-item" v-show="show" ref="selecteItem">
       <slot></slot>
+      <div class="text" v-if="text">{{ text }}</div>
     </div>
   </div>
 </template>
@@ -34,6 +35,8 @@ export default {
       eventBus: new Vue(),
       value: null,
       label: null,
+      children: [],
+      text: '',
     }
   },
   computed: {
@@ -52,14 +55,33 @@ export default {
   },
   mounted() {
     this.eventBus.$on('update:selectedValue', (row) => {
-      this.label = row.label
-      this.value = row.value
-      this.$emit('input', this.value)
+      this.label = row.value
+      this.value = row.label
+      this.$emit('input', this.label)
     })
+    this.children = this.$children.filter(
+      (vm) => vm.$options.name === 'options'
+    )
   },
   methods: {
     isShow() {
       this.show = !this.show
+    },
+    searchChange() {
+      let status = true
+      this.children.forEach((element, index) => {
+        if (element.label.indexOf(this.value) > -1) {
+          element.show = true
+          this.text = ''
+          status = false
+        } else {
+          element.show = false
+        }
+      })
+
+      if (status) {
+        this.text = '无数据'
+      }
     },
   },
 }
@@ -116,6 +138,14 @@ export default {
     top: 100%;
     overflow: scroll;
     max-height: 280px;
+    .text {
+      color: #bbb;
+      text-align: center;
+      font-size: 12px;
+    }
+  }
+  .wrapper > input[readonly] {
+    color: #000;
   }
 }
 </style>

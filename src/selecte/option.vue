@@ -1,10 +1,11 @@
 <template>
-  <div class="gulu-option" @click="selecteItem">
+  <div class="gulu-option" @click="selecteItem" v-show="show">
     {{ label }}
   </div>
 </template>
 <script>
 export default {
+  name: 'options',
   props: {
     label: {
       type: [String, Number],
@@ -15,8 +16,13 @@ export default {
       required: true,
     },
   },
+  created() {
+    // console.log(this.value)
+  },
   data() {
-    return {}
+    return {
+      show: true,
+    }
   },
   inject: ['eventBus'],
   methods: {

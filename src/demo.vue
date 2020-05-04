@@ -8,6 +8,16 @@
         :value="item.value"
       ></g-option>
     </g-select>
+
+    <g-select placeholder="请选择" filterable v-model="value">
+      <g-option
+        v-for="item in options"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value"
+      ></g-option>
+    </g-select>
+
     <button @click="next">按钮</button>
   </div>
 </template>
@@ -27,23 +37,23 @@ export default {
       options: [
         {
           value: '选项1',
-          label: '黄金糕',
+          label: '1',
         },
         {
           value: '选项2',
-          label: '双皮奶',
+          label: '2',
         },
         {
           value: '选项3',
-          label: '蚵仔煎',
+          label: '111',
         },
         {
           value: '选项4',
-          label: '龙须面',
+          label: '222',
         },
         {
           value: '选项5',
-          label: '北京烤鸭',
+          label: '111',
         },
         {
           value: '选项6',
