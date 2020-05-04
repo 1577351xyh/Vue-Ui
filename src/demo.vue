@@ -1,11 +1,20 @@
 <template>
   <div class="box">
     <g-steps :active="active">
-      <g-step title="步骤1"></g-step>
-      <g-step title="步骤2"></g-step>
-      <g-step title="步骤3"></g-step>
+      <g-step title="步骤1" description="描述文字"></g-step>
+      <g-step title="步骤2" description="描述文字"></g-step>
+      <g-step title="步骤3" description="描述文字"></g-step>
     </g-steps>
     <button @click="next">下一步</button>
+
+    <div class="box" style="height:400px">
+      <g-steps :active="active" direction="vertical">
+        <g-step title="步骤1"></g-step>
+        <g-step title="步骤2"></g-step>
+        <g-step title="步骤3"></g-step>
+      </g-steps>
+      <button @click="next">下一步</button>
+    </div>
   </div>
 </template>
 

@@ -7,6 +7,7 @@
     </div>
     <div class="gulu-step-centent">
       <span>{{ title }}</span>
+      <span>{{ description }}</span>
     </div>
   </div>
 </template>
@@ -15,6 +16,9 @@
 export default {
   props: {
     title: {
+      type: String,
+    },
+    description: {
       type: String,
     },
   },
