@@ -23,13 +23,15 @@ export default {
     this.updatedActive()
   },
   methods: {
+    // 动态赋值width
     isChildrenWidth() {
       let steps = this.$refs.steps
       let width = steps.getBoundingClientRect().width
-      let childrenWidth = 1 / this.$children.length
+      console.log(this.$children.length - 1)
+      let childrenWidth = 1 / (this.$children.length - 1)
       childrenWidth = Number(childrenWidth * 100).toFixed(1) + '%'
       this.$children.forEach((vm) => {
-        vm.$el.style.width = childrenWidth
+        vm.$el.style.flexBasis = childrenWidth
       })
       console.log(childrenWidth)
     },
@@ -64,8 +66,9 @@ export default {
   width: 100%;
   display: inline-flex;
   justify-content: space-between;
-  .gulu-step:first-child {
-    width: auto !important;
+  .gulu-step:last-child {
+    // width: auto !important;
+    flex-basis: auto !important;
     .gulu-step-head {
       .gulu-line {
         display: none;

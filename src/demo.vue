@@ -2,7 +2,7 @@
   <div class="box">
     <g-steps :active="active">
       <g-step title="步骤1"></g-step>
-      <g-step title="步骤2222222"></g-step>
+      <g-step title="步骤2"></g-step>
       <g-step title="步骤3"></g-step>
     </g-steps>
     <button @click="next">下一步</button>

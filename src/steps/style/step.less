@@ -1,16 +1,16 @@
 .gulu-step {
-  width: 200px;
+  width: 150px;
   .gulu-step-centent {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-end;
+    align-items: flex-start;
     position: relative;
   }
   .gulu-step-head {
     position: relative;
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     text-align: left;
     .gulu-icon {
       display: inline-flex;
@@ -27,7 +27,7 @@
       position: absolute;
       display: block;
       width: 100%;
-      right: 26px;
+      left: 26px;
       height: 1px;
       top: 50%;
       transform: translateY(-50%);
@@ -37,7 +37,9 @@
 }
 .activeClass {
   color: #67c23a;
-  .gulu-icon {
-    border-color: #67c23a;
+  .gulu-step-head {
+    .gulu-icon {
+      border-color: #67c23a;
+    }
   }
 }
