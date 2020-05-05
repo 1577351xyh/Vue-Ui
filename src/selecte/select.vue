@@ -104,22 +104,6 @@ export default {
       transform: rotate(180deg);
     }
   }
-
-  .gulu-selecte-text {
-    position: absolute;
-    font-size: 12px;
-    cursor: pointer;
-    left: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    display: block;
-    width: 90%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    background: #fff;
-    height: 94%;
-  }
   .input__inner {
     input {
       cursor: pointer !important;

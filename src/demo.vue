@@ -24,6 +24,8 @@
       itemheight="'40px'"
       :source="arr"
     ></g-cascader>
+
+    <g-date-picker></g-date-picker>
   </div>
 </template>
 
@@ -33,6 +35,7 @@ import GStep from '@/steps/step.vue'
 import GSelect from '@/selecte/select.vue'
 import GOption from '@/selecte/option.vue'
 import GCascader from '@/cascader/cascader.vue'
+import GDatePicker from '@/datePicker/date-picker.vue'
 // import GCascaderItem from '@/selecte/option.vue'
 
 export default {
@@ -41,48 +44,6 @@ export default {
     return {
       active: 0,
       value: '',
-      options: [
-        {
-          value: '选项1',
-          label: '1',
-        },
-        {
-          value: '选项2',
-          label: '2',
-        },
-        {
-          value: '选项3',
-          label: '111',
-        },
-        {
-          value: '选项4',
-          label: '222',
-        },
-        {
-          value: '选项5',
-          label: '111',
-        },
-        {
-          value: '选项6',
-          label: '北京烤鸭',
-        },
-        {
-          value: '选项7',
-          label: '北京烤鸭',
-        },
-        {
-          value: '选项8',
-          label: '北京烤鸭',
-        },
-        {
-          value: '选项9',
-          label: '北京烤鸭',
-        },
-        {
-          value: '选项10',
-          label: '北京烤鸭',
-        },
-      ],
       selected: [],
       arr: [
         {
@@ -108,7 +69,6 @@ export default {
   methods: {
     next() {
       console.log(this.value)
-      // if (this.active++ > 2) this.active = 0
     },
   },
   components: {
@@ -117,6 +77,7 @@ export default {
     GSelect,
     GOption,
     GCascader,
+    GDatePicker,
   },
 }
 </script>

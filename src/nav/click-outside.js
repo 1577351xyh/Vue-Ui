@@ -1,17 +1,17 @@
-const on = (function() {
-    if (!Vue.prototype.$isServer && document.addEventListener) {
-        return function(element, event, handler) {
-            if (element && event && handler) {
-                element.addEventListener(event, handler, false);
-            }
-        };
-    } else {
-        return function(element, event, handler) {
-            if (element && event && handler) {
-                element.attachEvent('on' + event, handler);
-            }
-        };
-    }
+const on = (function () {
+  if (!Vue.prototype.$isServer && document.addEventListener) {
+    return function (element, event, handler) {
+      if (element && event && handler) {
+        element.addEventListener(event, handler, false);
+      }
+    };
+  } else {
+    return function (element, event, handler) {
+      if (element && event && handler) {
+        element.attachEvent('on' + event, handler);
+      }
+    };
+  }
 })();
 
 
@@ -26,34 +26,34 @@ let seed = 0;
 !Vue.prototype.$isServer && on(document, 'mousedown', e => (startClick = e));
 
 !Vue.prototype.$isServer && on(document, 'mouseup', e => {
-    nodeList.forEach(node => node[ctx].documentHandler(e, startClick));
+  nodeList.forEach(node => node[ctx].documentHandler(e, startClick));
 });
 
 function createDocumentHandler(el, binding, vnode) {
-    return function(mouseup = {}, mousedown = {}) {
-        console.log(vnode.context.popperElm)
-        if (!vnode ||
-            !vnode.context ||
-            !mouseup.target ||
-            !mousedown.target ||
-            el.contains(mouseup.target) ||
-            el.contains(mousedown.target) ||
-            el === mouseup.target ||
-            (vnode.context.popperElm &&
-                (vnode.context.popperElm.contains(mouseup.target) ||
-                    vnode.context.popperElm.contains(mousedown.target)))){
-            return;
-        }
+  return function (mouseup = {}, mousedown = {}) {
+    console.log(vnode.context.popperElm)
+    if (!vnode ||
+      !vnode.context ||
+      !mouseup.target ||
+      !mousedown.target ||
+      el.contains(mouseup.target) ||
+      el.contains(mousedown.target) ||
+      el === mouseup.target ||
+      (vnode.context.popperElm &&
+        (vnode.context.popperElm.contains(mouseup.target) ||
+          vnode.context.popperElm.contains(mousedown.target)))) {
+      return;
+    }
 
-        console.log(binding.expression);
-        if (binding.expression &&
-            el[ctx].methodName &&
-            vnode.context[el[ctx].methodName]) {
-            vnode.context[el[ctx].methodName]();
-        } else {
-            el[ctx].bindingFn && el[ctx].bindingFn();
-        }
-    };
+    console.log(binding.expression);
+    if (binding.expression &&
+      el[ctx].methodName &&
+      vnode.context[el[ctx].methodName]) {
+      vnode.context[el[ctx].methodName]();
+    } else {
+      el[ctx].bindingFn && el[ctx].bindingFn();
+    }
+  };
 }
 
 /**
@@ -65,32 +65,32 @@ function createDocumentHandler(el, binding, vnode) {
  * ```
  */
 export default {
-    bind(el, binding, vnode) {
-        nodeList.push(el);
-        const id = seed++;
-        el[ctx] = {
-            id,
-            documentHandler: createDocumentHandler(el, binding, vnode),
-            methodName: binding.expression,
-            bindingFn: binding.value
-        };
-    },
+  bind(el, binding, vnode) {
+    nodeList.push(el);
+    const id = seed++;
+    el[ctx] = {
+      id,
+      documentHandler: createDocumentHandler(el, binding, vnode),
+      methodName: binding.expression,
+      bindingFn: binding.value
+    };
+  },
 
-    update(el, binding, vnode) {
-        el[ctx].documentHandler = createDocumentHandler(el, binding, vnode);
-        el[ctx].methodName = binding.expression;
-        el[ctx].bindingFn = binding.value;
-    },
+  update(el, binding, vnode) {
+    el[ctx].documentHandler = createDocumentHandler(el, binding, vnode);
+    el[ctx].methodName = binding.expression;
+    el[ctx].bindingFn = binding.value;
+  },
 
-    unbind(el) {
-        let len = nodeList.length;
+  unbind(el) {
+    let len = nodeList.length;
 
-        for (let i = 0; i < len; i++) {
-            if (nodeList[i][ctx].id === el[ctx].id) {
-                nodeList.splice(i, 1);
-                break;
-            }
-        }
-        delete el[ctx];
+    for (let i = 0; i < len; i++) {
+      if (nodeList[i][ctx].id === el[ctx].id) {
+        nodeList.splice(i, 1);
+        break;
+      }
     }
+    delete el[ctx];
+  }
 };
