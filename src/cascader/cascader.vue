@@ -1,6 +1,6 @@
 <template>
   <div class="cascader">
-    <div class="trigger" @click="popoverVisible = true">
+    <div class="trigger" @click="popoverVisible = !popoverVisible">
       {{ result || '请选择省市' }}
     </div>
     <div class="popover" :style="{ height: itemheight }" v-if="popoverVisible">
@@ -8,52 +8,56 @@
         :selected="selected"
         @update:selected="onUpdateSelected"
         :items="source"
+        @hide="isHide"
       ></cascader-item>
     </div>
   </div>
 </template>
 
 <script>
-import cascaderItem from './cascader-item'
+import cascaderItem from './cascader-item.vue'
 export default {
   name: '',
   components: {
-    cascaderItem
+    cascaderItem,
   },
   data() {
     return {
-      popoverVisible: false
+      popoverVisible: false,
     }
   },
   props: {
     source: {
-      type: Array
+      type: Array,
     },
     itemheight: {
-      type: String
+      type: String,
     },
     selected: {
       type: Array,
       default: () => {
         return []
-      }
-    }
+      },
+    },
   },
   methods: {
     onUpdateSelected(newSelected) {
       this.$emit('update:selected', newSelected)
-    }
+    },
+    isHide() {
+      this.popoverVisible = false
+    },
   },
   computed: {
     //把当前被选中的item.name做字符串拼接返回一个字符在串
     result() {
-      return this.selected.map(item => item.name).join('/')
-    }
-  }
+      return this.selected.map((item) => item.name).join('/')
+    },
+  },
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .cascader {
   position: relative;
 }
@@ -68,7 +72,7 @@ export default {
 }
 .popover {
   position: absolute;
-  top: 100%;
+  top: 105%;
   left: 0;
   z-index: 1;
   background: #ffffff;
