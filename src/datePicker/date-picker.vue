@@ -5,7 +5,13 @@
       <template slot="content">
         <div class="date-pick-nav"></div>
         <div class="date-pick-week"></div>
-        <div class="date-pick-content"></div>
+        <div class="date-pick-content">
+          <div v-for="(i, index) in helper.range(1, 7)" :key="index">
+            <span v-for="(j, index) in helper.range(1, 8)" :key="index">{{
+              visibleDays[(i - 1) * 7 + j - 1].getDate()
+            }}</span>
+          </div>
+        </div>
         <div class="date-pick-actions"></div>
         <div></div>
       </template>
@@ -22,6 +28,7 @@ export default {
   data() {
     return {
       value: new Date(),
+      helper,
     }
   },
   mounted() {
