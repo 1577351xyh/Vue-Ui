@@ -102,7 +102,6 @@ export default {
     },
     document(e) {
       //如果点击中包含e.target
-      console.log('document')
       if (
         this.$refs.popover &&
         (this.$refs.popover.contains(e.target) ||
@@ -125,7 +124,6 @@ export default {
       })
     },
     close() {
-      console.log('close')
       this.visible = false
       document.removeEventListener('click', this.document)
     },
