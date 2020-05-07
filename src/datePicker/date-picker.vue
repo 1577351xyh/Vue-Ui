@@ -8,7 +8,7 @@
           <span @click="leftClick"><g-icon name="left"></g-icon></span>
           <span>
             <span @click="yearStatus">{{ display.year }}年</span>
-            <span @click="monthStatus">{{ display.month }}月</span>
+            <span @click="monthStatus">{{ display.month + 1 }}月</span>
           </span>
           <span @click="rightClick"><g-icon name="right"></g-icon></span>
           <span @click="rightClickBig"><g-icon name="youyou"></g-icon></span>
@@ -109,8 +109,8 @@ export default {
     },
     rightClick() {
       this.display.month++
-      if (this.display.month === 12) {
-        this.display.month = 1
+      if (this.display.month >= 12) {
+        this.display.month = 0
         this.display.year++
       }
     },
@@ -118,11 +118,11 @@ export default {
       this.display.year--
     },
     leftClick() {
-      this.display.month--
-      if (this.display.month === 0) {
+      if (this.display.month <= 0) {
         this.display.month = 12
         this.display.year--
       }
+      this.display.month--
     },
     getDisplay() {
       this.display.year = helper.getYearMonthDate(this.value)[0]
@@ -149,6 +149,7 @@ export default {
       let last = helper.lastDayMonth(date)
       // 把date 转为 2018 2 4
       let [year, month, day] = helper.getYearMonthDate(date)
+      console.log(year, month, day)
       let array = []
       let array2 = []
       let array3 = []
@@ -169,6 +170,13 @@ export default {
         array3.push(new Date(year, month + 1, i))
       }
       return [...array2, ...array, ...array3]
+      //  let n = first.getDay()
+      // let array = []
+      // let x = first - (n === 0 ? 6 : n - 1) * 3600 * 24 * 1000
+      // for (let i = 0; i < 42; i++) {
+      //   array.push(new Date(x + i * 3600 * 24 * 1000))
+      // }
+      // return array
     },
   },
 }
