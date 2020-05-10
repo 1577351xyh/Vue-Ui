@@ -20,7 +20,26 @@
           </span>
         </div>
         <div class="date-pick-content">
-          <template v-if="mode === 'day'">
+          <template v-if="mode === 'year'">
+            <div class="year">
+              <span v-for="(i, index) in getYearArr" :key="index">
+                {{ i }}年
+              </span>
+            </div>
+          </template>
+          <template v-else-if="mode === 'month'">
+            <div class="year">
+              <span
+                v-for="(i, index) in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]"
+                :key="index"
+                @click.stop="setMonth(i)"
+                :class="{ monthCurrent: getSelectedMonth(i) }"
+              >
+                {{ monthArr[i] }}月
+              </span>
+            </div>
+          </template>
+          <template v-else>
             <div
               class="date-pick-row"
               v-for="(i, index) in helper.range(1, 7)"
@@ -34,26 +53,6 @@
                 v-for="(j, index) in helper.range(1, 8)"
                 :key="index"
                 >{{ visibleDays[(i - 1) * 7 + j - 1].getDate() }}
-              </span>
-            </div>
-          </template>
-          <template v-else-if="mode === 'year'">
-            <div class="year">
-              <span
-                v-for="(i, index) in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]"
-                :key="index"
-              >
-                {{ monthArr[i] }}月
-              </span>
-            </div>
-          </template>
-          <template v-else-if="mode === 'month'">
-            <div class="year">
-              <span
-                v-for="(i, index) in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]"
-                :key="index"
-              >
-                {{ monthArr[i] }}月
               </span>
             </div>
           </template>
@@ -104,6 +103,13 @@ export default {
     this.getDisplay()
   },
   methods: {
+    getSelectedMonth(i) {
+      if (i === this.display.month) return true
+    },
+    setMonth(i) {
+      this.display.month = i
+      this.mode = 'day'
+    },
     rightClickBig() {
       this.display.year++
     },
@@ -132,6 +138,10 @@ export default {
       this.mode = 'year'
     },
     monthStatus() {
+      if (this.mode === 'month') {
+        this.mode = 'day'
+        return
+      }
       this.mode = 'month'
     },
     getVisibleDay(row, col) {
@@ -143,13 +153,19 @@ export default {
     },
   },
   computed: {
+    getYearArr() {
+      let arr = []
+      console.log(this.display.year)
+      
+      arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+      return arr
+    },
     visibleDays() {
       let date = new Date(this.display.year, this.display.month, 1)
       let first = helper.firstDayMonth(date)
       let last = helper.lastDayMonth(date)
       // 把date 转为 2018 2 4
       let [year, month, day] = helper.getYearMonthDate(date)
-      console.log(year, month, day)
       let array = []
       let array2 = []
       let array3 = []
@@ -230,6 +246,9 @@ export default {
       margin: 0 auto;
       cursor: pointer;
       border-radius: 18px;
+    }
+    .monthCurrent {
+      color: #409eff;
     }
   }
 }
