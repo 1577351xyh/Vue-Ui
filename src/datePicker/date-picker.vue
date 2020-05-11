@@ -5,12 +5,16 @@
       <template slot="content">
         <div class="date-pick-nav">
           <span @click="leftClickBig"><g-icon name="zuozuo"></g-icon></span>
-          <span @click="leftClick"><g-icon name="left"></g-icon></span>
+          <span v-if="mode !== 'year'" @click="leftClick"
+            ><g-icon name="left"></g-icon
+          ></span>
           <span>
             <span @click="yearStatus">{{ display.year }}年</span>
             <span @click="monthStatus">{{ display.month + 1 }}月</span>
           </span>
-          <span @click="rightClick"><g-icon name="right"></g-icon></span>
+          <span v-if="mode !== 'year'" @click="rightClick"
+            ><g-icon name="right"></g-icon
+          ></span>
           <span @click="rightClickBig"><g-icon name="youyou"></g-icon></span>
         </div>
         <div class="dete-pick-line"></div>
@@ -22,7 +26,12 @@
         <div class="date-pick-content">
           <template v-if="mode === 'year'">
             <div class="year">
-              <span v-for="(i, index) in getYearArr" :key="index">
+              <span
+                @click.stop="setYear(i)"
+                v-for="(i, index) in getYearArr"
+                :key="index"
+                :class="{ monthCurrent: getSelectedYear(i) }"
+              >
                 {{ i }}年
               </span>
             </div>
@@ -106,8 +115,15 @@ export default {
     getSelectedMonth(i) {
       if (i === this.display.month) return true
     },
+    getSelectedYear(i) {
+      if (i === this.display.year) return true
+    },
     setMonth(i) {
       this.display.month = i
+      this.mode = 'day'
+    },
+    setYear(i) {
+      this.display.year = i
       this.mode = 'day'
     },
     rightClickBig() {
@@ -115,18 +131,22 @@ export default {
     },
     rightClick() {
       this.display.month++
-      if (this.display.month >= 12) {
-        this.display.month = 0
+      if (this.display.month >= 12 && this.mode === 'day') {
         this.display.year++
+        this.display.month = 0
+      } else if (this.display.month >= 12 && this.mode === 'month') {
+        this.display.month = 0
       }
     },
     leftClickBig() {
       this.display.year--
     },
     leftClick() {
-      if (this.display.month <= 0) {
+      if (this.display.month <= 0 && this.mode === 'day') {
         this.display.month = 12
         this.display.year--
+      } else if (this.display.month <= 0 && this.mode === 'month') {
+        this.display.month = 12
       }
       this.display.month--
     },
@@ -155,13 +175,19 @@ export default {
   computed: {
     getYearArr() {
       let arr = []
-      console.log(this.display.year)
-      
-      arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+      let num = this.display.year.toString().substring(0, 3)
+      arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((vm) => {
+        return Number(num + vm.toString())
+      })
       return arr
     },
     visibleDays() {
-      let date = new Date(this.display.year, this.display.month, 1)
+      console.log(this.display)
+      let date = new Date(
+        Number(this.display.year),
+        Number(this.display.month),
+        1
+      )
       let first = helper.firstDayMonth(date)
       let last = helper.lastDayMonth(date)
       // 把date 转为 2018 2 4
