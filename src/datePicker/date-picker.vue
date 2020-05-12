@@ -1,7 +1,12 @@
 <template>
   <div class="date-picker-cantainav">
     <g-popover position="bottom">
-      <g-input class="input__inner" readonly="" placeholder="请选择日期" />
+      <g-input
+        class="input__inner"
+        v-model="dateValue"
+        readonly=""
+        placeholder="选择日期时间"
+      />
       <template slot="content">
         <div class="date-pick-nav">
           <span @click="leftClickBig"><g-icon name="zuozuo"></g-icon></span>
@@ -58,7 +63,13 @@
                 :class="[
                   'date-pick-col',
                   { 'date-pcik-cell': isCurrentMonth(getVisibleDay(i, j)) },
+                  {
+                    dayCurrent:
+                      getSelectedDay(i, j) &&
+                      isCurrentMonth(getVisibleDay(i, j)),
+                  },
                 ]"
+                @click="setDay(i, j)"
                 v-for="(j, index) in helper.range(1, 8)"
                 :key="index"
                 >{{ visibleDays[(i - 1) * 7 + j - 1].getDate() }}
@@ -68,6 +79,7 @@
         </div>
         <div class="date-pick-actions">
           <button>清除</button>
+          <button @click="isPlain">确定</button>
         </div>
         <div></div>
       </template>
@@ -105,6 +117,8 @@ export default {
       display: {
         year: null,
         month: null,
+        day: null,
+        
       },
     }
   },
@@ -112,6 +126,19 @@ export default {
     this.getDisplay()
   },
   methods: {
+    setDay(i, j) {
+      const [year, month, day] = helper.getYearMonthDate(
+        this.getVisibleDay(i, j)
+      )
+      this.display.day = day
+    },
+    isPlain() {},
+    getSelectedDay(i, j) {
+      const [year, month, day] = helper.getYearMonthDate(
+        this.getVisibleDay(i, j)
+      )
+      if (day === this.display.day) return true
+    },
     getSelectedMonth(i) {
       if (i === this.display.month) return true
     },
@@ -153,6 +180,7 @@ export default {
     getDisplay() {
       this.display.year = helper.getYearMonthDate(this.value)[0]
       this.display.month = helper.getYearMonthDate(this.value)[1]
+      this.display.day = helper.getYearMonthDate(this.value)[2]
     },
     yearStatus() {
       this.mode = 'year'
@@ -173,6 +201,22 @@ export default {
     },
   },
   computed: {
+    dateValue() {
+      let { year, month, day } = this.display
+      console.log(this.value)
+      console.log(new Date(year, month, day))
+      if (this.value === new Date(year, month, day)) {
+        return ''
+      }
+      month = month + 1
+      if (month < 10) {
+        month = '0' + month
+      }
+      if (day < 10) {
+        day = '0' + day
+      }
+      return `${year}-${month}-${day}`
+    },
     getYearArr() {
       let arr = []
       let num = this.display.year.toString().substring(0, 3)
@@ -182,7 +226,6 @@ export default {
       return arr
     },
     visibleDays() {
-      console.log(this.display)
       let date = new Date(
         Number(this.display.year),
         Number(this.display.month),
@@ -231,6 +274,9 @@ export default {
       cursor: pointer !important;
     }
   }
+  .wrapper > input {
+    color: #000;
+  }
 }
 .date-pick-week,
 .date-pick-nav,
@@ -276,6 +322,11 @@ export default {
     .monthCurrent {
       color: #409eff;
     }
+  }
+  .dayCurrent {
+    color: #409eff;
+    border: 1px solid #409eff;
+    border-radius: 4px;
   }
 }
 .date-pick-row {
