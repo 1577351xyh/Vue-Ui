@@ -114,11 +114,14 @@ export default {
         '十一',
         '十二',
       ],
+      firstClick: false,
       display: {
         year: null,
         month: null,
         day: null,
-        
+        hours: null,
+        minutes: null,
+        seconds: null,
       },
     }
   },
@@ -127,12 +130,15 @@ export default {
   },
   methods: {
     setDay(i, j) {
+      this.firstClick = true
       const [year, month, day] = helper.getYearMonthDate(
         this.getVisibleDay(i, j)
       )
       this.display.day = day
     },
-    isPlain() {},
+    isPlain() {
+      this.firstClick = true
+    },
     getSelectedDay(i, j) {
       const [year, month, day] = helper.getYearMonthDate(
         this.getVisibleDay(i, j)
@@ -178,9 +184,20 @@ export default {
       this.display.month--
     },
     getDisplay() {
-      this.display.year = helper.getYearMonthDate(this.value)[0]
-      this.display.month = helper.getYearMonthDate(this.value)[1]
-      this.display.day = helper.getYearMonthDate(this.value)[2]
+      const [
+        year,
+        month,
+        day,
+        hours,
+        minutes,
+        seconds,
+      ] = helper.getYearMonthDate(this.value)
+      this.display.year = year
+      this.display.month = month
+      this.display.day = day
+      this.display.hours = hours
+      this.display.minutes = minutes
+      this.display.seconds = seconds
     },
     yearStatus() {
       this.mode = 'year'
@@ -202,10 +219,8 @@ export default {
   },
   computed: {
     dateValue() {
-      let { year, month, day } = this.display
-      console.log(this.value)
-      console.log(new Date(year, month, day))
-      if (this.value === new Date(year, month, day)) {
+      let { year, month, day, hours, minutes, seconds } = this.display
+      if (!this.firstClick) {
         return ''
       }
       month = month + 1
