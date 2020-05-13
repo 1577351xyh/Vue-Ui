@@ -13,16 +13,16 @@
 </template>
 
 <script>
-import Icon from '../icon/icon'
+import Icon from '../icon/icon.vue'
 export default {
   components: {
-    'x-icon': Icon
+    'x-icon': Icon,
   },
   props: {
     icon: {},
     loading: {
       type: Boolean,
-      default: false
+      default: false,
     },
     iconPosition: {
       type: String,
@@ -30,13 +30,13 @@ export default {
       //参数验证
       validator(value) {
         return !(value !== 'left' && value !== 'right')
-      }
-    }
-  }
+      },
+    },
+  },
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
 /*loading动画*/
 @keyframes spin {
   0% {

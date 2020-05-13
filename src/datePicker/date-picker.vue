@@ -1,6 +1,6 @@
 <template>
   <div class="date-picker-cantainav">
-    <g-popover position="bottom">
+    <g-popover position="bottom" ref="popover">
       <g-input
         class="input__inner"
         v-model="dateValue"
@@ -78,8 +78,8 @@
           </template>
         </div>
         <div class="date-pick-actions">
-          <button>清除</button>
-          <button @click="isPlain">确定</button>
+          <g-button>清除</g-button>
+          <g-button style="margin-left:15px;" @click="isPlain">确定</g-button>
         </div>
         <div></div>
       </template>
@@ -89,11 +89,12 @@
 
 <script>
 import GInput from '@/input.vue'
+import GButton from '@/botton/button.vue'
 import GIcon from '@/icon/icon.vue'
 import GPopover from '@/popover/popover.vue'
 import helper from './helper.js'
 export default {
-  components: { GInput, GPopover, GIcon },
+  components: { GInput, GPopover, GIcon, GButton },
   data() {
     return {
       value: new Date(),
@@ -123,6 +124,19 @@ export default {
         minutes: null,
         seconds: null,
       },
+      obj: {
+        obj2: {
+          a: '1',
+          b: {
+            a: 12,
+            c: 33,
+            d: { a: 1, b: 2 },
+          },
+        },
+        fn() {
+          console.log(3)
+        },
+      },
     }
   },
   created() {
@@ -138,6 +152,7 @@ export default {
     },
     isPlain() {
       this.firstClick = true
+      this.$refs.popover.visible = false
     },
     getSelectedDay(i, j) {
       const [year, month, day] = helper.getYearMonthDate(
@@ -293,6 +308,10 @@ export default {
     color: #000;
   }
 }
+.date-pick-actions {
+  display: flex;
+  justify-content: flex-end;
+}
 .date-pick-week,
 .date-pick-nav,
 .date-pick-row {
@@ -341,7 +360,9 @@ export default {
   .dayCurrent {
     color: #409eff;
     border: 1px solid #409eff;
+    height: 22px;
     border-radius: 4px;
+    box-sizing: border-box;
   }
 }
 .date-pick-row {
