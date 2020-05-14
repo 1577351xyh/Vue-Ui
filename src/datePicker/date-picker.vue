@@ -5,7 +5,7 @@
         class="input__inner"
         v-model="dateValue"
         readonly=""
-        placeholder="选择日期时间"
+        v-bind="$attrs"
       />
       <template slot="content">
         <div class="date-pick-nav">
@@ -132,7 +132,6 @@ export default {
     }
   },
   created() {
-    console.log(this.value)
     this.getDisplay()
   },
   methods: {

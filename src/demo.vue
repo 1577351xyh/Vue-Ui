@@ -25,8 +25,18 @@
       :source="arr"
     ></g-cascader>
 
-    <g-date-picker :value.sync="value"></g-date-picker>
-    <button @click="next">111</button>
+    <g-date-picker
+      :value.sync="value"
+      placeholder="选择日期时间"
+    ></g-date-picker>
+    <g-time-picker
+      placeholder="选择时间"
+      :picker-options="{
+        start: '08:30',
+        step: '00:15',
+        end: '18:30',
+      }"
+    ></g-time-picker>
   </div>
 </template>
 
@@ -37,6 +47,7 @@ import GSelect from '@/selecte/select.vue'
 import GOption from '@/selecte/option.vue'
 import GCascader from '@/cascader/cascader.vue'
 import GDatePicker from '@/datePicker/date-picker.vue'
+import GTimePicker from '@/timePick/index.vue'
 // import GCascaderItem from '@/selecte/option.vue'
 
 export default {
@@ -79,6 +90,7 @@ export default {
     GOption,
     GCascader,
     GDatePicker,
+    GTimePicker,
   },
 }
 </script>
