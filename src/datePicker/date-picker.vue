@@ -95,9 +95,17 @@ import GPopover from '@/popover/popover.vue'
 import helper from './helper.js'
 export default {
   components: { GInput, GPopover, GIcon, GButton },
+  props: {
+    value: {
+      type: [Date, String],
+      required: true,
+      default: () => {
+        return new Date()
+      },
+    },
+  },
   data() {
     return {
-      value: new Date(),
       mode: 'day',
       helper,
       weekdats: ['日', '一', '二', '三', '四', '五', '六'],
@@ -120,26 +128,11 @@ export default {
         year: null,
         month: null,
         day: null,
-        hours: null,
-        minutes: null,
-        seconds: null,
-      },
-      obj: {
-        obj2: {
-          a: '1',
-          b: {
-            a: 12,
-            c: 33,
-            d: { a: 1, b: 2 },
-          },
-        },
-        fn() {
-          console.log(3)
-        },
       },
     }
   },
   created() {
+    console.log(this.value)
     this.getDisplay()
   },
   methods: {
@@ -149,10 +142,12 @@ export default {
         this.getVisibleDay(i, j)
       )
       this.display.day = day
+      this.$emit('update:value', this.dateValue)
     },
     isPlain() {
       this.firstClick = true
-      this.$refs.popover.visible = false
+      this.$refs.popover.close()
+      this.$emit('update:value', this.dateValue)
     },
     getSelectedDay(i, j) {
       const [year, month, day] = helper.getYearMonthDate(
@@ -234,7 +229,7 @@ export default {
   },
   computed: {
     dateValue() {
-      let { year, month, day, hours, minutes, seconds } = this.display
+      let { year, month, day } = this.display
       if (!this.firstClick) {
         return ''
       }

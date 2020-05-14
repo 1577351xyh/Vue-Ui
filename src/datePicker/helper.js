@@ -23,8 +23,5 @@ function getYearMonthDate(date) {
   let year = date.getFullYear(date)
   let month = date.getMonth(date)
   let day = date.getDate(date)
-  let hours = date.getHours(date)
-  let minutes = date.getMinutes(date)
-  let seconds = date.getSeconds(date)
-  return [year, month, day, hours, minutes, seconds]
+  return [year, month, day]
 }

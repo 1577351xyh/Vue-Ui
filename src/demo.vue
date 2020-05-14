@@ -25,7 +25,8 @@
       :source="arr"
     ></g-cascader>
 
-    <g-date-picker></g-date-picker>
+    <g-date-picker :value.sync="value"></g-date-picker>
+    <button @click="next">111</button>
   </div>
 </template>
 
@@ -43,7 +44,7 @@ export default {
   data() {
     return {
       active: 0,
-      value: '',
+      value: new Date(),
       selected: [],
       arr: [
         {
