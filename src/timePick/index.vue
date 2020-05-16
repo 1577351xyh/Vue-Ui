@@ -9,7 +9,7 @@
       />
     </div>
 
-    <div class="time-wrapper" v-if="isShwo">
+    <!-- <div class="time-wrapper" v-if="isShwo">
       <ul ref="wrapper">
         <li
           v-for="(i, index) in arr"
@@ -18,6 +18,20 @@
           :key="index"
         >
           {{ i }}
+        </li>
+      </ul>
+    </div> -->
+
+    <div class="time-wrapper">
+      <div class="line"></div>
+      <div class="line line-bottom"></div>
+      <ul ref="wrapper">
+        <li
+          v-for="(s, index) in demo"
+          :key="index"
+          :class="{ liCurrent: liCurrent }"
+        >
+          {{ s }}
         </li>
       </ul>
     </div>
@@ -50,24 +64,42 @@ export default {
       values: '',
       arr: [],
       currentIndex: undefined,
+      demo: [],
+      liCurrent: false,
     }
   },
-  created() {},
+  mounted() {
+    this.scroll()
+  },
   methods: {
     itemClick(i) {
       this.currentIndex = i
       this.values = this.arr[i]
       this.$emit('input', this.arr[i])
     },
-    scroll() {
+    computedStyle() {
       let div = this.$refs.wrapper
-      div.addEventListener(
-        'scroll',
-        () => {
-          console.log(div.scrollTop)
-        },
-        false
-      )
+      let divChildren = div.getElementsByTagName('li')
+      let liHeight = divChildren[0].getBoundingClientRect().height
+      const { top, bottom } = div.getBoundingClientRect()
+      let style = getComputedStyle(div)
+      let height = parseInt(style.getPropertyValue('height'))
+      return { top, liHeight, height, div, divChildren }
+    },
+    scroll() {
+      let { top, liHeight, height, div, divChildren } = this.computedStyle()
+      div.addEventListener('scroll', () => {
+        Array.from(divChildren).forEach((el) => {
+          let liTop = el.getBoundingClientRect().top
+          el.classList.remove('liCurrent')
+          if (
+            top + 100 - height / 2 <= liTop &&
+            liTop <= top + 100 + (height - 1 - liHeight / 2)
+          ) {
+            el.classList.add('liCurrent')
+          }
+        })
+      })
     },
     toMinute(minutes) {
       let houst = Math.floor(minutes / 60)
@@ -99,6 +131,9 @@ export default {
     },
   },
   created() {
+    for (let i = 0; i < 10; i++) {
+      this.demo.push(i)
+    }
     this.arr = this.getMinutes()
   },
 }
@@ -115,6 +150,18 @@ export default {
     color: #000;
   }
   .time-wrapper {
+    position: relative;
+    .line {
+      width: 80%;
+      position: absolute;
+      top: 43%;
+      transform: translateY(-50%);
+      height: 1px;
+      background-color: #606266;
+    }
+    .line-bottom {
+      top: 57%;
+    }
     display: flex;
     color: #606266;
     border: 1px solid #e4e7ed;
@@ -126,13 +173,15 @@ export default {
     ul {
       width: 100%;
       text-align: center;
-      height: 200px;
+      height: 35px;
       overflow-y: auto;
       padding: 0;
       margin: 0;
+      padding-top: 100px;
+      padding-bottom: 100px;
       li {
         width: 100%;
-        line-height: 26px;
+        line-height: 35px;
         text-align: left;
         list-style: none;
         &:hover {
@@ -140,6 +189,10 @@ export default {
           font-weight: 700;
           cursor: pointer;
         }
+      }
+      .liCurrent {
+        font-size: 16px;
+        color: red;
       }
       .current {
         color: #409eff;
