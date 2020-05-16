@@ -1,23 +1,25 @@
 <template>
   <div class="time-picker-cantainav">
-    <g-input class="input__inner" v-bind="$attrs" v-model="value" readonly="" />
-    <div class="time-wrapper">
+    <div @click="isShwo = !isShwo">
+      <g-input
+        class="input__inner"
+        v-bind="$attrs"
+        v-model="values"
+        readonly=""
+      />
+    </div>
+
+    <div class="time-wrapper" v-if="isShwo">
       <ul ref="wrapper">
         <li
           v-for="(i, index) in arr"
           :class="{ current: currentIndex === i }"
-          @click="currentIndex = i"
+          @click="itemClick(index)"
           :key="index"
         >
           {{ i }}
         </li>
       </ul>
-      <!-- <ul>
-        <li v-for="(i, index) in arr" :key="index">{{ i }}</li>
-      </ul>
-      <ul>
-        <li v-for="(i, index) in arr" :key="index">{{ i }}</li>
-      </ul> -->
     </div>
   </div>
 </template>
@@ -27,6 +29,10 @@ import GInput from '@/input.vue'
 export default {
   components: { GInput },
   props: {
+    value: {
+      type: String,
+      default: '',
+    },
     pickerOptions: {
       type: Object,
       default: () => {
@@ -40,15 +46,19 @@ export default {
   },
   data() {
     return {
-      value: '',
+      isShwo: false,
+      values: '',
       arr: [],
       currentIndex: undefined,
     }
   },
-  mounted() {
-    this.scroll()
-  },
+  created() {},
   methods: {
+    itemClick(i) {
+      this.currentIndex = i
+      this.values = this.arr[i]
+      this.$emit('input', this.arr[i])
+    },
     scroll() {
       let div = this.$refs.wrapper
       div.addEventListener(
@@ -62,7 +72,6 @@ export default {
     toMinute(minutes) {
       let houst = Math.floor(minutes / 60)
       let min = minutes % 60
-      console.log(min)
       if (houst.toString().length < 2) {
         houst = '0' + houst
       }
@@ -76,7 +85,6 @@ export default {
       let start = this.pickerOptions.start.split(':')
       let step = this.pickerOptions.step.split(':')[1]
       step = Number(step)
-
       let maxMinutes = Number(end[0]) * 60 + Number(end[1])
       let mixMinutes = Number(start[0]) * 60 + Number(start[1])
       let maxStep = maxMinutes - mixMinutes
@@ -97,6 +105,7 @@ export default {
 </script>
 <style lang="less" scope>
 .time-picker-cantainav {
+  width: 144px;
   .input__inner {
     input {
       cursor: pointer !important;
@@ -107,13 +116,24 @@ export default {
   }
   .time-wrapper {
     display: flex;
+    color: #606266;
+    border: 1px solid #e4e7ed;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    background: #fff;
+    border-radius: 4px;
+    line-height: 30px;
+    padding: 10px;
     ul {
+      width: 100%;
       text-align: center;
-      width: 80px;
       height: 200px;
       overflow-y: auto;
       padding: 0;
+      margin: 0;
       li {
+        width: 100%;
+        line-height: 26px;
+        text-align: left;
         list-style: none;
         &:hover {
           background-color: #f5f7fa;

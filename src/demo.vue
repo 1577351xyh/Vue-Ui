@@ -25,10 +25,10 @@
       :source="arr"
     ></g-cascader>
 
-    <g-date-picker
+    <!-- <g-date-picker
       :value.sync="value"
       placeholder="选择日期时间"
-    ></g-date-picker>
+    ></g-date-picker> -->
     <g-time-picker
       placeholder="选择时间"
       :picker-options="{
@@ -36,7 +36,9 @@
         step: '00:15',
         end: '18:30',
       }"
+      v-model="value"
     ></g-time-picker>
+    <button @click="next">x</button>
   </div>
 </template>
 
@@ -55,7 +57,7 @@ export default {
   data() {
     return {
       active: 0,
-      value: new Date(),
+      value: '',
       selected: [],
       arr: [
         {
