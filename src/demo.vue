@@ -19,11 +19,11 @@
     </g-select>
 
     <button @click="next">按钮</button> -->
-    <g-cascader
+    <!-- <g-cascader
       :selected.sync="selected"
       itemheight="'40px'"
       :source="arr"
-    ></g-cascader>
+    ></g-cascader> -->
 
     <!-- <g-date-picker
       :value.sync="value"
@@ -38,6 +38,15 @@
       }"
       v-model="value"
     ></g-time-picker>
+
+    <g-time-picker
+      placeholder="选择时间"
+      :picker-options="{
+        selectableRange: '18:30:00 - 20:30:00',
+      }"
+      v-model="value"
+    ></g-time-picker>
+
     <button @click="next">x</button>
   </div>
 </template>
