@@ -20,11 +20,11 @@
         <ul v-for="(item, indexs) in reage" :key="indexs" :ref="item.ref">
           <li
             v-for="(i, index) in item.arr"
-            :class="{ liCurrent: liCurrent, disabled: disabled(i, indexs) }"
+            :class="{ liCurrent: liCurrent, 'no-disabled': i.disabled }"
             @click="itemClick(index)"
             :key="index"
           >
-            {{ i }}
+            {{ i.item }}
           </li>
         </ul>
       </div>
@@ -39,16 +39,6 @@
         </li>
       </ul>
     </div>
-
-    <!-- <div class="time-wrapper" :class="reageClass" v-if="reageClass">
-         <div class="line" v-if="reageClass"></div>
-      <div class="line line-bottom" v-if="reageClass"></div>
-      <ul ref="wrapper">
-        <li v-for="(s, index) in demo" :key="index" :class="{}">
-          {{ s }}
-        </li>
-      </ul>
-    </div> -->
   </div>
 </template>
 <script>
@@ -70,22 +60,25 @@ export default {
   data() {
     return {
       reage: [
-        { ref: 'reage1', arr: [], length: 24 },
-        { ref: 'reage2', arr: [], length: 60 },
-        { ref: 'reage3', arr: [], length: 60 },
+        { ref: 'reage1', arr: {}, length: 24 },
+        { ref: 'reage2', arr: {}, length: 60 },
+        { ref: 'reage3', arr: {}, length: 60 },
       ],
       isShwo: false,
       values: '',
       currentIndex: undefined,
       demo: [],
       liCurrent: false,
+      disabled: {},
+      huors: [],
     }
   },
   created() {
-    this.reage.forEach((vm) => {
-      vm.arr = this.initArr(vm.length)
-    })
     if (this.reageClass) {
+      this.reage.forEach((vm) => {
+        vm.arr = this.initArr(vm.length)
+      })
+      this.propRangeInit()
     }
   },
   computed: {
@@ -99,7 +92,6 @@ export default {
         return true
       }
     },
-
     arr() {
       if (this.defaultClass) {
         return this.defaultArr()
@@ -111,26 +103,48 @@ export default {
   methods: {
     propRangeInit() {
       let arr = this.pickerOptions.selectableRange.trim().split('-')
-      let start = parseInt(arr[0].split(':')[0]) * 60
-      let end = parseInt(arr[1].split(':')[0]) * 60
-      let startMinutes = parseInt(arr[0].split(':')[1])
-      let endMinutes = parseInt(arr[1].split(':')[1])
-      return { end, start, startMinutes, endMinutes }
+      this.disabled.start = parseInt(arr[0].split(':')[0]) * 60
+      this.disabled.end = parseInt(arr[1].split(':')[0]) * 60
+      this.disabled.startMinutes = parseInt(arr[0].split(':')[1])
+      this.disabled.endMinutes = parseInt(arr[1].split(':')[1])
+      let str0 = parseInt(arr[0].split(':')[0])
+      let str1 = parseInt(arr[1].split(':')[0])
+      for (let i = str0; i <= str1; i++) {
+        this.huors.push(i)
+      }
+      this.reage[0].arr.forEach((el) => {
+        if (this.huors.indexOf(parseInt(el.item)) > -1) {
+          el.disabled = true
+        }
+      })
+      this.reage[2].arr.forEach(el=>{
+        el.disabled = true
+      })
     },
-    disabled(i, index) {
-      const { end, start, startMinutes, endMinutes } = this.propRangeInit()
-      console.log(startMinutes)
+    disabledResult(h) {
       if (this.pickerOptions.selectableRange) {
-        let time = parseInt(i)
-        if (index === 0) {
-          if (start <= time * 60 && time * 60 <= end) {
-            return false
-          }
-          return true
-        } else if (index === 1) {
-          return true
+        if (this.huors.indexOf(parseInt(h)) > -1) {
+          let index = this.huors.indexOf(parseInt(h))
+          this.reage[1].arr.forEach((vm, indexs, arr) => {
+            vm.disabled = true
+            if (index === 0) {
+              // this.disabled.start之前
+              for (let i = 0; i < this.disabled.startMinutes; i++) {
+                const element = this.disabled.startMinutes[i]
+                arr[i].disabled = false
+              }
+            } else if (index === this.huors.length - 1) {
+              // this.disabled.end之后
+              for (let i = this.disabled.endMinutes; i < arr.length; i++) {
+                const element = this.disabled.endMinutes[i]
+                arr[i].disabled = false
+              }
+            }
+          })
         } else {
-          return false
+          this.reage[1].arr.forEach((vm) => {
+            vm.disabled = false
+          })
         }
       }
     },
@@ -141,7 +155,10 @@ export default {
         if (i.toString().length < 2) {
           str = '0' + i
         }
-        arr.push(str)
+        arr.push({
+          item: str,
+          disabled: false,
+        })
       }
       return arr
     },
@@ -217,8 +234,11 @@ export default {
       let div = this.$refs.reage1[0]
       let li = div.getElementsByTagName('li')
       Array.from(li).forEach((vm) => {
-        if (vm.classList.value === 'liCurrent') {
-          console.log(vm.innerText)
+        if (
+          vm.classList.value === 'liCurrent' ||
+          vm.classList.value === 'no-disabled liCurrent'
+        ) {
+          this.disabledResult(vm.innerText)
         }
       })
     },
@@ -318,15 +338,15 @@ export default {
       cursor: pointer;
       .liCurrent {
         font-size: 16px;
-        color: #606266;
-      }
-      .disabled {
         color: #c0c4cc;
+      }
+      .no-disabled {
+        color: #606266;
         cursor: no-drop;
       }
       li {
         text-align: center;
-        color: #606266;
+        color: #c0c4cc;
         cursor: auto;
       }
     }
