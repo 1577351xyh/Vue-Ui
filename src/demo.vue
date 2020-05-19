@@ -42,7 +42,7 @@
     <g-time-picker
       placeholder="选择时间"
       :picker-options="{
-        selectableRange: '18:30:00 - 20:30:00',
+        selectableRange: '10:00:00 - 20:30:00',
       }"
       v-model="value"
     ></g-time-picker>

@@ -66,6 +66,11 @@ export default {
       ],
       isShwo: false,
       values: '',
+      valuesData: {
+        huosr: '00',
+        minutes: '00',
+        scones: '00',
+      },
       currentIndex: undefined,
       demo: [],
       liCurrent: false,
@@ -117,7 +122,7 @@ export default {
           el.disabled = true
         }
       })
-      this.reage[2].arr.forEach(el=>{
+      this.reage[2].arr.forEach((el) => {
         el.disabled = true
       })
     },
@@ -208,7 +213,7 @@ export default {
       const { top, bottom } = div.getBoundingClientRect()
       let style = getComputedStyle(div)
       let height = parseInt(style.getPropertyValue('height'))
-      return { top: top + 100, liHeight, height, div, divChildren }
+      return { top: top + 100, liHeight, height, div, divChildren, refs }
     },
     forInit(data) {
       const { divChildren, liTop, top, height, liHeight } = data
@@ -225,22 +230,53 @@ export default {
     },
     scroll(ref) {
       let data = this.computedStyle(ref)
-      data.div.addEventListener('scroll', () => {
+
+      data.div.addEventListener('scroll', (ref) => {
         this.forInit(data)
-        this.rusultValue()
+        this.rusultValue(data)
       })
     },
-    rusultValue() {
-      let div = this.$refs.reage1[0]
-      let li = div.getElementsByTagName('li')
-      Array.from(li).forEach((vm) => {
-        if (
-          vm.classList.value === 'liCurrent' ||
-          vm.classList.value === 'no-disabled liCurrent'
-        ) {
-          this.disabledResult(vm.innerText)
+    rusultValue(data) {
+      this.reage.forEach((vm, index) => {
+        let div = this.$refs[vm.ref][0]
+        let li = div.getElementsByTagName('li')
+        if (index === 0) {
+          Array.from(li).forEach((vm) => {
+            if (
+              vm.classList.value === 'liCurrent' ||
+              vm.classList.value === 'no-disabled liCurrent'
+            ) {
+              if (this.huors.indexOf(parseInt(vm.innerText)) > -1) {
+                this.valuesData.huosr = vm.innerText
+              }
+              this.disabledResult(vm.innerText)
+            }
+          })
+        } else if (index === 1) {
+          Array.from(li).forEach((vm) => {
+            if (
+              // vm.classList.value === 'liCurrent' ||
+              vm.classList.value === 'no-disabled liCurrent'
+            ) {
+              this.valuesData.minutes = vm.innerText
+              // this.disabledResult(vm.innerText)
+            }
+          })
+        } else {
+          Array.from(li).forEach((vm) => {
+            if (
+              vm.classList.value === 'liCurrent' ||
+              vm.classList.value === 'no-disabled liCurrent'
+            ) {
+              this.valuesData.scones = vm.innerText
+              // this.disabledResult(vm.innerText)
+            }
+          })
         }
       })
+      let { huosr, scones, minutes } = this.valuesData
+      this.values = huosr + ':' + minutes + ':' + scones
+      this.$emit('input', this.values)
     },
     toMinute(minutes) {
       let houst = Math.floor(minutes / 60)

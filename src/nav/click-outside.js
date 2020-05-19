@@ -31,7 +31,6 @@ let seed = 0;
 
 function createDocumentHandler(el, binding, vnode) {
   return function (mouseup = {}, mousedown = {}) {
-    console.log(vnode.context.popperElm)
     if (!vnode ||
       !vnode.context ||
       !mouseup.target ||
@@ -45,7 +44,6 @@ function createDocumentHandler(el, binding, vnode) {
       return;
     }
 
-    console.log(binding.expression);
     if (binding.expression &&
       el[ctx].methodName &&
       vnode.context[el[ctx].methodName]) {
