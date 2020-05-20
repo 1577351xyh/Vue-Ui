@@ -13,7 +13,7 @@ export default {
     //当前高亮的选项
     active: {
       type: Number,
-      required: true,
+      default: 0,
     },
     // 方向
     direction: {
@@ -24,7 +24,6 @@ export default {
   data() {
     return {}
   },
-  created() {},
   mounted() {
     this.$children.forEach((vm, index) => {
       vm.index = index + 1

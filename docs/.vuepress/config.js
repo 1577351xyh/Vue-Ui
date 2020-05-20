@@ -37,6 +37,7 @@ module.exports = {
           '/components/from',
           // '/components/cascader',
           '/components/nav',
+          '/components/steps',
           '/components/page',
           '/components/table',
           '/components/scroll',

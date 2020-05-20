@@ -1,7 +1,7 @@
 <template>
   <div class="gulu-table-box" ref="wrapper">
     <div
-      :style="{ height: height + 'px', overflow: 'auto'}"
+      :style="{ height: height + 'px', overflow: 'auto' }"
       ref="tableWrapper"
     >
       <table class="gulu-table" ref="table" :class="{ compact, border }">
@@ -42,7 +42,11 @@
         <tbody>
           <template v-for="(item, index) in dataSource">
             <tr :key="item.id">
-              <th v-if="expendField" :style="{ width: '50px' }" @click="expendOpen(item.id)">
+              <th
+                v-if="expendField"
+                :style="{ width: '50px' }"
+                @click="expendOpen(item.id)"
+              >
                 <g-icon
                   name="right"
                   class="gulu-table-icon"
@@ -54,12 +58,12 @@
                   @change="chekeboxChange(item, index, $event)"
                   type="checkbox"
                   :checked="
-                    selectedItem.filter(i => i.id === item.id).length > 0
+                    selectedItem.filter((i) => i.id === item.id).length > 0
                   "
                 />
               </td>
               <template v-for="column in columns">
-                <td  :style="{ width: column.width + 'px' }" :key="column.field">
+                <td :style="{ width: column.width + 'px' }" :key="column.field">
                   {{ item[column.field] }}
                 </td>
               </template>
@@ -94,11 +98,11 @@ export default {
     return {
       table2: undefined,
       expendFieldArray: [],
-      colspanLength: 0
+      colspanLength: 0,
     }
   },
   components: {
-    GIcon
+    GIcon,
   },
   props: {
     //数据源
@@ -106,64 +110,64 @@ export default {
       type: Array,
       required: true,
       validator(arr) {
-        return !(arr.filter(item => item.id === undefined).length > 0)
-      }
+        return !(arr.filter((item) => item.id === undefined).length > 0)
+      },
     },
     //高度
     height: {
       type: Number,
-      required: true
+      required: true,
     },
     //加载状态
     loading: {
       type: Boolean,
-      default: false
+      default: false,
     },
     //排序
     orderBy: {
       type: Object,
-      default: () => {}
+      default: () => {},
     },
     //表头数据
     columns: {
       type: Array,
-      required: true
+      required: true,
     },
     selectedItem: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     //间距大小
     compact: {
       type: Boolean,
-      default: false
+      default: false,
     },
     //是否有border
     border: {
       type: Boolean,
-      default: false
+      default: false,
     },
     //是否有chekedbox
     checkeds: {
       type: Boolean,
-      default: false
+      default: false,
     },
     //内容是否要折叠
     expendField: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   computed: {
     colspanLengths() {
       let number
       if (this.checkeds) {
         this.colspanLengt = this.columns.length + 2
-      }else {
+      } else {
         this.colspanLengt = this.columns.length + 1
       }
-      if(this.$scopedSlots.default){
-       this.colspanLengt = this.columns.length + 3
+      if (this.$scopedSlots.default) {
+        this.colspanLengt = this.columns.length + 3
       }
       number = this.colspanLengt
       return number
@@ -171,8 +175,8 @@ export default {
     areItemAllSelected() {
       //判断两个数组是否相等 1.根据id排序, 如果纯根据数组长度容易出现bug
       //把id项筛选出出来,做字典排序
-      const a = this.dataSource.map(item => item.id).sort()
-      const b = this.selectedItem.map(item => item.id).sort()
+      const a = this.dataSource.map((item) => item.id).sort()
+      const b = this.selectedItem.map((item) => item.id).sort()
 
       if (a.length !== b.length) {
         return false
@@ -185,7 +189,7 @@ export default {
         }
       }
       return equal
-    }
+    },
   },
   mounted() {
     this.init()
@@ -194,7 +198,6 @@ export default {
     //拿到插槽里面内容的宽度,动态复赋值给最后一行的td
     if (this.$scopedSlots.default) {
       let div = this.$refs.actions[0]
-      console.log(div)
       let { width } = div.getBoundingClientRect()
       let parent = div.parentNode
       let styles = getComputedStyle(parent) //返回节点所有的css属性
@@ -202,16 +205,22 @@ export default {
       let paddingRight = styles.getPropertyValue('padding-right')
       let borderLeft = styles.getPropertyValue('border-left-width')
       let bordergRight = styles.getPropertyValue('border-right-width')
-      let width2 =parseInt(width) +parseInt(paddingLeft) +parseInt(paddingRight) +parseInt(paddingLeft) +parseInt(borderLeft) +parseInt(bordergRight) +'px'
-      //第一行的th 
-      this.$refs.actionsHeader.style.width = parseInt(width2) + 15 +'px'
+      let width2 =
+        parseInt(width) +
+        parseInt(paddingLeft) +
+        parseInt(paddingRight) +
+        parseInt(paddingLeft) +
+        parseInt(borderLeft) +
+        parseInt(bordergRight) +
+        'px'
+      //第一行的th
+      this.$refs.actionsHeader.style.width = parseInt(width2) + 15 + 'px'
       //后面每一行的td
-      this.$refs.actions.map(div => {
+      this.$refs.actions.map((div) => {
         div.parentNode.style.width = width2
       })
     }
 
-    // console.log(this.$refs.actionsHeader.style.width)
   },
   beforeDestroy() {
     this.table2.remove()
@@ -258,7 +267,7 @@ export default {
         copy.push(item)
       } else {
         // copy.splice(copy.indexOf(item), 1)
-        copy = copy.filter(i => i.id !== item.id)
+        copy = copy.filter((i) => i.id !== item.id)
       }
       this.$emit('update:selectedItem', copy)
     },
@@ -269,8 +278,8 @@ export default {
       } else {
         this.$emit('update:selectedItem', [])
       }
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="less" scope>
@@ -350,9 +359,9 @@ export default {
     }
   }
   .open {
-  transform: rotate(90deg);
-  transition: all 0.5s;
-}
+    transform: rotate(90deg);
+    transition: all 0.5s;
+  }
 }
 @keyframes spin {
   0% {

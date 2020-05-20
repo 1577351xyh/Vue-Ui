@@ -15,24 +15,23 @@
 export default {
   data() {
     return {
-      open: false
+      open: false,
     }
   },
   props: {
     title: {
       type: String,
-      required: true
+      required: true,
     },
     name: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   inject: ['eventBus'],
   mounted() {
     this.eventBus &&
-      this.eventBus.$on('update:selected', names => {
-        console.log(names)
+      this.eventBus.$on('update:selected', (names) => {
         if (names.indexOf(this.name) >= 0) {
           this.open = true
         } else {
@@ -47,8 +46,8 @@ export default {
       } else {
         this.eventBus.$emit('update:addSelected', this.name)
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -85,5 +84,4 @@ export default {
     border-bottom: none;
   }
 }
-
 </style>

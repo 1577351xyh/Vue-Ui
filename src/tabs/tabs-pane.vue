@@ -22,10 +22,10 @@ export default {
   created() {
     this.eventBus.$on('update:selected', name => {
       if (name === this.name) {
-        console.log('pane我被选中' + this.name)
+        // console.log('pane我被选中' + this.name)
         this.active = true
       } else {
-        console.log(this.name + 'pane没被选中')
+        // console.log(this.name + 'pane没被选中')
         this.active = false
       }
     })

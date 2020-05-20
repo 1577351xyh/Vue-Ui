@@ -22,7 +22,9 @@ export default {
     GCollapse,
   },
   data() {
-    return {}
+    return {
+      selected: ['1'],
+    }
   },
 }
 </script>

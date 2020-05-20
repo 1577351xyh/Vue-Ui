@@ -29,6 +29,11 @@
       :value.sync="value"
       placeholder="选择日期时间"
     ></g-date-picker> -->
+    <g-steps :active="0">
+      <g-step title="步骤1" description="小段文字"></g-step>
+      <g-step title="步骤2" description="小段文字"></g-step>
+      <g-step title="步骤3" description="小段文字"></g-step>
+    </g-steps>
     <g-time-picker
       placeholder="选择时间"
       :picker-options="{

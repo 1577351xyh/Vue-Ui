@@ -230,7 +230,6 @@ export default {
     },
     scroll(ref) {
       let data = this.computedStyle(ref)
-
       data.div.addEventListener('scroll', (ref) => {
         this.forInit(data)
         this.rusultValue(data)
@@ -254,12 +253,8 @@ export default {
           })
         } else if (index === 1) {
           Array.from(li).forEach((vm) => {
-            if (
-              // vm.classList.value === 'liCurrent' ||
-              vm.classList.value === 'no-disabled liCurrent'
-            ) {
+            if (vm.classList.value === 'no-disabled liCurrent') {
               this.valuesData.minutes = vm.innerText
-              // this.disabledResult(vm.innerText)
             }
           })
         } else {
@@ -269,7 +264,6 @@ export default {
               vm.classList.value === 'no-disabled liCurrent'
             ) {
               this.valuesData.scones = vm.innerText
-              // this.disabledResult(vm.innerText)
             }
           })
         }
