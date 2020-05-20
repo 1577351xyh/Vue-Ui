@@ -2,7 +2,7 @@
 title: Scroll 无限滚动
 ---
 
-# Scroll
+# Scroll 滚动
 
 <ClientOnly>
   <scroll-demo-1></scroll-demo-1>

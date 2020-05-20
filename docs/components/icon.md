@@ -1,8 +1,8 @@
 ---
-title: icon 图标
+title: Icon 图标
 ---
 
-# icon 图标
+# Icon 图标
 
 提供一些常用的 icon 图标
 <ClientOnly>

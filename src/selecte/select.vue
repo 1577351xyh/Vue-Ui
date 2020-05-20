@@ -18,8 +18,9 @@
   </div>
 </template>
 <script>
-import GInput from '@/input.vue'
-import GIcon from '@/icon/icon.vue'
+import GInput from '../input.vue'
+import GIcon from '../icon/icon.vue'
+
 import Vue from 'vue'
 export default {
   props: {
@@ -121,6 +122,7 @@ export default {
     position: absolute;
     top: 100%;
     overflow: scroll;
+    z-index: 9;
     max-height: 280px;
     .text {
       color: #bbb;

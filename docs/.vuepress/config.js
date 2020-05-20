@@ -28,6 +28,8 @@ module.exports = {
           '/components/input',
           '/components/checkbox',
           '/components/option',
+          '/components/selected',
+          '/components/datepick',
           '/components/grid',
           '/components/layout',
           '/components/toast',
@@ -35,13 +37,12 @@ module.exports = {
           '/components/slides',
           '/components/collapse',
           '/components/from',
-          // '/components/cascader',
+          '/components/cascader',
           '/components/nav',
           '/components/steps',
           '/components/page',
           '/components/table',
           '/components/scroll',
-
         ]
       },
 

@@ -1,5 +1,5 @@
 ---
-title: table 表格
+title: Table 表格
 ---
 
 # 表格

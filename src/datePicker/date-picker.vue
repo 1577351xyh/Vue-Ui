@@ -88,10 +88,10 @@
 </template>
 
 <script>
-import GInput from '@/input.vue'
-import GButton from '@/botton/button.vue'
-import GIcon from '@/icon/icon.vue'
-import GPopover from '@/popover/popover.vue'
+import GInput from '../input.vue'
+import GButton from '../botton/button.vue'
+import GIcon from '../icon/icon.vue'
+import GPopover from '../popover/popover.vue'
 import helper from './helper.js'
 export default {
   components: { GInput, GPopover, GIcon, GButton },

@@ -37,6 +37,7 @@ export default {
   font-size: 12px;
   padding: 0 10px;
   position: relative;
+  z-index: 99;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

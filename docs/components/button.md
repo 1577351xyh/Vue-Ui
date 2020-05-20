@@ -1,5 +1,5 @@
 ---
-title: buttom 按钮
+title: Buttom 按钮
 ---
 
 <!-- ::: theorem 牛顿第一定律

@@ -1,8 +1,8 @@
 ---
-title: form 表单
+title: Form 表单
 ---
 
-# 表单
+# Form 表单
 
 <ClientOnly>
   <from-demo-1></from-demo-1>

@@ -42,8 +42,8 @@
   </div>
 </template>
 <script>
-import GInput from '@/input.vue'
-import ClickOutside from '@/nav/click-outside'
+import GInput from '../input.vue'
+import ClickOutside from '../nav/click-outside'
 
 export default {
   components: { GInput },

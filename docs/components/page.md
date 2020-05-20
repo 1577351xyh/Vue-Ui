@@ -1,5 +1,5 @@
 ---
-title: page 分页器
+title: Page 分页器
 ---
 
 # 分页器

@@ -1,8 +1,8 @@
 ---
-title: grid 网格布局
+title: Grid 网格布局
 ---
 
-# 网格
+# Grid 网格
 
 <ClientOnly>
 <grid-demo-1></grid-demo-1>
